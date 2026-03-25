@@ -172,12 +172,13 @@ a:hover {
   text-decoration: none;
   letter-spacing: -0.03em;
   flex-shrink: 0;
-  margin-right: auto; /* Trucco fondamentale per spingere il resto a destra */
+  margin-right: auto;
 }
 
 .logo span {
   color: var(--gold);
 }
+
 
 .nav {
   display: flex;
@@ -219,7 +220,6 @@ a:hover {
 
 /* Mobile Menu Styles (Default Hidden) */
 .menu-toggle {
-  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 24px;
@@ -230,19 +230,12 @@ a:hover {
   padding: 0;
   z-index: 110;
 }
+
 .menu-toggle span {
   width: 100%;
   height: 2px;
   background-color: var(--gold);
   transition: all 0.3s ease;
-}
-
-.nav-mobile-btn {
-  display: none;
-}
-
-.nav-desktop-btn {
-  display: inline-flex;
 }
 
 /* Responsive Header */
@@ -255,15 +248,7 @@ a:hover {
   .logo {
     font-size: 1.35rem;
   }
-
-  .menu-toggle {
-    display: flex;
-  }
   
-  .nav-desktop-btn {
-    display: none;
-  }
-
   .nav {
     position: fixed;
     top: 0;
@@ -285,7 +270,6 @@ a:hover {
     color: var(--text);
   }
   .nav-mobile-btn {
-    display: inline-flex;
     margin-top: 1rem;
   }
   
@@ -297,6 +281,7 @@ a:hover {
     overflow: hidden;
   }
 }
+
 
 
 .btn {
@@ -336,6 +321,31 @@ a:hover {
   opacity: 0.45;
   pointer-events: none;
   cursor: not-allowed;
+}
+
+/* Visibility Utilities */
+.nav-mobile-btn {
+  display: none !important;
+}
+
+.nav-desktop-btn {
+  display: inline-flex !important;
+}
+
+.menu-toggle {
+  display: none !important;
+}
+
+@media (max-width: 899px) {
+  .nav-mobile-btn {
+    display: inline-flex !important;
+  }
+  .nav-desktop-btn {
+    display: none !important;
+  }
+  .menu-toggle {
+    display: flex !important;
+  }
 }
 
 .hero-actions {
