@@ -47,7 +47,7 @@ window.addEventListener("message", async (e) => {
     if (modal) {
       setTimeout(() => {
         modal.hidden = true;
-        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
         document.body.classList.remove("modal-open");
       }, 3000);
     }

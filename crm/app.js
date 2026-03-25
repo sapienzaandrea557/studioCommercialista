@@ -434,10 +434,10 @@ function renderUnifiedList() {
     const esc = (s) => s ? s.replace(/'/g, "\\'") : "";
     
     // Generazione pulsanti di risposta rapida
-    const hasEmail = email && email !== "—" && !email.includes("Controlla email");
-    const hasTel = telefono && telefono !== "—" && !telefono.includes("Controlla email");
+    const hasEmail = email && email !== "—" && !email.includes("Controlla email") && email.includes("@");
+    const hasTel = telefono && telefono !== "—" && !telefono.includes("Controlla email") && telefono.replace(/\D/g,'').length >= 6;
     
-    const btnMail = hasEmail ? `<a href="mailto:${email}?subject=Contatto dallo Studio De Felice Ciccoli" class="btn-icon" title="Rispondi via Email">✉️</a>` : "";
+    const btnMail = hasEmail ? `<a href="mailto:${email}?subject=Contatto dallo Studio Sapienza" class="btn-icon" title="Rispondi via Email">✉️</a>` : "";
     const btnWA = hasTel ? `<a href="https://wa.me/${telefono.replace(/\D/g,'')}" target="_blank" class="btn-icon" title="Contatta su WhatsApp">💬</a>` : "";
     
     const btnCopyEmail = hasEmail ? `<button type="button" class="btn-icon copy" onclick="copyToClipboard('${esc(email)}')" title="Copia email">📋</button>` : "";
@@ -592,7 +592,7 @@ document.getElementById("form-edit-appointment").addEventListener("submit", asyn
     await sendBackgroundNotification(cliente, email, telefono, data, ora);
 
     // 2. Notifica WhatsApp (Manuale come fallback/opzionale)
-    const msgWA = `Gentile ${cliente}, il suo appuntamento è stato spostato al ${data} alle ore ${ora}. Cordiali saluti, Studio De Felice Ciccoli.`;
+    const msgWA = `Gentile ${cliente}, il suo appuntamento è stato spostato al ${data} alle ore ${ora}. Cordiali saluti, Studio Sapienza.`;
     const action = confirm("Modifica salvata!\n\nVuoi inviare ANCHE un messaggio WhatsApp manuale?");
     
     if (action) {

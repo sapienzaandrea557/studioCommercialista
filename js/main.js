@@ -220,7 +220,7 @@
       } catch (err) {
         if (msg) {
           msg.hidden = false;
-          msg.textContent = "Invio non riuscito. Riprova o scrivi a a.defeliceciccoli@libero.it";
+          msg.textContent = "Invio non riuscito. Riprova o scrivi a sapienzaandrea557@gmail.com";
           msg.classList.add("is-error");
         }
       }
