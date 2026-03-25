@@ -34,6 +34,27 @@
   --dur: 0.65s;
 }
 
+/* --- MIGLIORAMENTI GRAFICI GLOBALI --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface2);
+  border: 2px solid var(--bg);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dim);
+}
+
+::selection {
+  background: var(--gold);
+  color: #1a1408;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -272,11 +293,37 @@ a:hover {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.25rem;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-/* ——— Hero ——— */
+/* Hover effect on cards */
+.service-card, .about-card, .contact-card, .trust-item {
+  transition: all 0.4s var(--ease-out);
+}
+
+.service-card:hover, .about-card:hover, .trust-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold);
+  box-shadow: 0 15px 45px rgba(212, 175, 55, 0.15);
+}
+
+/* Improved lead text contrast */
+.lead {
+  font-size: 1.15rem;
+  color: var(--text);
+  opacity: 0.9;
+  margin: 0 0 2rem;
+  max-width: 45rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* --- Hero --- */
 .hero {
   position: relative;
   min-height: clamp(520px, 85vh, 900px);
@@ -529,6 +576,42 @@ h3 {
   color: var(--gold);
   opacity: 0.4;
   letter-spacing: -0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+.floating-badge {
+  position: absolute;
+  bottom: 10%;
+  right: -5%;
+  background: var(--surface);
+  border: 1px solid var(--gold);
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-gold);
+  z-index: 2;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.badge-icon {
+  font-size: 1.25rem;
+}
+
+.badge-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 /* ——— Sections: Timeline (Metodo) ——— */
@@ -937,9 +1020,51 @@ body.modal-open {
   transform: rotate(90deg);
 }
 
+/* Modal enhancements */
+.modal-dialog {
+  border-left: 2px solid var(--gold);
+}
+
 .modal-dialog h2 {
-  margin-top: 0;
-  padding-right: 2rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Form focus visibility */
+input:focus, textarea:focus, select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+/* Button glow on hover */
+.btn-primary:hover {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .hero-grid {
+    text-align: center;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .about-flex {
+    text-align: center;
+  }
+  .gold-bullets li {
+    padding-left: 0;
+    text-align: center;
+  }
+  .gold-bullets li::before {
+    display: none;
+  }
+  .section-head {
+    text-align: center;
+    margin-inline: auto;
+  }
 }
 
 /* Booking: più spazio all'iframe, meno spazio verticale. */
