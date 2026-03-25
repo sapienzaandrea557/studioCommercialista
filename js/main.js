@@ -204,7 +204,15 @@
       }
       const fd = new FormData(infoForm);
       const data = Object.fromEntries(fd.entries());
+      const submitBtn = infoForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : "";
+      
       try {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Invio in corso...";
+        }
+        
         const res = await fetch(infoForm.action, {
           method: "POST",
           headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -222,6 +230,11 @@
           msg.hidden = false;
           msg.textContent = "Invio non riuscito. Riprova o scrivi a sapienzaandrea557@gmail.com";
           msg.classList.add("is-error");
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
         }
       }
     });
