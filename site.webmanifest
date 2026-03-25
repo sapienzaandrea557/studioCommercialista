@@ -1,0 +1,10 @@
+{
+  "name": "Studio Andrea Sapienza",
+  "short_name": "Studio Sapienza",
+  "description": "Studio Andrea Sapienza - Commercialista e Revisore Legale a Roma",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080a0e",
+  "theme_color": "#080a0e",
+  "icons": []
+}

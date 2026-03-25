@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Area riservata | CRM Studio</title>
+  <link rel="stylesheet" href="style.css?v=2.0.1" />
+</head>
+<body>
+  <div id="auth-panel" class="panel">
+    <div class="panel-inner">
+      <h1>Accesso CRM</h1>
+      <p class="muted" style="font-size: 0.7rem; margin-bottom: 1rem;">Versione Sistema: 2.0.1 (Aggiornata)</p>
+      <p class="muted">Usa sempre <code>http://localhost:8080/crm/</code> in locale, non il doppio clic sul file.</p>
+      <form id="login-form" class="stack">
+        <label>Email <input type="email" id="login-email" required autocomplete="username" /></label>
+        <label>Password <input type="password" id="login-password" required autocomplete="current-password" /></label>
+        <button type="submit" class="btn primary">Entra</button>
+        <p id="login-error" class="err" hidden></p>
+        <div style="text-align:center; margin-top:0.5rem">
+          <button type="button" id="btn-show-pw-change" class="btn ghost" style="font-size:0.8rem; opacity:0.7">Cambia password?</button>
+        </div>
+      </form>
+
+      <form id="change-password-form-login" class="stack" hidden>
+        <h2 style="font-size:1.1rem; margin-bottom:0.5rem; color:var(--gold)">Aggiorna Password</h2>
+        <label>Email <input type="email" id="pw-email-login" required autocomplete="username" /></label>
+        <label>Password attuale <input type="password" id="pw-current-login" required autocomplete="current-password" /></label>
+        <label>Nuova password <input type="password" id="pw-new-login" required autocomplete="new-password" /></label>
+        <label>Conferma <input type="password" id="pw-new2-login" required autocomplete="new-password" /></label>
+        <button type="submit" class="btn primary">Aggiorna e Entra</button>
+        <p id="pw-msg-login" class="msg" hidden></p>
+        <div style="text-align:center; margin-top:0.5rem">
+          <button type="button" id="btn-back-to-login" class="btn ghost" style="font-size:0.8rem; opacity:0.7">Torna al login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="main-panel" class="panel" hidden style="display: none">
+    <header class="topbar">
+      <h1>Dashboard</h1>
+      <button type="button" id="btn-logout" class="btn ghost">Esci</button>
+    </header>
+
+    <div class="layout">
+      <section class="card">
+        <h2>Attività Recenti (Richieste e Appuntamenti)</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Ricevuto il</th>
+                <th>Cliente / Nome</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>Dettaglio / Messaggio</th>
+                <th>Appunt. (Giorno/Ora)</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="list-unified"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card cfg-box">
+        <h2>Agenda e prenotazioni pubbliche</h2>
+        <p class="muted small">Salva su Firestore e in locale. Il sito legge lo stato prenotazioni se le regole lo consentono.</p>
+
+        <div class="inline-switch">
+          <label class="inline-row-2">
+            <span>Disattiva prenotazioni online (Calendly sul sito)</span>
+            <input type="checkbox" id="booking-disabled" />
+          </label>
+        </div>
+        <label>Motivazione (mostrata sul sito)
+          <textarea id="booking-disabled-msg" rows="2" placeholder="Es. Chiusura ferie…"></textarea>
+        </label>
+
+        <h3>Orari lavorativi generali</h3>
+        <div class="inline-row-2">
+          <label>Da <input type="time" id="work-hour-start" value="09:00" /></label>
+          <label>A <input type="time" id="work-hour-end" value="18:00" /></label>
+        </div>
+
+        <h3>Giorni interi chiusi (settimana)</h3>
+        <div class="weekday-grid" id="weekday-toggles"></div>
+
+        <h3>Griglia oraria (clic per bloccare fasce — lun–ven)</h3>
+        <div class="agenda-grid-wrap">
+          <div class="agenda-header" id="agenda-header"></div>
+          <div id="week-agenda"></div>
+        </div>
+
+        <h3>Date singole bloccate</h3>
+        <div class="inline-row-3">
+          <input type="date" id="input-block-date" />
+          <button type="button" class="btn" id="btn-add-date">Aggiungi data</button>
+        </div>
+        <div class="chips" id="chips-dates"></div>
+
+        <h3>Periodi bloccati (da — a)</h3>
+        <div class="inline-row-3">
+          <input type="datetime-local" id="input-range-start" />
+          <input type="datetime-local" id="input-range-end" />
+          <button type="button" class="btn" id="btn-add-range">Aggiungi periodo</button>
+        </div>
+        <div class="chips" id="chips-ranges"></div>
+
+        <h3>Orari diversi per giorno</h3>
+        <div class="inline-row-3">
+          <select id="sel-day-hour">
+            <option value="1">Lunedì</option>
+            <option value="2">Martedì</option>
+            <option value="3">Mercoledì</option>
+            <option value="4">Giovedì</option>
+            <option value="5">Venerdì</option>
+            <option value="6">Sabato</option>
+            <option value="0">Domenica</option>
+          </select>
+          <input type="time" id="day-h-start" value="09:00" />
+          <input type="time" id="day-h-end" value="13:00" />
+          <button type="button" class="btn" id="btn-add-day-hour">Applica orario</button>
+        </div>
+        <div class="chips" id="chips-day-hours"></div>
+
+        <div class="btn-row">
+          <button type="button" class="btn danger" id="btn-reset-all-blocks">Reset completo blocchi</button>
+          <button type="button" class="btn primary" id="cfg-save">Salva configurazione</button>
+        </div>
+        <p id="cfg-msg" class="msg" hidden></p>
+      </section>
+
+      <section class="card">
+        <h2>Nuova richiesta (manuale)</h2>
+        <form id="form-new-request" class="stack">
+          <label>Nome <input name="nome" required /></label>
+          <label>Email <input name="email" type="email" /></label>
+          <label>Telefono <input name="telefono" /></label>
+          <label>Messaggio <textarea name="note"></textarea></label>
+          <button type="submit" class="btn">Aggiungi</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Nuovo appuntamento (manuale)</h2>
+        <form id="form-new-appointment" class="stack">
+          <label>Data <input name="data" type="date" required /></label>
+          <label>Ora <input name="ora" type="time" required /></label>
+          <label>Cliente <input name="cliente" required /></label>
+          <label>Email <input name="email" type="email" /></label>
+          <label>Telefono <input name="telefono" /></label>
+          <label>Note <textarea name="note"></textarea></label>
+          <button type="submit" class="btn">Aggiungi</button>
+        </form>
+        <p id="appt-warn" class="err" hidden></p>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="module" src="app.js?v=2.0.1"></script>
+
+  <!-- Modale Modifica Appuntamento -->
+  <div id="modal-edit-appt" class="panel" hidden style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center;">
+    <div class="panel-inner" style="max-width: 400px; width: 90%;">
+      <h2 style="color: var(--gold); margin-bottom: 1rem;">Modifica Appuntamento</h2>
+      <form id="form-edit-appointment" class="stack">
+        <input type="hidden" id="edit-appt-id" />
+        <label>Data <input type="date" id="edit-appt-data" required /></label>
+        <label>Ora <input type="time" id="edit-appt-ora" required /></label>
+        <label>Cliente <input id="edit-appt-cliente" required /></label>
+        <label>Email <input type="email" id="edit-appt-email" /></label>
+        <label>Telefono <input id="edit-appt-telefono" /></label>
+        <label>Note <textarea id="edit-appt-note"></textarea></label>
+        <div class="btn-row" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+          <button type="submit" class="btn primary" style="flex: 1;">Salva e Notifica</button>
+          <button type="button" id="btn-close-edit" class="btn ghost">Annulla</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Conferma Eliminazione Personalizzata -->
+  <div id="modal-delete-confirm" class="panel" hidden style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 110; align-items: center; justify-content: center;">
+    <div class="panel-inner" style="max-width: 400px; width: 90%; text-align: center;">
+      <div style="font-size: 2.5rem; margin-bottom: 1rem;">🗑️</div>
+      <h2 style="color: var(--danger); margin-bottom: 0.5rem;">Conferma eliminazione</h2>
+      <p id="delete-confirm-text" class="muted" style="margin-bottom: 1.5rem;">Sei sicuro di voler eliminare questa voce?</p>
+      
+      <div class="stack" style="gap: 0.75rem;">
+        <!-- Bottone Eliminazione Semplice (Sempre visibile) -->
+        <button type="button" id="btn-do-delete" class="btn danger" style="width: 100%; justify-content: center; padding: 0.8rem;">
+          Elimina (Email automatica)
+        </button>
+        
+        <!-- Bottone Eliminazione + WhatsApp (Visibile solo se c'è telefono) -->
+        <button type="button" id="btn-do-delete-wa" class="btn" style="width: 100%; justify-content: center; padding: 0.8rem; background: #25d366; color: #fff; border: none; display: none;">
+          💬 Elimina + WhatsApp
+        </button>
+        
+        <button type="button" id="btn-cancel-delete" class="btn ghost" style="width: 100%; justify-content: center; opacity: 0.6;">
+          Annulla
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

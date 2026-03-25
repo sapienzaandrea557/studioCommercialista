@@ -1,0 +1,18 @@
+# Node modules (se presenti)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cursor/Editor specific
+.cursor/
+.vscode/
+
+# Backup files (opzionale, se non vuoi caricarli su GitHub)
+backup_dati.md
+cursor_creazione_sito_web_per_commercia.md
+
+# Firebase debug logs
+firebase-debug.log*
+.firebase/
