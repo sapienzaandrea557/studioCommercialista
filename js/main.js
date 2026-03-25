@@ -41,21 +41,29 @@
   const menuToggle = document.getElementById("menu-toggle");
   const mainNav = document.getElementById("main-nav");
   if (menuToggle && mainNav) {
-    menuToggle.addEventListener("click", () => {
-      const isOpen = mainNav.classList.toggle("open");
-      menuToggle.classList.toggle("open");
+    const toggleMenu = (open) => {
+      const isOpen = typeof open === "boolean" ? open : !mainNav.classList.contains("open");
+      mainNav.classList.toggle("open", isOpen);
+      menuToggle.classList.toggle("open", isOpen);
       menuToggle.setAttribute("aria-expanded", String(isOpen));
       document.body.classList.toggle("menu-open", isOpen);
+    };
+
+    menuToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Chiudi menu quando si clicca fuori
+    document.addEventListener("click", (e) => {
+      if (mainNav.classList.contains("open") && !mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        toggleMenu(false);
+      }
     });
 
     // Chiudi menu quando si clicca un link
     mainNav.querySelectorAll("a, button").forEach(link => {
-      link.addEventListener("click", () => {
-        mainNav.classList.remove("open");
-        menuToggle.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("menu-open");
-      });
+      link.addEventListener("click", () => toggleMenu(false));
     });
   }
 

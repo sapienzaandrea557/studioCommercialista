@@ -594,16 +594,32 @@ document.getElementById("form-edit-appointment").addEventListener("submit", asyn
     // 2. Notifica WhatsApp (Manuale come fallback/opzionale)
     const msgWA = `Gentile ${cliente}, il suo appuntamento è stato spostato al ${data} alle ore ${ora}. Cordiali saluti, Studio Sapienza.`;
     const action = confirm("Modifica salvata!\n\nVuoi inviare ANCHE un messaggio WhatsApp manuale?");
-    
     if (action) {
-      window.open(`https://wa.me/${telefono.replace(/\D/g,'')}?text=${encodeURIComponent(msgWA)}`, "_blank");
+      const waUrl = `https://wa.me/${telefono.replace(/\D/g, "")}?text=${encodeURIComponent(msgWA)}`;
+      window.open(waUrl, "_blank");
     }
-
     document.getElementById("btn-close-edit").click();
   } catch (e) {
-    alert("Errore salvataggio: " + e.message);
+    console.error("Errore aggiornamento:", e);
+    alert("Errore durante l'aggiornamento: " + e.message);
   }
 });
+
+window.deleteAppt = async (id, cliente, data, ora, telefono) => {
+  if (!confirm(`Eliminare appuntamento di ${cliente} del ${data}?`)) return;
+  try {
+    await deleteDoc(doc(db, "appointments", id));
+    
+    // Notifica opzionale per cancellazione
+    const msgWA = `Gentile ${cliente}, la informiamo che l'appuntamento del ${data} alle ${ora} è stato annullato. Cordiali saluti, Studio Sapienza.`;
+    if (telefono && confirm("Appuntamento eliminato. Vuoi inviare una notifica WhatsApp di cancellazione?")) {
+      const waUrl = `https://wa.me/${telefono.replace(/\D/g, "")}?text=${encodeURIComponent(msgWA)}`;
+      window.open(waUrl, "_blank");
+    }
+  } catch (e) {
+    alert("Errore eliminazione: " + e.message);
+  }
+};
 
 function detachLists() {
   if (unsubReq) {
