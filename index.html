@@ -125,10 +125,17 @@
         <a href="#chi" data-section="chi" aria-label="Scopri chi è Andrea Sapienza">Chi è</a>
         <a href="#servizi" data-section="servizi" aria-label="I nostri servizi di consulenza">Servizi</a>
         <a href="#contatti" data-section="contatti" aria-label="Contatta lo studio">Contatti</a>
-        <button type="button" class="btn btn-primary nav-mobile-btn" data-open-modal="modal-info">Richiedi info</button>
+        
+        <div class="nav-mobile-btns" style="display:flex; flex-direction:column; gap:0.5rem; margin-top:1rem;">
+          <button type="button" class="btn btn-primary" data-open-calendly>Prenota appuntamento</button>
+          <button type="button" class="btn btn-ghost" data-open-modal="modal-info">Richiedi info</button>
+        </div>
       </nav>
       
-      <button type="button" class="btn btn-primary nav-desktop-btn" data-open-modal="modal-info" aria-label="Richiedi informazioni tramite modulo">Richiedi info</button>
+      <div class="header-actions nav-desktop-btn" style="display:flex; gap:0.75rem; align-items:center;">
+        <button type="button" class="btn btn-ghost" style="padding: 0.5rem 1rem; font-size:0.85rem;" data-open-modal="modal-info">Richiedi info</button>
+        <button type="button" class="btn btn-primary" style="padding: 0.5rem 1.15rem; font-size:0.85rem;" data-open-calendly>Prenota appuntamento</button>
+      </div>
     </div>
   </header>
 
@@ -141,7 +148,8 @@
           <h1 id="hero-title">Commercialista a Roma: Consulenza Fiscale e Societaria con Metodo</h1>
           <p class="lead">Lo Studio Andrea Sapienza offre servizi di <strong>Revisione Legale dei Conti</strong> e consulenza professionale per imprese e liberi professionisti a Roma.</p>
           <div class="hero-actions">
-            <button type="button" class="btn btn-primary" data-open-calendly aria-label="Prenota un appuntamento con lo studio">Prenota appuntamento</button>
+            <button type="button" class="btn btn-primary" data-open-calendly>Prenota appuntamento</button>
+            <button type="button" class="btn btn-ghost" data-open-modal="modal-info">Richiedi info</button>
           </div>
           <p id="booking-status-note" class="booking-note" hidden></p>
         </div>
@@ -319,6 +327,7 @@
         <p class="muted">Prenota una consulenza conoscitiva gratuita e scopri come possiamo supportarti.</p>
         <div class="btn-wrap">
           <button type="button" class="btn btn-primary" data-open-calendly>Prenota appuntamento</button>
+          <button type="button" class="btn btn-ghost" data-open-modal="modal-info">Richiedi info</button>
         </div>
       </div>
     </section>

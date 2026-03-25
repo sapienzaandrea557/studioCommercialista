@@ -321,7 +321,15 @@ a:hover {
 }
 .btn-ghost {
   background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
 }
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
 .btn:disabled,
 .btn.is-disabled-booking {
   opacity: 0.45;
@@ -330,12 +338,12 @@ a:hover {
 }
 
 /* Visibility Utilities */
-.nav-mobile-btn {
+.nav-mobile-btns {
   display: none !important;
 }
 
 .nav-desktop-btn {
-  display: inline-flex !important;
+  display: flex !important;
 }
 
 .menu-toggle {
@@ -343,8 +351,8 @@ a:hover {
 }
 
 @media (max-width: 899px) {
-  .nav-mobile-btn {
-    display: inline-flex !important;
+  .nav-mobile-btns {
+    display: flex !important;
   }
   .nav-desktop-btn {
     display: none !important;
