@@ -7,6 +7,6 @@ Disallow: /backup_dati.md
 Disallow: /*.json$
 Disallow: /*.config.js$
 
-Sitemap: https://commercialista-roma.it/sitemap.xml
+Sitemap: https://commercialista-roma-jet.vercel.app/sitemap.xml
 
 # Crawl-delay: 10
