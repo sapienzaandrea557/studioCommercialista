@@ -117,6 +117,7 @@
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+    document.body.style.overflow = "hidden";
 
     // Per il booking vogliamo che si veda subito senza dover scrollare:
     // azzeriamo l'eventuale scroll interno del contenitore modale.
@@ -134,6 +135,7 @@
     m.hidden = true;
     m.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
+    document.body.style.overflow = "";
   }
 
   document.querySelectorAll("[data-open-modal]").forEach((btn) => {

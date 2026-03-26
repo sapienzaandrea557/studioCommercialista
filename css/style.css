@@ -994,25 +994,37 @@ body.modal-open {
   overflow: hidden;
 }
 
+/* Modal Base */
 .modal {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 9999; /* Aumentato per stare sopra a tutto, incluso l'header */
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: rgba(4, 5, 8, 0.78);
-  backdrop-filter: blur(8px);
+  background: rgba(4, 5, 8, 0.9); /* Più scuro per coprire l'header */
+  backdrop-filter: blur(12px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s var(--ease-out);
+  transition: opacity 0.3s ease;
 }
+
 .modal:not([hidden]) {
   opacity: 1;
   pointer-events: auto;
 }
+
 .modal[hidden] {
   display: none !important;
+}
+
+/* Fix per header che buca il modale */
+.site-header {
+  z-index: 100;
+}
+
+body.modal-open .site-header {
+  z-index: 1; /* Abbassa l'header quando un modale è aperto */
 }
 
 .modal-dialog {
