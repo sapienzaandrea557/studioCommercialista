@@ -1089,27 +1089,27 @@ body.modal-open {
   transform: rotate(90deg);
 }
 
-/* Special Modal: Booking/Calendly */
+/* Special Modal: Booking/Calendly - Full Stage */
 .modal#modal-booking .modal-dialog {
   width: 98% !important;
-  max-width: 1200px !important;
-  height: 96vh !important;
-  max-height: 96vh !important;
+  max-width: 1400px !important;
+  height: 98vh !important;
+  max-height: 98vh !important;
+  padding: 0 !important;
+  overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  padding: 1.5rem !important;
-  overflow: hidden !important;
+  border-radius: 12px !important;
+  background: #fff !important; /* Calendly è bianco, meglio uniformare */
 }
 
 .modal#modal-booking .cal-iframe-wrap {
   flex: 1 !important;
   width: 100% !important;
   height: 100% !important;
-  min-height: 0 !important;
-  margin-top: 1rem !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
-  background: #fff !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
 }
 
 .modal#modal-booking .cal-iframe-wrap iframe {
@@ -1118,19 +1118,17 @@ body.modal-open {
   border: none !important;
 }
 
-.modal#modal-booking .cal-fallback {
-  margin-top: 1rem !important;
-  flex-shrink: 0 !important;
+.modal#modal-booking .modal-close {
+  top: 0.75rem !important;
+  right: 0.75rem !important;
+  background: rgba(0,0,0,0.1) !important;
+  color: #333 !important;
+  border: none !important;
+  box-shadow: none !important;
 }
-
-@media (max-width: 900px) {
-  .modal#modal-booking .modal-dialog {
-    width: 100% !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    border-radius: 0 !important;
-    padding: 3rem 0.5rem 1rem !important;
-  }
+.modal#modal-booking .modal-close:hover {
+  background: var(--gold) !important;
+  color: #fff !important;
 }
 
 .cookie-banner {

@@ -77,10 +77,11 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.1.3
-- **Borders Overlap Fix**: Individuata e rimossa la sovrapposizione tra i bordi della `trust-strip` e il fondo della sezione Home. Ora la separazione tra la Hero e la sezione "Chi è" è garantita da un'unica linea pulita, eliminando l'effetto "linea doppia".
+## Note Aggiornamento v2.1.4
+- **Calendly Full-Stage**: Rimossi tutti i padding, titoli e testi superflui dalla modale di prenotazione. Ora l'agenda di Calendly occupa il 100% dell'area utile (fino a 1400px di larghezza), offrendo un'esperienza "nativa" e senza scrollbar interne.
+- **UI Refresh**: Aggiornato il design del tasto di chiusura nella modale agenda per una migliore integrazione estetica con il widget Calendly.
 
-## Note Aggiornamento v2.1.2
+## Note Aggiornamento v2.1.3
 - **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
 - **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
 - **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.
