@@ -779,11 +779,18 @@ bindConfigUi();
 onAuthStateChanged(auth, async (user) => {
   const authPanel = document.getElementById("auth-panel");
   const mainPanel = document.getElementById("main-panel");
+  const userInfo = document.getElementById("crm-user-info");
+  
   if (user) {
     authPanel.style.display = "none";
     mainPanel.style.display = "block";
     authPanel.hidden = true;
     mainPanel.hidden = false;
+    
+    if (userInfo) {
+      userInfo.textContent = `Loggato come: ${user.email}`;
+    }
+    
     detachLists();
     attachLists();
     try {
@@ -797,6 +804,9 @@ onAuthStateChanged(auth, async (user) => {
     mainPanel.style.display = "none";
     authPanel.hidden = false;
     mainPanel.hidden = true;
+    
+    if (userInfo) userInfo.textContent = "";
+
     // Reset forms to login view
     document.getElementById("login-form").hidden = false;
     document.getElementById("change-password-form-login").hidden = true;

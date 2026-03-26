@@ -9,42 +9,76 @@
   <title>Area riservata | CRM Studio</title>
   <link rel="stylesheet" href="/crm/style.css?v=2.0.1" />
 </head>
-<body>
-  <div id="auth-panel" class="panel">
-    <div class="panel-inner">
-      <h1>Accesso CRM</h1>
-      <p class="muted" style="font-size: 0.7rem; margin-bottom: 1rem;">Versione Sistema: 2.0.1 (Aggiornata)</p>
-      <p class="muted">Usa sempre <code>http://localhost:8080/crm/</code> in locale, non il doppio clic sul file.</p>
-      <form id="login-form" class="stack">
-        <label>Email <input type="email" id="login-email" required autocomplete="username" /></label>
-        <label>Password <input type="password" id="login-password" required autocomplete="current-password" /></label>
-        <button type="submit" class="btn primary">Entra</button>
-        <p id="login-error" class="err" hidden></p>
-        <div style="text-align:center; margin-top:0.5rem">
-          <button type="button" id="btn-show-pw-change" class="btn ghost" style="font-size:0.8rem; opacity:0.7">Cambia password?</button>
-        </div>
-      </form>
-
-      <form id="change-password-form-login" class="stack" hidden>
-        <h2 style="font-size:1.1rem; margin-bottom:0.5rem; color:var(--gold)">Aggiorna Password</h2>
-        <label>Email <input type="email" id="pw-email-login" required autocomplete="username" /></label>
-        <label>Password attuale <input type="password" id="pw-current-login" required autocomplete="current-password" /></label>
-        <label>Nuova password <input type="password" id="pw-new-login" required autocomplete="new-password" /></label>
-        <label>Conferma <input type="password" id="pw-new2-login" required autocomplete="new-password" /></label>
-        <button type="submit" class="btn primary">Aggiorna e Entra</button>
-        <p id="pw-msg-login" class="msg" hidden></p>
-        <div style="text-align:center; margin-top:0.5rem">
-          <button type="button" id="btn-back-to-login" class="btn ghost" style="font-size:0.8rem; opacity:0.7">Torna al login</button>
-        </div>
-      </form>
+<body class="crm-body">
+  <!-- Header Minimalista per CRM -->
+  <header class="crm-header">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding: 1rem 0;">
+      <a href="/#home" class="logo" style="text-decoration:none; font-size: 1.4rem;">Studio <span>Andrea Sapienza</span></a>
+      <div id="crm-user-info" style="font-size: 0.85rem; color: var(--muted);"></div>
     </div>
-  </div>
+  </header>
 
-  <div id="main-panel" class="panel" hidden style="display: none">
-    <header class="topbar">
-      <h1>Dashboard</h1>
-      <button type="button" id="btn-logout" class="btn ghost">Esci</button>
-    </header>
+  <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
+    <div id="auth-panel" hidden>
+      <div class="card" style="max-width: 400px; margin: 2rem auto; padding: 2.5rem;">
+        <h1 style="margin-top:0; font-size: 1.75rem; text-align:center;">Accesso CRM</h1>
+        <p class="muted" style="text-align:center; font-size: 0.85rem; margin-bottom: 2rem;">Area riservata per la gestione dello Studio</p>
+        
+        <form id="login-form">
+          <div style="margin-bottom: 1.25rem;">
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" required placeholder="admin@studio.it" style="width:100%" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" required placeholder="••••••••" style="width:100%" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Entra nel sistema</button>
+          <p id="login-error" class="msg err" hidden style="margin-top:1rem"></p>
+          
+          <div style="margin-top: 1.5rem; text-align: center;">
+            <button type="button" id="btn-show-pw-change" class="btn-text small muted">Hai dimenticato o vuoi cambiare password?</button>
+          </div>
+        </form>
+
+        <!-- Modulo Cambio Password (nascosto inizialmente) -->
+        <form id="change-password-form-login" hidden>
+          <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Aggiorna Password</h2>
+          <div style="margin-bottom: 1rem;">
+            <label for="pw-email-login">Email</label>
+            <input id="pw-email-login" type="email" required style="width:100%" />
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label for="pw-current-login">Password Attuale</label>
+            <input id="pw-current-login" type="password" required style="width:100%" />
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label for="pw-new-login">Nuova Password</label>
+            <input id="pw-new-login" type="password" required style="width:100%" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label for="pw-new2-login">Conferma Nuova Password</label>
+            <input id="pw-new2-login" type="password" required style="width:100%" />
+          </div>
+          <div style="display:flex; gap: 1rem;">
+            <button type="button" id="btn-back-to-login" class="btn btn-ghost" style="flex:1">Annulla</button>
+            <button type="submit" class="btn btn-primary" style="flex:1">Aggiorna</button>
+          </div>
+          <p id="pw-msg-login" class="msg" hidden style="margin-top:1rem"></p>
+        </form>
+      </div>
+    </div>
+
+  <div id="main-panel" hidden style="display: none">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <h1 style="margin:0; font-size: 2rem;">Pannello di Controllo</h1>
+        <p class="muted">Gestisci appuntamenti e richieste in tempo reale</p>
+      </div>
+      <div style="display:flex; gap: 0.75rem;">
+        <button id="btn-logout" class="btn btn-ghost">Esci</button>
+      </div>
+    </div>
 
     <div class="layout">
       <section class="card">

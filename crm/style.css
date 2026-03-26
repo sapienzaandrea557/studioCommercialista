@@ -10,6 +10,47 @@
   --danger: #e85d5d;
   --radius: 12px;
   --font: "Source Sans 3", system-ui, sans-serif;
+  --gold-hover: #e5c05b;
+  --card-bg: #161c28;
+}
+
+/* CRM General Body */
+.crm-body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Source Sans 3', sans-serif;
+  margin: 0;
+}
+
+.crm-header {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: var(--gold);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  font-family: inherit;
+}
+
+.btn-text:hover {
+  color: var(--gold-hover);
+}
+
+.btn-text.muted {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.btn-text.muted:hover {
+  color: var(--text);
 }
 
 * {
@@ -66,11 +107,10 @@ body {
 }
 
 .card {
-  background: var(--card);
+  background-color: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem; /* Aumentato padding interno */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .card h2 {
