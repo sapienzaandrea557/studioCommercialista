@@ -511,3 +511,136 @@ code {
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
 }
+
+/* New classes to replace inline styles */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.crm-logo {
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+
+.user-info {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.main-container {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
+.auth-card {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+}
+
+.auth-title {
+  margin-top: 0;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.auth-subtitle {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.centered-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.auth-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.system-update {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 2rem;
+  opacity: 0.5;
+}
+
+.pw-change-title {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.flex-gap-1 {
+  display: flex;
+  gap: 1rem;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay-danger {
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 110;
+}
+
+.edit-modal-title {
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.delete-modal-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.delete-modal-title {
+  color: var(--danger);
+  margin-bottom: 0.5rem;
+}
+
+.whatsapp-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.8rem;
+  background: #25d366;
+  color: #fff;
+  border: none;
+}

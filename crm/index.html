@@ -12,58 +12,58 @@
 <body class="crm-body">
   <!-- Header Minimalista per CRM -->
   <header class="crm-header">
-    <div class="container" style="display:flex; justify-content:space-between; align-items:center; padding: 1rem 0;">
-      <a href="/#home" class="logo" style="text-decoration:none; font-size: 1.4rem;">Studio <span>Andrea Sapienza</span></a>
-      <div id="crm-user-info" style="font-size: 0.85rem; color: var(--muted);"></div>
+    <div class="container header-container">
+      <a href="/#home" class="logo crm-logo">Studio <span>Andrea Sapienza</span></a>
+      <div id="crm-user-info" class="user-info"></div>
     </div>
   </header>
 
-  <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
+  <div class="container main-container">
     <div id="auth-panel" hidden>
-      <div class="card" style="max-width: 400px; margin: 2rem auto; padding: 2.5rem;">
-        <h1 style="margin-top:0; font-size: 1.75rem; text-align:center;">Accesso CRM</h1>
-        <p class="muted" style="text-align:center; font-size: 0.85rem; margin-bottom: 2rem;">Area riservata per la gestione dello Studio</p>
+      <div class="card auth-card">
+        <h1 class="auth-title">Accesso CRM</h1>
+        <p class="auth-subtitle muted">Area riservata per la gestione dello Studio</p>
         
         <form id="login-form">
-          <div style="margin-bottom: 1.25rem;">
+          <div class="form-group">
             <label for="login-email">Email</label>
-            <input id="login-email" type="email" required placeholder="admin@studio.it" style="width:100%" />
+            <input id="login-email" type="email" required placeholder="admin@studio.it" class="full-width" />
           </div>
           <div style="margin-bottom: 1.5rem;">
             <label for="login-password">Password</label>
-            <input id="login-password" type="password" required placeholder="••••••••" style="width:100%" />
+            <input id="login-password" type="password" required placeholder="••••••••" class="full-width" />
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Entra nel sistema</button>
+          <button type="submit" class="btn btn-primary centered-btn">Entra nel sistema</button>
           <p id="login-error" class="msg err" hidden style="margin-top:1rem"></p>
           
-          <div style="margin-top: 1.5rem; text-align: center;">
+          <div class="auth-footer">
             <button type="button" id="btn-show-pw-change" class="btn-text small muted">Hai dimenticato o vuoi cambiare password?</button>
           </div>
-          <p style="font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 2rem; opacity: 0.5;">System Update: SAPIENZA-ULTIMATE-V1</p>
+          <p class="system-update">System Update: SAPIENZA-ULTIMATE-V1</p>
         </form>
 
         <!-- Modulo Cambio Password (nascosto inizialmente) -->
         <form id="change-password-form-login" hidden>
-          <h2 style="font-size: 1.2rem; margin-bottom: 1.5rem;">Aggiorna Password</h2>
-          <div style="margin-bottom: 1rem;">
+          <h2 class="pw-change-title">Aggiorna Password</h2>
+          <div class="form-group">
             <label for="pw-email-login">Email</label>
-            <input id="pw-email-login" type="email" required style="width:100%" />
+            <input id="pw-email-login" type="email" required class="full-width" />
           </div>
-          <div style="margin-bottom: 1rem;">
+          <div class="form-group">
             <label for="pw-current-login">Password Attuale</label>
-            <input id="pw-current-login" type="password" required style="width:100%" />
+            <input id="pw-current-login" type="password" required class="full-width" />
           </div>
-          <div style="margin-bottom: 1rem;">
+          <div class="form-group">
             <label for="pw-new-login">Nuova Password</label>
-            <input id="pw-new-login" type="password" required style="width:100%" />
+            <input id="pw-new-login" type="password" required class="full-width" />
           </div>
           <div style="margin-bottom: 1.5rem;">
             <label for="pw-new2-login">Conferma Nuova Password</label>
-            <input id="pw-new2-login" type="password" required style="width:100%" />
+            <input id="pw-new2-login" type="password" required class="full-width" />
           </div>
-          <div style="display:flex; gap: 1rem;">
-            <button type="button" id="btn-back-to-login" class="btn btn-ghost" style="flex:1">Annulla</button>
-            <button type="submit" class="btn btn-primary" style="flex:1">Aggiorna</button>
+          <div class="flex-gap-1">
+            <button type="button" id="btn-back-to-login" class="btn btn-ghost flex-1">Annulla</button>
+            <button type="submit" class="btn btn-primary flex-1">Aggiorna</button>
           </div>
           <p id="pw-msg-login" class="msg" hidden style="margin-top:1rem"></p>
         </form>
@@ -71,9 +71,9 @@
     </div>
 
   <div id="main-panel" hidden style="display: none">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem;">
+    <div class="panel-header">
       <div>
-        <h1 style="margin:0; font-size: 2rem;">Pannello di Controllo</h1>
+        <h1 class="panel-title">Pannello di Controllo</h1>
         <p class="muted">Gestisci appuntamenti e richieste in tempo reale</p>
       </div>
       <div style="display:flex; gap: 0.75rem;">
@@ -202,9 +202,9 @@
   <script type="module" src="/crm/app.js?v=2.0.1"></script>
 
   <!-- Modale Modifica Appuntamento -->
-  <div id="modal-edit-appt" class="panel" hidden style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center;">
-    <div class="panel-inner" style="max-width: 400px; width: 90%;">
-      <h2 style="color: var(--gold); margin-bottom: 1rem;">Modifica Appuntamento</h2>
+  <div id="modal-edit-appt" class="panel modal-overlay" hidden style="display: none;">
+    <div class="panel-inner">
+      <h2 class="edit-modal-title">Modifica Appuntamento</h2>
       <form id="form-edit-appointment" class="stack">
         <input type="hidden" id="edit-appt-id" />
         <label>Data <input type="date" id="edit-appt-data" required /></label>
@@ -213,8 +213,8 @@
         <label>Email <input type="email" id="edit-appt-email" /></label>
         <label>Telefono <input id="edit-appt-telefono" /></label>
         <label>Note <textarea id="edit-appt-note"></textarea></label>
-        <div class="btn-row" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-          <button type="submit" class="btn primary" style="flex: 1;">Salva e Notifica</button>
+        <div class="btn-row">
+          <button type="submit" class="btn primary flex-1">Salva e Notifica</button>
           <button type="button" id="btn-close-edit" class="btn ghost">Annulla</button>
         </div>
       </form>
@@ -222,24 +222,24 @@
   </div>
 
   <!-- Modale Conferma Eliminazione Personalizzata -->
-  <div id="modal-delete-confirm" class="panel" hidden style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 110; align-items: center; justify-content: center;">
-    <div class="panel-inner" style="max-width: 400px; width: 90%; text-align: center;">
-      <div style="font-size: 2.5rem; margin-bottom: 1rem;">🗑️</div>
-      <h2 style="color: var(--danger); margin-bottom: 0.5rem;">Conferma eliminazione</h2>
+  <div id="modal-delete-confirm" class="panel modal-overlay modal-overlay-danger" hidden style="display: none;">
+    <div class="panel-inner">
+      <div class="delete-modal-icon">🗑️</div>
+      <h2 class="delete-modal-title">Conferma eliminazione</h2>
       <p id="delete-confirm-text" class="muted" style="margin-bottom: 1.5rem;">Sei sicuro di voler eliminare questa voce?</p>
       
       <div class="stack" style="gap: 0.75rem;">
         <!-- Bottone Eliminazione Semplice (Sempre visibile) -->
-        <button type="button" id="btn-do-delete" class="btn danger" style="width: 100%; justify-content: center; padding: 0.8rem;">
+        <button type="button" id="btn-do-delete" class="btn danger centered-btn" style="padding: 0.8rem;">
           Elimina (Email automatica)
         </button>
         
         <!-- Bottone Eliminazione + WhatsApp (Visibile solo se c'è telefono) -->
-        <button type="button" id="btn-do-delete-wa" class="btn" style="width: 100%; justify-content: center; padding: 0.8rem; background: #25d366; color: #fff; border: none; display: none;">
+        <button type="button" id="btn-do-delete-wa" class="btn whatsapp-btn" style="display: none;">
           💬 Elimina + WhatsApp
         </button>
         
-        <button type="button" id="btn-cancel-delete" class="btn ghost" style="width: 100%; justify-content: center; opacity: 0.6;">
+        <button type="button" id="btn-cancel-delete" class="btn ghost centered-btn" style="opacity: 0.6;">
           Annulla
         </button>
       </div>

@@ -77,13 +77,15 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.0.2
+- **Accessibilità**: Gestione focus avanzata nelle modali (focus trap e ripristino automatico) per una navigazione conforme agli standard.
+- **Performance**: Ottimizzazione Critical Path con caricamento font via HTML `<link>` (rimosso `@import` CSS).
+- **CRM Refactoring**: Rimozione stili inline e migrazione a classi CSS dedicate per un codice più pulito e manutenibile.
+- **Validazione**: Feedback real-time sui campi obbligatori del form contatti.
+- **Cache**: Sistema cache-busting aggiornato per forzare l'aggiornamento degli script su browser client.
+
 ## Note Aggiornamento v2.0.1
 - **Cambio Password**: Accessibile esclusivamente dal login (non occupa spazio in Dashboard).
-- **SEO**: Ottimizzazione estrema con glossario invisibile e meta tag avanzati (IVA, 730, Tasse).
-- **Sincronizzazione**: Dashboard CRM aggiornata in tempo reale all'invio di richieste dal sito.
-- **Agenda**: Header e orari bloccati (sticky) per navigazione fluida.
-- **Calendly**: Modale ottimizzata per massima visibilità su ogni schermo.
-- **Cache**: Sistema cache-busting (?v=2.0.1) implementato ovunque.
 
 ## Integrazioni esterne
 
