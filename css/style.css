@@ -131,7 +131,9 @@ h3 { font-size: 1.22rem; }
   .header-inner { height: 4.5rem; gap: 1rem; }
   .logo { font-size: 1.35rem; white-space: nowrap; }
   .menu-toggle { display: flex !important; }
-  .nav { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--surface); flex-direction: column; padding: 6rem 2rem; box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.4s var(--ease-out); z-index: 105; }
+  .nav { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: var(--surface); flex-direction: column; padding: 6rem 1.5rem; box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.4s var(--ease-out); z-index: 105; }
+  .nav a { width: 100%; padding: 1rem 0.5rem; font-size: 1.1rem; border-bottom: 1px solid var(--border); }
+  .nav a::after { display: none; }
   .nav.open { right: 0; }
   .nav-desktop-btn { display: none !important; }
   .nav-mobile-btns { display: flex !important; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); width: 100%; }
@@ -149,13 +151,16 @@ h3 { font-size: 1.22rem; }
 /* --- Sections --- */
 .section { padding-block: clamp(4rem, 10vh, 7.5rem); scroll-margin-top: 80px; border: none !important; position: relative; }
 
-/* Reset globale bordi per tutte le sezioni e componenti interni */
-section, .section, #home, #chi, #perche, #servizi, #metodo, #faq, #contatti, .cta-strip, .site-footer, .trust-strip, .trust-item {
+/* Reset globale bordi per TUTTI gli elementi potenzialmente problematici */
+section, .section, main, header, footer, div, 
+#home, #chi, #perche, #servizi, #metodo, #faq, #contatti, 
+.cta-strip, .site-footer, .trust-strip, .trust-item, .hero-card {
   border-top: none !important;
   border-bottom: none !important;
 }
 
-/* Applichiamo la linea di separazione SOLO alla base di ogni sezione principale */
+/* Sistema unico: solo bordi di fondo sulle sezioni principali */
+.site-header { border-bottom: 1px solid var(--border) !important; }
 #home, #chi, #perche, #servizi, #metodo, #faq, #cta, #contatti {
   border-bottom: 1px solid var(--border) !important;
 }
