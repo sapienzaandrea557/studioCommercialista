@@ -77,11 +77,11 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.1.6
-- **Ultimate Border System**: Implementato un sistema a bordo inferiore (`border-bottom`) unico per tutte le sezioni principali. Rimossi tutti i bordi superiori e i bordi ridondanti della `cta-strip` e del footer. Questo garantisce l'assenza totale di sovrapposizioni tra la Home e le sezioni successive, assicurando un'unica linea pulita in ogni punto di transizione del sito.
-- **CSS Refactoring Final**: Consolidate tutte le regole in un unico blocco coerente per prevenire bug di eredità futuri.
+## Note Aggiornamento v2.1.7
+- **Header & Skip-Link Fix**: Ripristinate le utility di visibilità per i pulsanti dell'header, risolvendo il bug che mostrava doppie icone su desktop. Corretto il posizionamento dello skip-link "Vai al contenuto" affinché rimanga nascosto fino al focus.
+- **Borders Bulletproofing**: Affinata la logica del sistema bordi. Ora ogni sezione ha un unico `border-bottom` controllato, eliminando ogni possibile sovrapposizione con la Home o elementi interni come la `trust-strip`.
 
-## Note Aggiornamento v2.1.5
+## Note Aggiornamento v2.1.6
 - **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
 - **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
 - **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.

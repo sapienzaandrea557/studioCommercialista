@@ -57,6 +57,22 @@ body::before {
 }
 
 .container { position: relative; z-index: 1; width: min(100% - 2.5rem, var(--maxw)); margin-inline: auto; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.5rem;
+  z-index: 300;
+  padding: 0.5rem 1rem;
+  background: var(--gold);
+  color: #1a1408;
+  font-weight: 700;
+  border-radius: 8px;
+}
+.skip-link:focus {
+  left: 0.5rem;
+}
+
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--gold); text-decoration: none; transition: color 0.2s var(--ease-out); }
 a:hover { color: #e8d78a; }
@@ -71,6 +87,9 @@ h3 { font-size: 1.22rem; }
 .muted { color: var(--muted); font-size: 0.98rem; line-height: 1.6; }
 
 /* --- Buttons --- */
+.nav-mobile-btns { display: none !important; }
+.nav-desktop-btn { display: flex !important; }
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -131,20 +150,21 @@ h3 { font-size: 1.22rem; }
 .section { padding-block: clamp(4rem, 10vh, 7.5rem); scroll-margin-top: 80px; border: none !important; position: relative; }
 
 /* Reset globale bordi per tutte le sezioni */
-section, .section, #home, #chi, #perche, #servizi, #metodo, #faq, #contatti, .cta-strip, .site-footer {
+section, .section, #home, #chi, #perche, #servizi, #metodo, #faq, #contatti, .cta-strip, .site-footer, .trust-strip {
   border-top: none !important;
   border-bottom: none !important;
 }
 
-/* Applichiamo la linea di separazione SOLO alla base di ogni sezione */
-/* Questo garantisce una singola linea pulita tra un paragrafo e l'altro */
-#home, #chi, #perche, #servizi, #metodo, #faq, #cta {
+/* Applichiamo la linea di separazione SOLO alla base di ogni sezione principale */
+#home, #chi, #perche, #servizi, #metodo, #faq, #cta, #contatti {
   border-bottom: 1px solid var(--border) !important;
 }
 
-/* La site-header ha già il suo border-bottom, quindi il primo raccordo è coperto. */
-/* Il footer viene raccordato dalla linea di fondo di #contatti se necessario, 
-   ma di solito il footer scuro non ne ha bisogno. */
+/* La site-header ha già il suo border-bottom. */
+/* Rimuoviamo il bordo dall'ultima sezione per evitare doppie linee col footer se necessario */
+#contatti {
+  border-bottom: none !important;
+}
 
 .section-head { margin-bottom: 2.25rem; max-width: 42rem; }
 
