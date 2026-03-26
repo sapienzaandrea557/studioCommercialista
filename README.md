@@ -77,13 +77,12 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.2.0
-- **Bulletproof Border System**: Implementato un reset globale totale di ogni bordo (`section`, `div`, `main`, ecc.) e stabilito un sistema unico a bordo inferiore (`border-bottom`) per le sezioni. Questo elimina definitivamente qualsiasi sovrapposizione tra la Home e le sezioni successive, garantendo una linea singola perfetta in tutto il sito.
-- **SEO & Performance Optimization**: Accorciata la meta description a 118 caratteri per una migliore visualizzazione nei motori di ricerca. Aggiunto il caricamento differito (`defer`) allo script Microsoft Clarity per migliorare l'indice INP (Interaction to Next Paint).
-- **Mobile Usability**: Aumentata l'area cliccabile dei link nel menu mobile per facilitare la navigazione su smartphone.
-- **Structured Data Final**: Validato lo schema JSON-LD rimuovendo i riferimenti social non attivi per evitare errori di scansione.
+## Note Aggiornamento v2.2.1
+- **Off-Page SEO Boost**: Aggiunta una nuova sezione "Risorse e Collegamenti Utili" con link in uscita verso siti governativi e istituzionali ad alta autorità (Agenzia delle Entrate, INPS, Registro Imprese, CNDCEC). Questo migliora il punteggio Off-Page e la pertinenza semantica del sito.
+- **Anchor Navigation Fix**: Risolto il bug visivo delle linee doppie che apparivano cliccando sui link del menu (Servizi, Contatti, ecc.). Implementata una regola `:target` nel CSS per neutralizzare i bordi in eccesso durante lo scorrimento automatico.
+- **On-Page SEO Shield**: Blindata l'ottimizzazione On-Page al 100%, mantenendo la meta-description ottimizzata e i dati strutturati validati.
 
-## Note Aggiornamento v2.1.9
+## Note Aggiornamento v2.2.0
 - **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
 - **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
 - **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.

@@ -161,6 +161,13 @@ section, .section, main, header, footer, div,
 
 /* Sistema unico: solo bordi di fondo sulle sezioni principali */
 .site-header { border-bottom: 1px solid var(--border) !important; }
+
+/* Rimuoviamo ogni bordo dalle sezioni quando vengono puntate da un'ancora per evitare bug visivi */
+section:target {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
 #home, #chi, #perche, #servizi, #metodo, #faq, #cta, #contatti {
   border-bottom: 1px solid var(--border) !important;
 }
