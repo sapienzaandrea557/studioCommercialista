@@ -77,10 +77,13 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.0.8
+- **Calendly Full-View**: Ingrandita drasticamente la modale di prenotazione (larghezza fino a 1200px, altezza fino a 1100px su mobile) per eliminare ogni scroll interno. Ora Calendly, privacy policy e link esterni sono tutti visibili a colpo d'occhio.
+- **Fix Servizi Definitivo**: Eliminata la doppia linea nella sezione Servizi forzando la rimozione di bordi ereditati tramite `!important`.
+- **UI Responsiveness**: Ottimizzati i padding delle modali su schermi piccoli per massimizzare lo spazio utile per il calendario.
+
 ## Note Aggiornamento v2.0.7
 - **Fix Servizi**: Risolto definitivamente il problema delle linee di separazione duplicate nella sezione Servizi tramite una gestione mirata degli ID.
-- **Calendly UX**: Ottimizzata l'altezza della modale Calendly (ora 700px su desktop) per permettere la visualizzazione completa del calendario senza dover scrollare internamente.
-- **Responsività Modali**: Migliorato il comportamento delle modali su tablet e smartphone per garantire che i contenuti siano sempre leggibili e centrati.
 
 ## Note Aggiornamento v2.0.6
 - **Hero Section**: Raffinata l'estetica della sezione Home con Glassmorphism avanzato sulla card e titoli più impattanti.
