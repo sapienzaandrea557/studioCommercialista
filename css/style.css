@@ -774,20 +774,16 @@ h3 {
   position: relative;
 }
 
-/* Rimuoviamo ogni bordo superiore da tutte le sezioni */
-section, .section {
+/* Reset globale bordi per tutte le sezioni */
+section, .section, #home, #chi, #perche, #servizi, #metodo, #faq, #contatti {
   border-top: none !important;
+  border-bottom: none !important;
 }
 
-/* Applichiamo il bordo solo alla base per creare separazione singola */
-#chi, #perche, #servizi, #metodo, #faq {
-  border-bottom: 1px solid var(--border) !important;
-}
-
-/* Eccezione: la sezione Home non deve avere il bordo sotto se vogliamo che si raccordi col resto, 
-   o lo mettiamo solo se serve separazione netta. */
-#home {
-  border-bottom: 1px solid var(--border) !important;
+/* Applichiamo la linea di separazione SOLO in alto per ogni sezione dopo la Hero */
+/* Questo garantisce una singola linea pulita tra un paragrafo e l'altro */
+#chi, #perche, #servizi, #metodo, #faq, #contatti, .site-footer {
+  border-top: 1px solid var(--border) !important;
 }
 
 /* --- Sections: About --- */
