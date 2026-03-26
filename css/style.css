@@ -769,8 +769,13 @@ h3 {
 /* ——— Sections ——— */
 .section {
   padding-block: clamp(4rem, 10vh, 7.5rem);
-  border-bottom: 1px solid var(--border);
   scroll-margin-top: 80px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Rimuove la linea dall'ultima sezione prima del footer se necessario */
+#contatti {
+  border-bottom: none;
 }
 .section-head {
   margin-bottom: 2.25rem;

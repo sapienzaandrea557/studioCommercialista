@@ -77,12 +77,11 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.0.5
-- **Bug Fix Modali**: Corretto il comportamento del tasto di chiusura (X) che poteva causare ricaricamenti della pagina o scroll indesiderati verso l'alto.
-- **UI Refinement**: Migliorato il contrasto visivo del tasto di chiusura (ora in oro su fondo scuro) per una migliore visibilità.
-- **Layout Consistency**: Uniformate le linee di separazione tra le sezioni della Home per un design più coerente e ordinato.
+## Note Aggiornamento v2.0.6
+- **Layout Consistency**: Corretta la gestione delle linee di separazione nelle sezioni "Servizi" e "Contatti" per eliminare doppie linee o separatori mancanti.
+- **Visual Polish**: Rimossa la linea di chiusura dall'ultima sezione per un raccordo più fluido con il footer.
 
-## Note Aggiornamento v2.0.4
+## Note Aggiornamento v2.0.5
 - **Hero Section**: Raffinata l'estetica della sezione Home con Glassmorphism avanzato sulla card e titoli più impattanti.
 - **Typography**: Migliorata la gerarchia visiva del titolo principale (H1) per una leggibilità superiore su schermi 4K e Retina.
 
