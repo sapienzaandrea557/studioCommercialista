@@ -77,12 +77,12 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.0.4
+- **Hero Section**: Raffinata l'estetica della sezione Home con Glassmorphism avanzato sulla card e titoli più impattanti.
+- **Typography**: Migliorata la gerarchia visiva del titolo principale (H1) per una leggibilità superiore su schermi 4K e Retina.
+
 ## Note Aggiornamento v2.0.3
 - **UI/UX**: Refactoring completo del sistema modali con animazioni fluide e posizionamento centrato.
-- **Header**: Migliorata la stabilità del logo su dispositivi mobile (prevenzione wrapping).
-- **Mobile Navigation**: Ottimizzati i pulsanti nel menu mobile per una migliore usabilità (full-width e spacing).
-- **Cookie Banner**: Nuovo design "floating" centrato, più visibile e moderno.
-- **Z-Index Management**: Corretta la gerarchia degli elementi per evitare sovrapposizioni errate tra header e modali.
 
 ## Note Aggiornamento v2.0.2
 - **Accessibilità**: Gestione focus avanzata nelle modali (focus trap e ripristino automatico) per una navigazione conforme agli standard.
