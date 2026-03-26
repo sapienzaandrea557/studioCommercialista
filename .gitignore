@@ -16,3 +16,10 @@ cursor_creazione_sito_web_per_commercia.md
 # Firebase debug logs
 firebase-debug.log*
 .firebase/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
