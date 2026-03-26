@@ -77,6 +77,14 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.1.1
+- **Calendly UI Fix**: Implementato layout Flexbox sulla modale Calendly per forzare l'iframe ad occupare il 100% dell'altezza disponibile. Questo elimina lo scroll interno su qualsiasi risoluzione, rendendo visibili anche i link in fondo (privacy policy).
+- **Layout Borders Fix**: Reset totale di tutti i bordi delle sezioni e applicazione selettiva del solo `border-bottom` tramite ID specifici. Questo elimina definitivamente la doppia linea tra le sezioni "Chi è" e "Perché/Servizi".
+
+## Note Aggiornamento v2.1.0
+- **Layout Consistency**: Corretta la gestione delle linee di separazione nelle sezioni "Servizi" e "Contatti" per eliminare doppie linee o separatori mancanti.
+- **Visual Polish**: Rimossa la linea di chiusura dall'ultima sezione per un raccordo più fluido con il footer.
+
 ## Note Aggiornamento v2.0.8
 - **Calendly Full-View**: Ingrandita drasticamente la modale di prenotazione (larghezza fino a 1200px, altezza fino a 1100px su mobile) per eliminare ogni scroll interno. Ora Calendly, privacy policy e link esterni sono tutti visibili a colpo d'occhio.
 - **Fix Servizi Definitivo**: Eliminata la doppia linea nella sezione Servizi forzando la rimozione di bordi ereditati tramite `!important`.
