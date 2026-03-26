@@ -1018,13 +1018,17 @@ body.modal-open {
   display: none !important;
 }
 
-/* Fix per header che buca il modale */
-.site-header {
-  z-index: 100;
+/* Fix per header che buca il modale - Nascondiamo completamente */
+body.modal-open .site-header {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
-body.modal-open .site-header {
-  z-index: 1; /* Abbassa l'header quando un modale è aperto */
+/* Evitiamo che il pulsante WhatsApp copra elementi del modale se necessario */
+body.modal-open .whatsapp-float {
+  z-index: 1; /* Sotto al modale che ha 9999 */
 }
 
 .modal-dialog {
@@ -1303,34 +1307,45 @@ textarea {
 /* WhatsApp Floating Button */
 .whatsapp-float {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   background-color: #25d366;
   color: #fff;
-  width: 60px;
-  height: 60px;
+  width: 52px; /* Ridotto da 60px */
+  height: 52px; /* Ridotto da 60px */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
   z-index: 9999;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   text-decoration: none;
 }
 
 .whatsapp-float:hover {
-  transform: scale(1.1);
+  transform: scale(1.08) translateY(-3px);
   background-color: #128c7e;
   color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.whatsapp-float svg {
+  width: 24px; /* Ridotto da 30px */
+  height: 24px;
+  display: block;
 }
 
 @media (max-width: 768px) {
   .whatsapp-float {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    right: 15px;
+    width: 48px;
+    height: 48px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .whatsapp-float svg {
+    width: 22px;
+    height: 22px;
   }
 }
 
