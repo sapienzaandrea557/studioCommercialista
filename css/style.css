@@ -766,24 +766,20 @@ h3 {
   box-shadow: var(--shadow-gold);
 }
 
-/* ——— Sections ——— */
+/* --- Sections --- */
 .section {
   padding-block: clamp(4rem, 10vh, 7.5rem);
   scroll-margin-top: 80px;
-}
-
-/* Gestione bordi sezioni per evitare duplicati */
-#chi, #perche, #metodo, #faq {
-  border-bottom: 1px solid var(--border);
-}
-
-/* Servizi ha già un bordo naturale dal layout, forziamo la rimozione di bordi extra */
-#servizi {
-  border-bottom: none !important;
   border-top: none !important;
+  border-bottom: 1px solid var(--border) !important;
 }
 
-/* ——— Sections: About ——— */
+/* Rimuove la linea di chiusura dall'ultima sezione prima del footer */
+#contatti {
+  border-bottom: none !important;
+}
+
+/* --- Sections: About --- */
 .section-head {
   margin-bottom: 2.25rem;
   max-width: 42rem;
