@@ -560,12 +560,12 @@ h3 {
 /* ——— Trust strip ——— */
 .trust-strip {
   padding: 2rem 0 3rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none !important;
 }
 .hero .trust-strip {
   margin-top: 2.5rem;
   padding-top: 2.25rem;
-  border-top: 1px solid var(--border);
+  border-top: none !important;
 }
 .trust-grid {
   display: grid;

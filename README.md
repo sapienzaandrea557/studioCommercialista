@@ -77,6 +77,15 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.1.3
+- **Borders Overlap Fix**: Individuata e rimossa la sovrapposizione tra i bordi della `trust-strip` e il fondo della sezione Home. Ora la separazione tra la Hero e la sezione "Chi è" è garantita da un'unica linea pulita, eliminando l'effetto "linea doppia".
+
+## Note Aggiornamento v2.1.2
+- **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
+- **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
+- **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.
+- **Cache-Busting v1.1.2**: Aggiornato il puntamento agli asset per forzare il refresh immediato su tutti i browser.
+
 ## Note Aggiornamento v2.1.1
 - **Calendly UI Fix**: Implementato layout Flexbox sulla modale Calendly per forzare l'iframe ad occupare il 100% dell'altezza disponibile. Questo elimina lo scroll interno su qualsiasi risoluzione, rendendo visibili anche i link in fondo (privacy policy).
 - **Layout Borders Fix**: Reset totale di tutti i bordi delle sezioni e applicazione selettiva del solo `border-bottom` tramite ID specifici. Questo elimina definitivamente la doppia linea tra le sezioni "Chi è" e "Perché/Servizi".
