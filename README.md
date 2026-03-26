@@ -77,11 +77,13 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.1.7
-- **Header & Skip-Link Fix**: Ripristinate le utility di visibilità per i pulsanti dell'header, risolvendo il bug che mostrava doppie icone su desktop. Corretto il posizionamento dello skip-link "Vai al contenuto" affinché rimanga nascosto fino al focus.
-- **Borders Bulletproofing**: Affinata la logica del sistema bordi. Ora ogni sezione ha un unico `border-bottom` controllato, eliminando ogni possibile sovrapposizione con la Home o elementi interni come la `trust-strip`.
+## Note Aggiornamento v2.1.8
+- **SEO On-Page & Meta Tags**: Ottimizzata la meta description (ora 130 caratteri) e aggiunto il tag `hreflang` per una corretta indicizzazione linguistica.
+- **Dati Strutturati (SEO Tecnica)**: Riscritto e validato lo schema JSON-LD `AccountingService`. Aggiunti campi mancanti come `priceRange`, `hasMap`, `geoCoordinates` e `addressRegion` per massimizzare la visibilità nei risultati locali di Google.
+- **Borders Overlap Fix (v2)**: Blindato ulteriormente il sistema dei bordi. Ora anche gli elementi interni (`.trust-item`) hanno il reset dei bordi per prevenire qualsiasi sovrapposizione visiva con la sezione Home.
+- **INP Optimization**: Predisposta la struttura per il caricamento differito degli script non critici.
 
-## Note Aggiornamento v2.1.6
+## Note Aggiornamento v2.1.7
 - **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
 - **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
 - **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.

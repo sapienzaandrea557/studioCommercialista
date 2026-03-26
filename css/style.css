@@ -149,8 +149,8 @@ h3 { font-size: 1.22rem; }
 /* --- Sections --- */
 .section { padding-block: clamp(4rem, 10vh, 7.5rem); scroll-margin-top: 80px; border: none !important; position: relative; }
 
-/* Reset globale bordi per tutte le sezioni */
-section, .section, #home, #chi, #perche, #servizi, #metodo, #faq, #contatti, .cta-strip, .site-footer, .trust-strip {
+/* Reset globale bordi per tutte le sezioni e componenti interni */
+section, .section, #home, #chi, #perche, #servizi, #metodo, #faq, #contatti, .cta-strip, .site-footer, .trust-strip, .trust-item {
   border-top: none !important;
   border-bottom: none !important;
 }
