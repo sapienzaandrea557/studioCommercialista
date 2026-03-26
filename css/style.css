@@ -770,13 +770,14 @@ h3 {
 .section {
   padding-block: clamp(4rem, 10vh, 7.5rem);
   scroll-margin-top: 80px;
+}
+
+/* Gestione bordi sezioni per evitare duplicati */
+#chi, #perche, #servizi, #metodo, #faq {
   border-bottom: 1px solid var(--border);
 }
 
-/* Rimuove la linea dall'ultima sezione prima del footer se necessario */
-#contatti {
-  border-bottom: none;
-}
+/* ——— Sections: About ——— */
 .section-head {
   margin-bottom: 2.25rem;
   max-width: 42rem;
@@ -1047,10 +1048,6 @@ body.modal-open {
   transform: translateY(0);
 }
 
-.modal-dialog-wide {
-  width: min(100%, 860px);
-}
-
 .modal-close {
   position: absolute;
   top: 1rem;
@@ -1068,7 +1065,7 @@ body.modal-open {
   font-size: 1.5rem;
   line-height: 1;
   transition: all 0.2s;
-  z-index: 100;
+  z-index: 10000;
   padding: 0;
 }
 
@@ -1079,10 +1076,15 @@ body.modal-open {
   transform: rotate(90deg);
 }
 
+.modal-dialog-wide {
+  width: min(100%, 1000px);
+  max-height: 95vh;
+}
+
 .cal-iframe-wrap {
   width: 100%;
-  height: 600px;
-  margin-top: 1.5rem;
+  height: 700px;
+  margin-top: 1rem;
   border-radius: 8px;
   overflow: hidden;
   background: #fff;
@@ -1094,12 +1096,22 @@ body.modal-open {
   border: none;
 }
 
-@media (max-width: 600px) {
-  .modal-dialog {
-    padding: 1.5rem 1rem;
+@media (max-width: 900px) {
+  .modal-dialog-wide {
+    width: 95%;
+    padding: 2rem 1rem;
   }
   .cal-iframe-wrap {
-    height: 450px;
+    height: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-dialog {
+    padding: 2.5rem 1rem 1.5rem;
+  }
+  .cal-iframe-wrap {
+    height: 500px;
   }
 }
 

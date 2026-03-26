@@ -77,11 +77,12 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.0.6
-- **Layout Consistency**: Corretta la gestione delle linee di separazione nelle sezioni "Servizi" e "Contatti" per eliminare doppie linee o separatori mancanti.
-- **Visual Polish**: Rimossa la linea di chiusura dall'ultima sezione per un raccordo più fluido con il footer.
+## Note Aggiornamento v2.0.7
+- **Fix Servizi**: Risolto definitivamente il problema delle linee di separazione duplicate nella sezione Servizi tramite una gestione mirata degli ID.
+- **Calendly UX**: Ottimizzata l'altezza della modale Calendly (ora 700px su desktop) per permettere la visualizzazione completa del calendario senza dover scrollare internamente.
+- **Responsività Modali**: Migliorato il comportamento delle modali su tablet e smartphone per garantire che i contenuti siano sempre leggibili e centrati.
 
-## Note Aggiornamento v2.0.5
+## Note Aggiornamento v2.0.6
 - **Hero Section**: Raffinata l'estetica della sezione Home con Glassmorphism avanzato sulla card e titoli più impattanti.
 - **Typography**: Migliorata la gerarchia visiva del titolo principale (H1) per una leggibilità superiore su schermi 4K e Retina.
 
