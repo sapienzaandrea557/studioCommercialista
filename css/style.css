@@ -168,7 +168,13 @@ section:target {
   border-bottom: none !important;
 }
 
-#home, #chi, #perche, #servizi, #metodo, #faq, #cta, #contatti {
+/* 
+   FIX DEFINITIVO LINEA DOPPIA:
+   Rimuoviamo il border-bottom da #home (Hero).
+   Usiamo solo border-bottom per le sezioni successive.
+   Questo elimina la sovrapposizione tra la fine della Home e l'inizio del Chi è.
+*/
+#chi, #perche, #servizi, #metodo, #faq, #cta, #contatti {
   border-bottom: 1px solid var(--border) !important;
 }
 

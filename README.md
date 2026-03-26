@@ -77,12 +77,11 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.2.1
-- **Off-Page SEO Boost**: Aggiunta una nuova sezione "Risorse e Collegamenti Utili" con link in uscita verso siti governativi e istituzionali ad alta autorità (Agenzia delle Entrate, INPS, Registro Imprese, CNDCEC). Questo migliora il punteggio Off-Page e la pertinenza semantica del sito.
-- **Anchor Navigation Fix**: Risolto il bug visivo delle linee doppie che apparivano cliccando sui link del menu (Servizi, Contatti, ecc.). Implementata una regola `:target` nel CSS per neutralizzare i bordi in eccesso durante lo scorrimento automatico.
-- **On-Page SEO Shield**: Blindata l'ottimizzazione On-Page al 100%, mantenendo la meta-description ottimizzata e i dati strutturati validati.
+## Note Aggiornamento v2.2.2
+- **Ultimate Border Cleanup**: Risolto il bug della linea doppia tra Home e sezioni successive. Rimosso il `border-bottom` dalla sezione Hero (`#home`) per eliminare la sovrapposizione con i bordi degli elementi sottostanti. Ora la transizione è garantita da un'unica linea pulita gestita dalle sezioni di destinazione.
+- **Agenda Config Stabled**: Blindata e confermata la configurazione dell'agenda "Full-Stage" (v2.1.4) che garantisce la massima visibilità senza scroll.
 
-## Note Aggiornamento v2.2.0
+## Note Aggiornamento v2.2.1
 - **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
 - **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
 - **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.
