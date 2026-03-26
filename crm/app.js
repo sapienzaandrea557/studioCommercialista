@@ -491,6 +491,16 @@ function attachLists() {
   });
 }
 
+// --- GESTIONE MODALI ---
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.hidden = true;
+    modal.style.display = "none";
+  }
+}
+
 // Variabili per gestire la cancellazione con modale custom
 let deleteContext = null;
 
@@ -502,20 +512,20 @@ window.deleteDocById = (coll, id, isAppt = false, cliente = "", email = "", tele
   const text = document.getElementById("delete-confirm-text");
   const btnWA = document.getElementById("btn-do-delete-wa");
 
-  text.textContent = `Sei sicuro di voler eliminare ${cliente || 'questa voce'}?`;
+  if (text) text.textContent = `Sei sicuro di voler eliminare ${cliente || 'questa voce'}?`;
   
   // Mostra il bottone WhatsApp solo se c'è un telefono
   const hasTel = telefono && telefono !== "—" && !telefono.includes("Controlla email");
-  btnWA.style.display = hasTel ? "flex" : "none";
+  if (btnWA) btnWA.style.display = hasTel ? "flex" : "none";
 
-  modal.hidden = false;
-  modal.style.display = "flex";
+  if (modal) {
+    modal.hidden = false;
+    modal.style.display = "flex";
+  }
 };
 
-document.getElementById("btn-cancel-delete").addEventListener("click", () => {
-  const modal = document.getElementById("modal-delete-confirm");
-  modal.hidden = true;
-  modal.style.display = "none";
+document.getElementById("btn-cancel-delete")?.addEventListener("click", () => {
+  closeModal("modal-delete-confirm");
   deleteContext = null;
 });
 
@@ -525,7 +535,7 @@ async function executeDeletion(waNotify) {
   const { coll, id, isAppt, cliente, email, telefono, data, ora } = deleteContext;
   
   // Chiudi modale subito
-  document.getElementById("btn-cancel-delete").click();
+  closeModal("modal-delete-confirm");
 
   try {
     await deleteDoc(doc(db, coll, id));
@@ -545,37 +555,45 @@ async function executeDeletion(waNotify) {
   }
 }
 
-document.getElementById("btn-do-delete").addEventListener("click", () => executeDeletion(false));
-document.getElementById("btn-do-delete-wa").addEventListener("click", () => executeDeletion(true));
+document.getElementById("btn-do-delete")?.addEventListener("click", () => executeDeletion(false));
+document.getElementById("btn-do-delete-wa")?.addEventListener("click", () => executeDeletion(true));
 
 window.openEditAppt = (id, data, ora, cliente, note, email, telefono) => {
-  document.getElementById("edit-appt-id").value = id;
-  document.getElementById("edit-appt-data").value = data || "";
-  document.getElementById("edit-appt-ora").value = ora || "";
-  document.getElementById("edit-appt-cliente").value = cliente || "";
-  document.getElementById("edit-appt-email").value = email || "";
-  document.getElementById("edit-appt-telefono").value = telefono || "";
-  document.getElementById("edit-appt-note").value = note || "";
+  const fields = {
+    "edit-appt-id": id,
+    "edit-appt-data": data || "",
+    "edit-appt-ora": ora || "",
+    "edit-appt-cliente": cliente || "",
+    "edit-appt-email": email || "",
+    "edit-appt-telefono": telefono || "",
+    "edit-appt-note": note || ""
+  };
+  
+  for (const [id, val] of Object.entries(fields)) {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  }
+
   const modal = document.getElementById("modal-edit-appt");
-  modal.hidden = false;
-  modal.style.display = "flex";
+  if (modal) {
+    modal.hidden = false;
+    modal.style.display = "flex";
+  }
 };
 
-document.getElementById("btn-close-edit").addEventListener("click", () => {
-  const modal = document.getElementById("modal-edit-appt");
-  modal.hidden = true;
-  modal.style.display = "none";
+document.getElementById("btn-close-edit")?.addEventListener("click", () => {
+  closeModal("modal-edit-appt");
 });
 
-document.getElementById("form-edit-appointment").addEventListener("submit", async (e) => {
+document.getElementById("form-edit-appointment")?.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const id = document.getElementById("edit-appt-id").value;
-  const data = document.getElementById("edit-appt-data").value;
-  const ora = document.getElementById("edit-appt-ora").value;
-  const cliente = document.getElementById("edit-appt-cliente").value;
-  const email = document.getElementById("edit-appt-email").value;
-  const telefono = document.getElementById("edit-appt-telefono").value;
-  const note = document.getElementById("edit-appt-note").value;
+  const id = document.getElementById("edit-appt-id")?.value;
+  const data = document.getElementById("edit-appt-data")?.value;
+  const ora = document.getElementById("edit-appt-ora")?.value;
+  const cliente = document.getElementById("edit-appt-cliente")?.value;
+  const email = document.getElementById("edit-appt-email")?.value;
+  const telefono = document.getElementById("edit-appt-telefono")?.value;
+  const note = document.getElementById("edit-appt-note")?.value;
 
   try {
     await updateDoc(doc(db, "appointments", id), {
@@ -598,7 +616,7 @@ document.getElementById("form-edit-appointment").addEventListener("submit", asyn
       const waUrl = `https://wa.me/${telefono.replace(/\D/g, "")}?text=${encodeURIComponent(msgWA)}`;
       window.open(waUrl, "_blank");
     }
-    document.getElementById("btn-close-edit").click();
+    closeModal("modal-edit-appt");
   } catch (e) {
     console.error("Errore aggiornamento:", e);
     alert("Errore durante l'aggiornamento: " + e.message);

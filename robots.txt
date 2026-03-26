@@ -7,5 +7,6 @@ Disallow: /backup_dati.md
 Disallow: /*.json$
 Disallow: /*.config.js$
 
+Sitemap: https://commercialista-roma.it/sitemap.xml
+
 # Crawl-delay: 10
-Sitemap: https://commercialista-roma.pages.dev/sitemap.xml
