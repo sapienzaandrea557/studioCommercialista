@@ -159,23 +159,20 @@ section, .section, main, header, footer, div,
   border-bottom: none !important;
 }
 
-/* Sistema unico: solo bordi di fondo sulle sezioni principali */
+/* 
+   SISTEMA BORDER-TOP:
+   Ogni sezione (tranne la Hero) ha un bordo superiore.
+   Quando si naviga tramite ancora (:target), nascondiamo il bordo della sezione
+   perché viene sostituito visivamente dal bordo inferiore dell'header sticky.
+*/
 .site-header { border-bottom: 1px solid var(--border) !important; }
 
-/* Rimuoviamo ogni bordo dalle sezioni quando vengono puntate da un'ancora per evitare bug visivi */
-section:target {
-  border-top: none !important;
-  border-bottom: none !important;
+#chi, #perche, #servizi, #metodo, #faq, #cta, #contatti, .site-footer {
+  border-top: 1px solid var(--border) !important;
 }
 
-/* 
-   FIX DEFINITIVO LINEA DOPPIA:
-   Rimuoviamo il border-bottom da #home (Hero).
-   Usiamo solo border-bottom per le sezioni successive.
-   Questo elimina la sovrapposizione tra la fine della Home e l'inizio del Chi è.
-*/
-#chi, #perche, #servizi, #metodo, #faq, #cta, #contatti {
-  border-bottom: 1px solid var(--border) !important;
+section:target {
+  border-top-color: transparent !important;
 }
 
 /* La site-header ha già il suo border-bottom. */

@@ -77,11 +77,11 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.2.2
-- **Ultimate Border Cleanup**: Risolto il bug della linea doppia tra Home e sezioni successive. Rimosso il `border-bottom` dalla sezione Hero (`#home`) per eliminare la sovrapposizione con i bordi degli elementi sottostanti. Ora la transizione è garantita da un'unica linea pulita gestita dalle sezioni di destinazione.
-- **Agenda Config Stabled**: Blindata e confermata la configurazione dell'agenda "Full-Stage" (v2.1.4) che garantisce la massima visibilità senza scroll.
+## Note Aggiornamento v2.2.3
+- **Smart Border-Top System**: Risolto il bug della "linea doppia" durante la navigazione tramite menu. Il sistema è stato migrato da `border-bottom` a `border-top` con una logica intelligente: quando una sezione viene raggiunta tramite link (:target), il suo bordo superiore viene nascosto per non sovrapporsi a quello dell'header, garantendo una separazione millimetrica e sempre singola.
+- **Anchor Logic Fix**: Eliminata ogni interferenza visiva durante il salto tra le sezioni del sito.
 
-## Note Aggiornamento v2.2.1
+## Note Aggiornamento v2.2.2
 - **Refactoring Totale CSS**: Riscritto l'intero file `style.css` eliminando oltre 1200 righe di codice duplicato e conflittuale. Il file è ora leggero (300 righe), organizzato e privo di bug di eredità.
 - **Fix Definitivo Bordi**: Implementata logica `border-top` selettiva che garantisce una singola linea di separazione tra le sezioni, eliminando definitivamente la "linea doppia" o "strana" segnalata.
 - **Calendly Ultra-Optimization**: La modale di prenotazione ora utilizza un layout Flexbox avanzato con altezza dinamica al 96% della finestra. L'header e il footer della modale rimangono fissi mentre l'agenda occupa tutto lo spazio centrale, eliminando ogni scrollbar interna non necessaria.
