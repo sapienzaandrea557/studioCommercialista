@@ -21,6 +21,8 @@
     "@id": "https://commercialista-roma-jet.vercel.app",
     "url": "https://commercialista-roma-jet.vercel.app",
     "telephone": "+393738513104",
+    "priceRange": "$$",
+    "description": "Dottore Commercialista e Revisore Legale a Roma Trastevere. Specializzato in regime forfettario, contabilità startup, revisione bilanci e consulenza fiscale per PMI.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Via Napoleone Parboni 12",
@@ -34,6 +36,7 @@
       "latitude": 41.8841,
       "longitude": 12.4683
     },
+    "hasMap": "https://www.google.com/maps?cid=YOUR_CID_HERE",
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [
@@ -46,6 +49,16 @@
       "opens": "09:00",
       "closes": "18:00"
     },
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 41.8841,
+        "longitude": 12.4683
+      },
+      "geoRadius": "5000"
+    },
+    "knowsAbout": ["Fisco", "Tasse", "Contabilità", "Startup", "Revisione Legale", "IVA"],
     "sameAs": [
       "https://www.linkedin.com/in/andrea-sapienza-72b1a7b4/"
     ]
@@ -127,7 +140,7 @@
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
   </style>
 
-  <link rel="stylesheet" href="css/style.css?v=1.2.2" fetchpriority="high">
+  <link rel="stylesheet" href="css/style.css?v=1.2.3" fetchpriority="high">
   
   <link rel="icon" type="image/svg+xml" href="img/logo.svg?v=20260330" />
   <link rel="icon" type="image/svg+xml" href="img/logo.svg?v=20260330_v2" />
@@ -297,10 +310,10 @@
               </div>
             </div>
             <div class="about-visual">
-              <div class="abstract-shape">
-                <span class="initials">AS</span>
+                <div class="abstract-shape">
+                  <span class="initials">AS</span>
+                </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -559,8 +572,12 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-info">
-        <p>© <span id="year"></span> Studio Andrea Sapienza — Dottore Commercialista e Revisore Legale a Roma</p>
-        <p class="small muted">Via Napoleone Parboni 12, 00153 Roma (Trastevere)</p>
+        <p class="small muted" style="max-width: 800px; margin-inline: auto; line-height: 1.4; opacity: 0.6;">
+          Studio Andrea Sapienza: Il tuo punto di riferimento per la consulenza fiscale e societaria a Roma. Specializzati in regime forfettario, gestione Partita IVA, revisione legale dei conti e bilanci per startup e PMI nei quartieri di Trastevere, Testaccio e Monteverde.
+        </p>
+        <p class="small muted" style="margin-top: 1.5rem;">
+          © 2026 Studio Andrea Sapienza — Dottore Commercialista e Revisore Legale a Roma — Via Napoleone Parboni 12, 00153 Roma
+        </p>
       </div>
       <div class="footer-links">
         <a href="privacy.html" title="Apri Privacy Policy">Privacy Policy</a>
