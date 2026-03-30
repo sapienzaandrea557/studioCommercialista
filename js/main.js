@@ -111,10 +111,10 @@
     }
   };
 
-  if (window.requestIdleCallback) {
-    window.requestIdleCallback(init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
   } else {
-    setTimeout(init, 100);
+    init();
   }
 
   // Logica Modali (fuori da init per disponibilità immediata ai pulsanti)
