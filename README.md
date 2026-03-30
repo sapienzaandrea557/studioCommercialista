@@ -77,6 +77,11 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.3.2
+- **Security & Headers**: Ottimizzati gli header di sicurezza in `vercel.json` con l'aggiunta di `Referrer-Policy` e `Permissions-Policy`. Cambiato `X-Frame-Options` in `SAMEORIGIN` per una migliore compatibilità con i widget interni.
+- **Maintenance**: Eseguito un controllo generale della struttura del sito. Mantenuti i file temporanei (`_temp`) come richiesto dall'utente per backup/referenza.
+- **Final Consolidation**: Verificata l'integrità di tutti i link e delle connessioni Firebase/Calendly.
+
 ## Note Aggiornamento v2.3.1
 - **Bot Optimization**: Implementato un controllo dello User-Agent in `js/booking-availability.js` per evitare che Firebase provi a inizializzare connessioni XHR (Firestore Listeners) quando la pagina viene scansionata da Googlebot o altri crawler. Questo risolve gli errori "XHR Altro errore" in Search Console.
 - **Improved Crawlability**: Assicurato che i bot vedano il contenuto statico senza interferenze da script di monitoraggio in tempo reale non necessari per l'indicizzazione.
