@@ -100,23 +100,23 @@
 
   /* Nav attiva in base alla sezione */
   const navLinks = document.querySelectorAll(".nav a[data-section]");
-  const sectionIds = new Set(Array.from(navLinks).map((a) => a.getAttribute("data-section")));
-  const sections = Array.from(document.querySelectorAll("main section[id]")).filter((s) => sectionIds.has(s.id));
-  navLinks.forEach((a) => a.classList.remove("is-active"));
-  document.querySelector('.nav a[data-section="home"]')?.classList.add("is-active");
+  const sections = Array.from(document.querySelectorAll("main section[id]")).filter(s => {
+    return Array.from(navLinks).some(a => a.getAttribute("data-section") === s.id);
+  });
 
   if (navLinks.length && sections.length && "IntersectionObserver" in window) {
     const navIo = new IntersectionObserver(
       (entries) => {
         entries.forEach((en) => {
-          if (!en.isIntersecting) return;
-          const id = en.target.id;
-          navLinks.forEach((a) => {
-            a.classList.toggle("is-active", a.getAttribute("data-section") === id);
-          });
+          if (en.isIntersecting) {
+            const id = en.target.id;
+            navLinks.forEach((a) => {
+              a.classList.toggle("is-active", a.getAttribute("data-section") === id);
+            });
+          }
         });
       },
-      { rootMargin: "-20% 0px -55% 0px", threshold: 0 }
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
     );
     sections.forEach((sec) => navIo.observe(sec));
   }
