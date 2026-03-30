@@ -77,6 +77,9 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.2.6
+- **AI Integration**: Configurato l'agente AI per il salvataggio automatico delle modifiche sul repository GitHub.
+
 ## Note Aggiornamento v2.2.5
 - **Sitemap Name Change**: Rinominata `sitemap.xml` in `sitemap-studio.xml` e aggiornato `robots.txt`. Questa modifica serve a forzare Google Search Console ad effettuare un nuovo fetch del file, risolvendo l'errore "Impossibile recuperare".
 
