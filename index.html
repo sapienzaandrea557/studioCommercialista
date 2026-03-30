@@ -59,24 +59,26 @@
     html { scroll-behavior: smooth; overflow-x: hidden; background: #fdfdfd; }
     body { margin: 0; font-family: var(--font-body); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
     .container { width: min(100% - 2rem, 1200px); margin-inline: auto; position: relative; }
-    .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; height: 80px; display: flex; align-items: center; background: transparent; transition: background 0.3s; }
+    .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; height: 80px; display: flex; align-items: center; background: #ffffff !important; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
     .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-    .logo { font-family: var(--font-display); font-size: 1.8rem; text-decoration: none; color: var(--bg-dark); width: 250px; height: 40px; display: flex; align-items: center; }
+    .logo { font-family: var(--font-display); font-size: 1.8rem; text-decoration: none; color: var(--bg-dark); width: 250px; height: 40px; display: flex; align-items: center; flex-shrink: 0; }
     .logo span { color: var(--gold); font-weight: 700; margin-left: 0.4rem; }
     .nav { display: none; }
-    @media (min-width: 900px) { .nav { display: flex; gap: 1.5rem; } }
-    .hero { min-height: 85vh; display: flex; align-items: center; padding-top: 80px; position: relative; }
-    h1 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 2rem; color: var(--bg-dark); }
-    .btn { display: inline-flex; padding: 1rem 2rem; border-radius: 100px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-decoration: none; align-items: center; justify-content: center; font-size: 0.8rem; border: none; }
-    .btn-primary { background: var(--bg-dark); color: #fff; }
-    .btn-ghost { border: 1px solid var(--bg-dark); color: var(--bg-dark); }
-    .aurora-bg { position: fixed; inset: 0; z-index: -1; background: #fdfdfd; }
-    /* CLS Fix: reserve space for sections */
-    .section { min-height: 400px; contain-intrinsic-size: 1px 400px; content-visibility: auto; }
-    /* Accessibility Fix: high contrast */
-    .section-dark-island { background: #0a1128; color: #fff; padding: 4rem 2rem; border-radius: 40px; margin-inline: 1rem; }
-    .section-dark-island h2 { color: #b8953d !important; background: none !important; -webkit-text-fill-color: initial !important; }
-    .section-dark-island .lead { color: #ffffff !important; opacity: 1 !important; }
+    @media (min-width: 1024px) { .nav { display: flex; gap: 1.5rem; } }
+    .nav a { text-decoration: none; color: var(--bg-dark); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .hero { min-height: 80vh; display: flex; align-items: center; padding-top: 80px; position: relative; background: #fdfdfd; }
+    h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 1.1; margin-bottom: 1.5rem; color: var(--bg-dark); letter-spacing: -0.02em; }
+    .btn { display: inline-flex; padding: 1rem 2rem; border-radius: 100px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-decoration: none; align-items: center; justify-content: center; font-size: 0.8rem; border: none; transition: transform 0.2s; }
+    .btn-primary { background: var(--bg-dark); color: #fff !important; }
+    .btn-ghost { border: 2px solid var(--bg-dark); color: var(--bg-dark); background: transparent; }
+    /* CLS & TBT Optimization */
+    .reveal { opacity: 1 !important; transform: none !important; } /* Disable animations for max perf */
+    .section { min-height: 500px; contain: content; }
+    /* Accessibility */
+    .section-dark-island { background: #0a1128; color: #fff; padding: 5rem 2rem; border-radius: 40px; }
+    .section-dark-island h2 { color: #ffffff !important; background: none !important; -webkit-text-fill-color: initial !important; }
+    .section-dark-island .lead { color: #ffffff !important; opacity: 1 !important; font-weight: 500; }
+    .muted { color: #2d3748 !important; } /* Higher contrast for muted text */
   </style>
 
   <link rel="stylesheet" href="css/style.css?v=1.2.1" media="print" onload="this.media='all'">
