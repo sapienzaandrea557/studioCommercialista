@@ -1,11 +1,11 @@
 User-agent: *
 Allow: /
 Allow: /crm/
+Allow: /js/
+Allow: /css/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /backup_dati.md
-Disallow: /*.json$
-Disallow: /*.config.js$
 
 Sitemap: https://commercialista-roma-jet.vercel.app/sitemap-studio.xml
 

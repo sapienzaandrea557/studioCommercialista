@@ -77,6 +77,11 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.3.0
+- **Google Search Console Fix**: Risolti i blocchi di scansione nel file `robots.txt` che impedivano a Googlebot di accedere a script necessari per il rendering (`crm/firebase-config.js`).
+- **Resource Accessibility**: Sbloccati percorsi critici (`/js/`, `/css/`) e rimosse restrizioni su file `.json` e `.config.js` per migliorare la scansione.
+- **Font Rendering Fix**: Ripristinato un caricamento dei font più standard per evitare "Other errors" segnalati da Search Console durante la scansione della pagina.
+
 ## Note Aggiornamento v2.2.9
 - **Performance Optimization (Speed Recovery)**: Ripristinate le performance al 100% riducendo il tempo di blocco (TBT) e migliorando l'LCP.
 - **Font Optimization**: Rimosso il preload dei font che causava ritardi nel rendering del contenuto principale.
