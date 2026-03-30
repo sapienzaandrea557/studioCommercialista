@@ -419,6 +419,8 @@ h3 { font-size: 1.8rem; }
   letter-spacing: -0.03em;
   white-space: nowrap;
   flex-shrink: 0;
+  min-width: 250px; /* CLS fix: riserva spazio per il logo */
+  min-height: 40px; /* CLS fix: riserva altezza */
 }
 .logo span { color: var(--gold); font-weight: 700; }
 
