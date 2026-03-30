@@ -185,11 +185,12 @@ body::before {
 /* Typography Masterpiece */
 h1 { 
   font-size: clamp(3.5rem, 9vw, 6.5rem); 
-  background: linear-gradient(135deg, var(--bg-dark), var(--muted));
+  background: linear-gradient(135deg, var(--bg-dark), var(--gold-dim));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.04em; 
   line-height: 1.05;
+  margin-bottom: 2rem;
 }
 
 h2 {
@@ -203,6 +204,8 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #fff; /* Fallback */
+  -webkit-background-clip: initial; /* Fix contrast issue where needed */
+  -webkit-text-fill-color: initial;
 }
 
 .section-dark-island p.lead {
@@ -357,6 +360,7 @@ h3 { font-size: 1.8rem; }
   box-shadow: 0 10px 30px rgba(10, 17, 40, 0.05);
   position: relative;
   overflow: hidden;
+  user-select: none;
 }
 
 .btn::before {
@@ -366,7 +370,7 @@ h3 { font-size: 1.8rem; }
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: 0.5s;
 }
 
@@ -374,14 +378,19 @@ h3 { font-size: 1.8rem; }
   left: 100%;
 }
 
+.btn:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
 .btn:hover { 
   transform: translateY(-5px); 
-  box-shadow: 0 20px 40px rgba(10, 17, 40, 0.12); 
+  box-shadow: 0 20px 40px rgba(10, 17, 40, 0.15); 
   border-color: var(--gold); 
 }
 .btn-primary { background: var(--bg-dark); color: #fff; border: none; }
 .btn-primary:hover { background: var(--gold); color: var(--bg-dark); }
 .btn-ghost { background: transparent; border-color: var(--bg-dark); }
+.btn-ghost:hover { background: var(--bg-dark); color: #fff; }
 .btn-sm { padding: 0.8rem 1.8rem; font-size: 0.75rem; }
 
 /* --- Header --- */
