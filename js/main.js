@@ -5,7 +5,9 @@
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-    // Scroll fluido semplificato
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Scroll fluido per i link interni
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
         const id = this.getAttribute("href");
@@ -13,17 +15,68 @@
         const target = document.querySelector(id);
         if (target) {
           e.preventDefault();
-          target.scrollIntoView({ behavior: "auto", block: "start" });
+          target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
         }
       });
     });
 
     const header = document.querySelector(".site-header");
     if (header) {
+      let ticking = false;
       const onScroll = () => {
-        header.classList.toggle("is-scrolled", window.scrollY > 20);
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const isScrolled = window.scrollY > 20;
+            header.classList.toggle("is-scrolled", isScrolled);
+            ticking = false;
+          });
+          ticking = true;
+        }
       };
+      onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
+    }
+
+    // Reveal animations on scroll
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add("is-visible");
+              io.unobserve(en.target);
+            }
+          });
+        },
+        { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
+      );
+      revealEls.forEach((el) => io.observe(el));
+    } else {
+      document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+    }
+
+    // Active nav link on scroll
+    const navLinks = document.querySelectorAll(".nav a[data-section]");
+    const sections = Array.from(document.querySelectorAll("main section[id]")).filter(s => {
+      return Array.from(navLinks).some(a => a.getAttribute("data-section") === s.id);
+    });
+
+    if (navLinks.length && sections.length && "IntersectionObserver" in window) {
+      const navIo = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              const id = en.target.id;
+              navLinks.forEach((a) => {
+                a.classList.toggle("is-active", a.getAttribute("data-section") === id);
+              });
+            }
+          });
+        },
+        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+      );
+      sections.forEach((sec) => navIo.observe(sec));
     }
 
     /* ——— Mobile Menu ——— */
@@ -38,11 +91,10 @@
     }
   };
 
-  // Caricamento ultra-differito
-  if (document.readyState === "complete") {
-    setTimeout(init, 500);
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(init);
   } else {
-    window.addEventListener("load", () => setTimeout(init, 500));
+    setTimeout(init, 100);
   }
 
   // Logica Modali (fuori da init per disponibilità immediata ai pulsanti)
