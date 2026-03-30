@@ -45,6 +45,9 @@ html {
   font-size: clamp(14px, 1vw + 10px, 18px); /* Fluid base font size */
 }
 
+/* Hide sections on load to prevent flash */
+.section:not(.is-active) { display: none; }
+
 body { 
   margin: 0; 
   padding: 0;
@@ -688,22 +691,58 @@ h3 { font-size: 1.4rem; }
 .service-card p.muted { color: var(--text); font-weight: 400; line-height: 1.5; font-size: 0.9rem; }
 .section-dark-island .service-card p.muted { color: rgba(255, 255, 255, 0.9) !important; opacity: 1; }
 
+/* Section Logic - Hidden by default except home */
+.section { 
+  display: none; 
+  opacity: 0;
+  padding-block: clamp(4rem, 10vh, 8rem);
+  min-height: 80vh;
+  transition: opacity 0.4s var(--ease-wow), transform 0.4s var(--ease-wow);
+  transform: translateY(10px);
+}
+
+.section.is-active { 
+  display: block; 
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Service Cards - Full Clickable & No Arrow */
+.service-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  padding: 2.5rem;
+  transition: all 0.4s var(--ease-wow);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+}
+
 .service-card:hover { 
   transform: translateY(-8px); 
   border-color: var(--gold); 
   box-shadow: 0 20px 40px rgba(10, 17, 40, 0.1);
+  background: rgba(255, 255, 255, 0.9);
 }
 
-.service-card h3::after {
-  content: " →";
-  opacity: 0;
-  transition: 0.3s;
-  color: var(--gold);
+.service-card h3::after { display: none !important; } /* Removed arrow */
+
+.section-dark-island .service-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
-.service-card:hover h3::after {
-  opacity: 1;
-  padding-left: 0.5rem;
+.section-dark-island .service-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--gold);
 }
 
 /* About WOW */
