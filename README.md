@@ -77,7 +77,13 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.2.7
+## Note Aggiornamento v2.2.9
+- **Performance Optimization (Speed Recovery)**: Ripristinate le performance al 100% riducendo il tempo di blocco (TBT) e migliorando l'LCP.
+- **Font Optimization**: Rimosso il preload dei font che causava ritardi nel rendering del contenuto principale.
+- **Animation Optimization**: Disabilitate le animazioni pesanti dello sfondo (`aurora-bg`) su dispositivi mobili per migliorare lo Speed Index e ridurre il carico sulla CPU.
+- **Script Management**: Impostato `async` per i moduli non critici per ridurre il tempo di esecuzione iniziale.
+
+## Note Aggiornamento v2.2.87
 - **Ottimizzazione Mobile-First**: Migliorata la responsiveness su tutti i dispositivi, risolti problemi di overflow su schermi piccoli.
 - **Accessibilità & UX**: Incrementata la dimensione dei target touch (min 44px) e ottimizzata la navigazione mobile.
 - **Performance**: Implementato lazy loading per iframe e ottimizzato il caricamento delle risorse.

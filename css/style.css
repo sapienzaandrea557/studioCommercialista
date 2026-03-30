@@ -142,10 +142,12 @@ body::before {
 }
 
 @keyframes aurora-mesh {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate(15%, 10%) scale(1.2) rotate(45deg); }
-  66% { transform: translate(-5%, 20%) scale(0.9) rotate(-30deg); }
-  100% { transform: translate(5%, -5%) scale(1.1) rotate(15deg); }
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5%, 5%) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+  .aurora-blob { animation: none !important; opacity: 0.2; }
 }
 
 /* Glassmorphism Floating Upgrade */
