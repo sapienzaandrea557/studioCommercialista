@@ -77,6 +77,9 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.3.3
+- **SEO Keywords Update**: Aggiunte le keyword `andrea commercialista roma` e `sapienza commercialista roma` nei meta tag per migliorare il posizionamento sui motori di ricerca per ricerche specifiche sul nome.
+
 ## Note Aggiornamento v2.3.2
 - **Security & Headers**: Ottimizzati gli header di sicurezza in `vercel.json` con l'aggiunta di `Referrer-Policy` e `Permissions-Policy`. Cambiato `X-Frame-Options` in `SAMEORIGIN` per una migliore compatibilità con i widget interni.
 - **Maintenance**: Eseguito un controllo generale della struttura del sito. Mantenuti i file temporanei (`_temp`) come richiesto dall'utente per backup/referenza.
