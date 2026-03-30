@@ -17,8 +17,10 @@
       
       sections.forEach(section => {
         if (section.id === id) {
-          section.classList.add("is-active");
           section.style.display = "block";
+          // Trigger reflow for transition
+          section.offsetHeight; 
+          section.classList.add("is-active");
           found = true;
         } else {
           section.classList.remove("is-active");
