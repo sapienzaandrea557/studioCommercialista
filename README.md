@@ -77,7 +77,11 @@ service cloud.firestore {
 }
 ```
 
-## Note Aggiornamento v2.3.3
+## Note Aggiornamento v2.3.5
+- **Icon Fix (Favicon)**: Risolto il problema dell'icona mancante nella scheda del browser. Ho forzato l'uso del file `img/logo.svg` come favicon e apple-touch-icon, aggiungendo un parametro di versione (`?v=20260330`) per bypassare la cache del browser.
+- **Cross-Device Compatibility**: Verificata la compatibilità dell'icona per Android, iOS e PC.
+
+## Note Aggiornamento v2.3.43
 - **SEO Keywords Update**: Aggiunte le keyword `andrea commercialista roma` e `sapienza commercialista roma` nei meta tag per migliorare il posizionamento sui motori di ricerca per ricerche specifiche sul nome.
 
 ## Note Aggiornamento v2.3.2
