@@ -30,8 +30,15 @@
 
   const header = document.querySelector(".site-header");
   if (header) {
+    let ticking = false;
     const onScroll = () => {
-      header.classList.toggle("is-scrolled", window.scrollY > 24);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          header.classList.toggle("is-scrolled", window.scrollY > 24);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
