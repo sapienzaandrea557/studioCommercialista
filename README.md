@@ -77,6 +77,10 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.3.1
+- **Bot Optimization**: Implementato un controllo dello User-Agent in `js/booking-availability.js` per evitare che Firebase provi a inizializzare connessioni XHR (Firestore Listeners) quando la pagina viene scansionata da Googlebot o altri crawler. Questo risolve gli errori "XHR Altro errore" in Search Console.
+- **Improved Crawlability**: Assicurato che i bot vedano il contenuto statico senza interferenze da script di monitoraggio in tempo reale non necessari per l'indicizzazione.
+
 ## Note Aggiornamento v2.3.0
 - **Google Search Console Fix**: Risolti i blocchi di scansione nel file `robots.txt` che impedivano a Googlebot di accedere a script necessari per il rendering (`crm/firebase-config.js`).
 - **Resource Accessibility**: Sbloccati percorsi critici (`/js/`, `/css/`) e rimosse restrizioni su file `.json` e `.config.js` per migliorare la scansione.
