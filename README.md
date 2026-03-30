@@ -77,6 +77,12 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.2.4
+- **Eliminazione Tag 'section' Annidati**: Convertiti i tag `<section>` interni (come quello nelle Risorse Utili della Hero) in `<div>` per evitare l'ereditarietà di bordi globali e pulizia semantica.
+- **Perfezionamento Smart Border (v1.2.0)**: Sincronizzato lo `scroll-margin-top` (4.4rem) con l'altezza effettiva dell'header sticky quando compresso (4.5rem). Questo assicura che il bordo della sezione sia perfettamente coperto dall'header durante la navigazione, eliminando la "doppia linea" millimetrica.
+- **Cache-Busting Globale**: Incrementata la versione degli asset a `v1.2.0` in tutte le pagine (`index.html`, `privacy.html`, `cookie.html`) per forzare l'aggiornamento immediato del design su tutti i client.
+- **Z-Index Fix**: Aggiunto `z-index` alle card della Hero per prevenire sovrapposizioni visive con il sistema di bordi.
+
 ## Note Aggiornamento v2.2.3
 - **Smart Border-Top System**: Risolto il bug della "linea doppia" durante la navigazione tramite menu. Il sistema è stato migrato da `border-bottom` a `border-top` con una logica intelligente: quando una sezione viene raggiunta tramite link (:target), il suo bordo superiore viene nascosto per non sovrapporsi a quello dell'header, garantendo una separazione millimetrica e sempre singola.
 - **Anchor Logic Fix**: Eliminata ogni interferenza visiva durante il salto tra le sezioni del sito.
