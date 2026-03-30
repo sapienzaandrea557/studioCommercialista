@@ -14,8 +14,6 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://calendly.com">
-  <link rel="preconnect" href="https://assets.calendly.com">
   
   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/sourcesans3/v19/nwpStKy2OAdR1K-IwhWudF-R3w8aZQ.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2" />
@@ -37,30 +35,33 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Andrea Sapienza | Commercialista a Roma" />
-  <meta name="twitter:description" content="Consulenza fiscale e revisione legale a Roma. Professionalit├á e chiarezza per il tuo business." />
+  <meta name="twitter:description" content="Consulenza fiscale e revisione legale a Roma. Professionalità e chiarezza per il tuo business." />
   <meta name="twitter:image" content="https://commercialista-roma-jet.vercel.app/img/logo.svg" /> 
 
   <!-- Critical CSS Inline -->
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-dark: #0a1128;
-      --text: #0a1128;
-      --gold: #b8953d;
+      --bg: #ffffff; --bg-dark: #0a1128; --text: #0a1128; --gold: #b8953d;
       --font-body: "Source Sans 3", system-ui, sans-serif;
       --font-display: "Cormorant Garamond", Georgia, serif;
       --ease-wow: cubic-bezier(0.8, 0, 0.2, 1);
     }
-    html { scroll-behavior: smooth; overflow-x: hidden; background: #fdfdfd; margin: 0; padding: 0; }
-    body { margin: 0; padding: 0; font-family: var(--font-body); background: transparent; color: var(--text); line-height: 1.7; font-size: 1.05rem; -webkit-font-smoothing: antialiased; }
-    .site-header { position: fixed; top: 0; width: 100%; z-index: 1000; transition: all 0.6s var(--ease-wow); padding-block: 1.5rem; background: transparent; }
-    .container { position: relative; z-index: 5; width: min(100% - 2rem, 1200px); margin-inline: auto; }
-    .hero { position: relative; min-height: 80vh; display: flex; align-items: center; padding-top: 3rem; background: transparent; }
-    h1 { font-family: var(--font-display); font-size: clamp(3.5rem, 9vw, 6rem); letter-spacing: -0.04em; margin: 0 0 1.5rem; line-height: 1.1; }
+    html { scroll-behavior: smooth; overflow-x: hidden; background: #fdfdfd; }
+    body { margin: 0; font-family: var(--font-body); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .container { width: min(100% - 2rem, 1200px); margin-inline: auto; }
+    .site-header { position: fixed; top: 0; width: 100%; z-index: 1000; padding-block: 1.5rem; transition: all 0.6s var(--ease-wow); }
+    .logo { font-family: var(--font-display); font-size: 1.8rem; text-decoration: none; color: var(--bg-dark); min-width: 250px; min-height: 40px; display: block; }
+    .logo span { color: var(--gold); font-weight: 700; }
+    .hero { min-height: 85vh; display: flex; align-items: center; padding-top: 8rem; }
+    h1 { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 2rem; }
+    .btn { display: inline-flex; padding: 1.2rem 2.8rem; border-radius: 100px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+    .btn-primary { background: var(--bg-dark); color: #fff; }
+    .btn-ghost { border: 1px solid var(--bg-dark); color: var(--bg-dark); }
+    .aurora-bg { position: fixed; inset: 0; z-index: -1; background: #fdfdfd; overflow: hidden; }
   </style>
 
-  <link rel="stylesheet" href="css/style.css?v=1.2.0" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/style.css?v=1.2.0"></noscript>
+  <link rel="stylesheet" href="css/style.css?v=1.2.1" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/style.css?v=1.2.1"></noscript>
   
   <link rel="icon" type="image/png" href="/favicon-96x96.png?v=20260329" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260329" />

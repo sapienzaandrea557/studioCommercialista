@@ -34,7 +34,10 @@
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          header.classList.toggle("is-scrolled", window.scrollY > 24);
+          const isScrolled = window.scrollY > 20;
+          if (header.classList.contains("is-scrolled") !== isScrolled) {
+            header.classList.toggle("is-scrolled", isScrolled);
+          }
           ticking = false;
         });
         ticking = true;
