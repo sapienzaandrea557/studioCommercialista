@@ -77,6 +77,12 @@ service cloud.firestore {
 }
 ```
 
+## Note Aggiornamento v2.2.7
+- **Ottimizzazione Mobile-First**: Migliorata la responsiveness su tutti i dispositivi, risolti problemi di overflow su schermi piccoli.
+- **Accessibilità & UX**: Incrementata la dimensione dei target touch (min 44px) e ottimizzata la navigazione mobile.
+- **Performance**: Implementato lazy loading per iframe e ottimizzato il caricamento delle risorse.
+- **Fix Mappa**: Ripristinata la funzionalità di caricamento interattivo della mappa nella sezione contatti.
+
 ## Note Aggiornamento v2.2.6
 - **AI Integration**: Configurato l'agente AI per il salvataggio automatico delle modifiche sul repository GitHub.
 

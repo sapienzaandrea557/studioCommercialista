@@ -89,6 +89,19 @@
         document.body.classList.toggle("menu-open", isOpen);
       });
     }
+
+    /* ——— Map Loading ——— */
+    const loadMapBtn = document.getElementById("load-map");
+    const mapEmbed = document.getElementById("map-embed");
+    if (loadMapBtn && mapEmbed) {
+      loadMapBtn.addEventListener("click", () => {
+        loadMapBtn.hidden = true;
+        mapEmbed.hidden = false;
+        mapEmbed.innerHTML = `<iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.366223847841!2d12.4683!3d41.8841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f60473e34a655%3A0x6a0c5c3c0c0c0c0c!2sVia%20Napoleone%20Parboni%2C%2012%2C%2000153%20Roma%20RM!5e0!3m2!1sit!2sit!4v1711720000000!5m2!1sit!2sit" 
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+      });
+    }
   };
 
   if (window.requestIdleCallback) {
@@ -135,7 +148,7 @@
       openModal("modal-booking");
       const container = document.getElementById("calendly-container");
       if (container && !container.innerHTML) {
-        container.innerHTML = `<iframe id="calendly-iframe" src="${CALENDLY_URL}?embed_domain=${encodeURIComponent(location.origin)}&embed_type=Inline&hide_gdpr_banner=1" width="100%" height="100%" frameborder="0"></iframe>`;
+        container.innerHTML = `<iframe id="calendly-iframe" src="${CALENDLY_URL}?embed_domain=${encodeURIComponent(location.origin)}&embed_type=Inline&hide_gdpr_banner=1" width="100%" height="100%" frameborder="0" loading="lazy"></iframe>`;
       }
     });
   });
