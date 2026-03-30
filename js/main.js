@@ -23,10 +23,13 @@
     const header = document.querySelector(".site-header");
     if (header) {
       let ticking = false;
+      let lastScrollY = window.scrollY;
+
       const onScroll = () => {
+        lastScrollY = window.scrollY;
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const isScrolled = window.scrollY > 20;
+            const isScrolled = lastScrollY > 20;
             header.classList.toggle("is-scrolled", isScrolled);
             ticking = false;
           });

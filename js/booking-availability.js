@@ -81,11 +81,20 @@ if (!isBot) {
 
   // Listener per lo stato delle prenotazioni (Firestore)
   const configDoc = doc(db, "publicSettings", "booking");
-  onSnapshot(configDoc, (snapshot) => {
-    if (snapshot.exists()) {
-      applyBookingState(snapshot.data());
+  onSnapshot(
+    configDoc,
+    (snapshot) => {
+      if (snapshot.exists()) {
+        applyBookingState(snapshot.data());
+      } else {
+        applyBookingState({ bookingsDisabled: false });
+      }
+    },
+    () => {
+      /* Regole Firestore: lettura pubblica può essere negata; in quel caso non bloccare il sito */
+      applyBookingState({ bookingsDisabled: false });
     }
-  });
+  );
 }
 
 function applyBookingState(data) {
@@ -116,20 +125,3 @@ function applyBookingState(data) {
     });
   }
 }
-
-const ref = doc(db, "publicSettings", "booking");
-onSnapshot(
-  ref,
-  (snap) => {
-    if (!snap.exists()) {
-      applyBookingState({ bookingsDisabled: false });
-      return;
-    }
-    const d = snap.data();
-    applyBookingState(d);
-  },
-  () => {
-    /* Regole Firestore: lettura pubblica può essere negata; in quel caso non bloccare il sito */
-    applyBookingState({ bookingsDisabled: false });
-  }
-);
