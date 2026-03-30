@@ -257,6 +257,7 @@
         <a href="#home" data-section="home">Home</a>
         <a href="#chi" data-section="chi">Chi è</a>
         <a href="#perche" data-section="perche">Studio</a>
+        <a href="#metodo" data-section="metodo">Metodo</a>
         <a href="#servizi" data-section="servizi">Servizi</a>
         <a href="#contatti" data-section="contatti">Contatti</a>
         
@@ -274,7 +275,7 @@
   </header>
 
   <main id="contenuto">
-    <section id="home" class="hero section" aria-labelledby="hero-title">
+    <section id="home" class="hero section reveal" aria-labelledby="hero-title">
       <div class="signature-shape signature-shape--1" aria-hidden="true"></div>
       <div class="signature-shape signature-shape--2" aria-hidden="true"></div>
       <div class="container hero-grid">
@@ -283,8 +284,8 @@
           <h1 id="hero-title">Commercialista a Roma: Consulenza Fiscale e Societaria <span class="serif-italic">con Metodo</span></h1>
           <p class="lead">Lo Studio <strong>Andrea Sapienza</strong> è il tuo <strong>Commercialista a Roma Trastevere</strong>: offriamo servizi di revisione legale, gestione Partita IVA e consulenza professionale.</p>
           <div class="hero-actions">
-            <a href="#home" class="btn btn-primary btn-hero-scroll">Prenota Appuntamento</a>
-            <a href="#contatti" class="btn btn-ghost btn-hero-scroll">Richiedi Info</a>
+            <button type="button" class="btn btn-primary btn-hero-scroll" data-open-calendly>Prenota Appuntamento</button>
+            <button type="button" class="btn btn-ghost btn-hero-scroll" data-open-modal="modal-info">Richiedi Info</button>
           </div>
         </div>
       </div>
