@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /crm/
+Allow: /crm/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /backup_dati.md
@@ -8,5 +8,9 @@ Disallow: /*.json$
 Disallow: /*.config.js$
 
 Sitemap: https://commercialista-roma-jet.vercel.app/sitemap-studio.xml
+
+# SEO Optimization for Commercialista Roma Trastevere
+# Andrea Sapienza - Studio Tributario e Societario
+# Keywords: partita iva, regime forfettario, revisione legale, 730 roma
 
 # Crawl-delay: 10
