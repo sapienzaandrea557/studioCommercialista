@@ -16,8 +16,9 @@
   --text-light: #ffffff;
   --muted: #3a4759; /* Grigio più scuro per contrasto (da 2d3748) */
   --muted-light: rgba(255, 255, 255, 0.9); /* Più opaco per sfondo scuro */
-  --gold: #92701b; /* Oro più scuro per accessibilità contrasto 4.5:1 (da b8953d) */
-  --gold-dim: #7d5e16;
+  --gold: #b8953d; /* Ripristinato oro originale richiesto */
+  --gold-dim: #9c7b2d;
+  --bg-dark: #0a1128;
   --radius: 24px;
   --shadow-wow: 0 40px 80px -20px rgba(10, 17, 40, 0.15);
   --font-body: "Source Sans 3", system-ui, sans-serif;
@@ -402,8 +403,16 @@ h3 { font-size: 1.4rem; }
 }
 .btn-primary { background: var(--bg-dark); color: #fff; border: none; }
 .btn-primary:hover { background: var(--gold); color: var(--bg-dark); }
-.btn-ghost { background: transparent; border-color: var(--bg-dark); }
-.btn-ghost:hover { background: var(--bg-dark); color: #fff; }
+.btn-ghost { 
+  border: 1.5px solid var(--gold); /* Ora Gold come richiesto */
+  color: var(--gold) !important; 
+  background: transparent; 
+}
+.btn-ghost:hover { 
+  background: var(--gold); 
+  color: #fff !important; 
+  transform: translateY(-3px); 
+}
 .btn-sm { padding: 0.6rem 1.4rem; font-size: 0.7rem; }
 
 /* --- Header --- */

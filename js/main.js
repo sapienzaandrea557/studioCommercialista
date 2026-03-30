@@ -15,7 +15,18 @@
         const target = document.querySelector(id);
         if (target) {
           e.preventDefault();
-          target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+          const header = document.querySelector(".site-header");
+          const headerHeight = header ? header.offsetHeight : 80;
+          const targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
+          window.scrollTo({ top: targetTop, behavior: reduceMotion ? "auto" : "smooth" });
+
+          const mainNav = document.getElementById("main-nav");
+          const menuToggle = document.getElementById("menu-toggle");
+          if (mainNav && mainNav.classList.contains("open")) {
+            mainNav.classList.remove("open");
+            if (menuToggle) menuToggle.classList.remove("open");
+            document.body.classList.remove("menu-open");
+          }
         }
       });
     });
