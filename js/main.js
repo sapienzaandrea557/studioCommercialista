@@ -9,7 +9,7 @@
 
     /* --- SPA Navigation Logic --- */
     const sections = document.querySelectorAll(".section");
-    const links = document.querySelectorAll(".nav a, .logo, .btn-hero-scroll");
+    const navLinks = document.querySelectorAll(".nav a, .logo, .btn-hero-scroll");
 
     function showSection(targetId) {
       const id = targetId.replace("#", "");
@@ -47,7 +47,7 @@
     const initialHash = window.location.hash || "#home";
     showSection(initialHash);
 
-    links.forEach(link => {
+    navLinks.forEach(link => {
       link.addEventListener("click", (e) => {
         const href = link.getAttribute("href");
         if (href && href.startsWith("#")) {
@@ -109,70 +109,24 @@
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
     }
 
+    /* ——— Cookie Banner ——— */
+    const cookieBanner = document.getElementById("cookie-banner");
+    if (cookieBanner && !localStorage.getItem("cookie_consent")) {
+      cookieBanner.hidden = false;
+      const acceptNecessary = document.getElementById("cookie-accept-necessary");
+      const acceptAnalytics = document.getElementById("cookie-accept-analytics");
+      const acceptAll = document.getElementById("cookie-accept-all");
 
+      const handleConsent = (level) => {
+        localStorage.setItem("cookie_consent", level);
+        cookieBanner.hidden = true;
+        if (level !== "necessary") location.reload(); // Reload for analytics if needed
+      };
 
-    /* --- SPA Navigation Logic --- */
-    const sections = document.querySelectorAll(".section");
-    const navLinks = document.querySelectorAll(".nav a, .logo, .btn-hero-scroll");
-
-    function showSection(targetId) {
-      const id = targetId.replace("#", "");
-      let found = false;
-      
-      sections.forEach(section => {
-        if (section.id === id) {
-          section.style.display = "block";
-          // Trigger reflow for transition
-          section.offsetHeight; 
-          section.classList.add("is-active");
-          found = true;
-        } else {
-          section.classList.remove("is-active");
-          section.style.display = "none";
-        }
-      });
-
-      // Update active link
-      document.querySelectorAll(".nav a").forEach(l => {
-        l.classList.toggle("is-active", l.getAttribute("href") === targetId);
-      });
-
-      if (found) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        if (id !== "home") {
-          history.pushState(null, null, targetId);
-        } else {
-          history.pushState(null, null, window.location.pathname);
-        }
-      }
+      if (acceptNecessary) acceptNecessary.onclick = () => handleConsent("necessary");
+      if (acceptAnalytics) acceptAnalytics.onclick = () => handleConsent("analytics");
+      if (acceptAll) acceptAll.onclick = () => handleConsent("all");
     }
-
-    // Initialize: Show Home or hash section
-    const initialHash = window.location.hash || "#home";
-    showSection(initialHash);
-
-    navLinks.forEach(link => {
-      link.addEventListener("click", (e) => {
-        const href = link.getAttribute("href");
-        if (href && href.startsWith("#")) {
-          e.preventDefault();
-          showSection(href);
-          
-          // Mobile menu auto-close
-          const nav = document.getElementById("main-nav");
-          const menuToggle = document.querySelector(".menu-toggle");
-          if (nav && nav.classList.contains("open")) {
-            nav.classList.remove("open");
-            menuToggle.classList.remove("open");
-            document.body.classList.remove("modal-open");
-          }
-        }
-      });
-    });
-
-    window.addEventListener("popstate", () => {
-      showSection(window.location.hash || "#home");
-    });
 
     /* ——— Mobile Menu ——— */
     const menuToggle = document.getElementById("menu-toggle");
