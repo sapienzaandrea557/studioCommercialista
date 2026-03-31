@@ -7,68 +7,46 @@
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    /* --- SPA Navigation Logic --- */
-    const sections = document.querySelectorAll(".section");
-    const navLinks = document.querySelectorAll(".nav a, .logo, .btn-hero-scroll");
+    /* --- Navigation & Active Link Logic --- */
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav a");
 
-    function showSection(targetId) {
-      const id = targetId.replace("#", "");
-      let found = false;
-      
+    function updateActiveLink() {
+      let currentSection = "";
+      const scrollPos = window.scrollY + 150; // Offset for header
+
       sections.forEach(section => {
-        if (section.id === id) {
-          section.style.display = "block";
-          // Trigger reflow for transition
-          section.offsetHeight; 
-          section.classList.add("is-active");
-          found = true;
-        } else {
-          section.classList.remove("is-active");
-          section.style.display = "none";
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+          currentSection = "#" + section.id;
         }
       });
 
-      // Update active link
-      document.querySelectorAll(".nav a").forEach(l => {
-        l.classList.toggle("is-active", l.getAttribute("href") === targetId);
+      navLinks.forEach(link => {
+        link.classList.toggle("is-active", link.getAttribute("href") === currentSection);
       });
-
-      if (found) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        if (id !== "home") {
-          history.pushState(null, null, targetId);
-        } else {
-          history.pushState(null, null, window.location.pathname);
-        }
-      }
     }
 
-    // Initialize: Show Home or hash section
-    const initialHash = window.location.hash || "#home";
-    showSection(initialHash);
-
+    // Standard smooth scroll handling for nav links
     navLinks.forEach(link => {
       link.addEventListener("click", (e) => {
-        const href = link.getAttribute("href");
-        if (href && href.startsWith("#")) {
-          e.preventDefault();
-          showSection(href);
-          
+        const targetId = link.getAttribute("href");
+        if (targetId && targetId.startsWith("#")) {
           // Mobile menu auto-close
           const nav = document.getElementById("main-nav");
           const menuToggle = document.querySelector(".menu-toggle");
           if (nav && nav.classList.contains("open")) {
             nav.classList.remove("open");
             menuToggle.classList.remove("open");
-            document.body.classList.remove("modal-open");
+            document.body.classList.remove("menu-open");
           }
         }
       });
     });
 
-    window.addEventListener("popstate", () => {
-      showSection(window.location.hash || "#home");
-    });
+    window.addEventListener("scroll", updateActiveLink, { passive: true });
+    updateActiveLink(); // Initial check
 
     const header = document.querySelector(".site-header");
     if (header) {
