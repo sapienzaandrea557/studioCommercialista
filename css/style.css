@@ -39,7 +39,7 @@
   border: 1px solid rgba(184, 149, 61, 0.2);
   border-radius: 24px;
   padding: 2rem;
-  transition: all 0.4s var(--ease-wow);
+  transition: transform 0.4s var(--ease-wow), border-color 0.4s var(--ease-wow), background-color 0.4s var(--ease-wow), box-shadow 0.4s var(--ease-wow);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -202,30 +202,90 @@ html {
   :root { --header-height: 70px; }
 }
 
-/* Performance Optimizations - Mobile Focus */
+/* Performance Optimizations - Mobile Focus Extreme */
 @media (max-width: 768px) {
-  .section {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 500px;
-    padding-block: 4rem; /* More compact for mobile */
-  }
-  
-  /* Disable expensive filters on mobile to boost FCP/LCP */
-  .aurora-blob, .signature-shape {
+  /* Stop all background animations and effects */
+  .aurora-blob, .signature-shape, .abstract-shape, .section-curve {
+    display: none !important;
+    animation: none !important;
     filter: none !important;
-    backdrop-filter: none !important;
-    display: none; /* Remove background blobs on mobile for max speed */
+    will-change: auto !important;
   }
   
-  .section-island, .section-dark-island, .card-modern, .service-card {
+  .aurora-bg {
+    background: #fdfdfd !important;
+  }
+
+  /* Force solid backgrounds - no transparency/blur */
+  .section-island, 
+  .section-dark-island, 
+  .card-modern, 
+  .service-card, 
+  .glass, 
+  .glass-dark,
+  .glass-card,
+  .site-header.is-scrolled,
+  .metodo-step {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
-    background: #fff !important; /* Solid background for mobile performance */
+    background: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+    border: 1px solid #eee !important;
+    transition: none !important; /* Disable transitions on mobile for layout speed */
+    transform: none !important;
   }
 
   .section-dark-island {
-    background: #0a1128 !important; /* Solid dark for performance */
+    background: #0a1128 !important;
+    color: #fff !important;
+  }
+
+  .section-dark-island .service-card {
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+  }
+
+  /* Simplify typography rendering */
+  h1, h2, h3 {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+    color: var(--bg-dark) !important;
+    text-shadow: none !important;
+  }
+
+  .section-dark-island h1, 
+  .section-dark-island h2,
+  .section-dark-island .service-card h3 {
+    color: #ffffff !important;
+  }
+
+  /* Content visibility for all sections except the first one */
+  .section:not(#home) {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 400px;
+  }
+
+  /* Reduce padding for mobile speed and better LCP */
+  .section {
+    padding-block: 3rem !important;
+  }
+  
+  .hero {
+    min-height: auto !important;
+    padding-top: 5rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* Simpler reveal for mobile to avoid layout recalculations */
+  .reveal {
+    opacity: 0 !important;
+    transform: none !important;
+    transition: opacity 0.4s ease-out !important;
+  }
+  .reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -234,6 +294,9 @@ html {
   padding-block: clamp(5rem, 12vh, 10rem);
   position: relative;
   z-index: 5;
+  opacity: 1;
+  transition: opacity 0.6s var(--ease-wow), transform 0.6s var(--ease-wow);
+  will-change: opacity, transform;
 }
 
 body { 
@@ -316,17 +379,7 @@ body::before {
   animation: aurora-mesh 30s infinite alternate linear;
 }
 
-@media (max-width: 768px) {
-  .aurora-blob { 
-    filter: blur(40px); /* Even less blur on mobile */
-    opacity: 0.1;
-    animation-duration: 45s; /* Slower animation to reduce CPU load */
-  }
-  .signature-shape {
-    filter: blur(60px) !important;
-    opacity: 0.1 !important;
-  }
-}
+/* Removed redundant mobile media query for performance consolidation */
 
 .aurora-blob--1 {
   width: 80vw;
@@ -360,9 +413,8 @@ body::before {
   100% { transform: translate(0, 0) scale(1); }
 }
 
-@media (prefers-reduced-motion: reduce), (max-width: 768px) {
-  .aurora-blob { animation: none !important; opacity: 0.15; }
-  .signature-shape { animation: none !important; opacity: 0.1; }
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob, .signature-shape { animation: none !important; opacity: 0.15; }
 }
 
 /* Glassmorphism Floating Upgrade */
@@ -897,13 +949,7 @@ h3 { font-size: 1.4rem; }
 .service-card p.muted { color: var(--text); font-weight: 400; line-height: 1.5; font-size: 0.9rem; }
 .section-dark-island .service-card p.muted { color: rgba(255, 255, 255, 0.9) !important; opacity: 1; }
 
-/* --- Section Transitions --- */
-.section { 
-  opacity: 1; /* Ensure visible by default */
-  padding-block: clamp(4rem, 10vh, 8rem);
-  transition: opacity 0.6s var(--ease-wow), transform 0.6s var(--ease-wow);
-  will-change: opacity, transform;
-}
+
 
 /* Ensure hero behaves like a section */
 .hero.section {
@@ -920,7 +966,7 @@ h3 { font-size: 1.4rem; }
   border: 1px solid rgba(184, 149, 61, 0.15);
   border-radius: 28px;
   padding: 2.5rem;
-  transition: all 0.5s var(--ease-wow);
+  transition: transform 0.5s var(--ease-wow), border-color 0.5s var(--ease-wow), box-shadow 0.5s var(--ease-wow), background-color 0.5s var(--ease-wow);
   box-shadow: 0 10px 30px rgba(0,0,0,0.02);
   color: var(--text);
   cursor: pointer;

@@ -11,7 +11,9 @@
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav a");
 
-    // Optimized Active Link logic using IntersectionObserver instead of scroll listener
+    // Optimized Active Link logic - Only run on desktop or high-perf devices
+    const isMobile = window.innerWidth < 768;
+    
     if ("IntersectionObserver" in window) {
       const navObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -22,7 +24,10 @@
             });
           }
         });
-      }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
+      }, { 
+        rootMargin: isMobile ? "-40% 0px -40% 0px" : "-20% 0px -70% 0px", 
+        threshold: 0 
+      });
 
       sections.forEach(section => navObserver.observe(section));
     }
@@ -65,8 +70,10 @@
         lastScrollY = window.scrollY;
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const isScrolled = lastScrollY > 20;
-            header.classList.toggle("is-scrolled", isScrolled);
+            const isScrolled = lastScrollY > 40;
+            if (header.classList.contains("is-scrolled") !== isScrolled) {
+              header.classList.toggle("is-scrolled", isScrolled);
+            }
             ticking = false;
           });
           ticking = true;
