@@ -121,7 +121,7 @@
     .logo span { color: var(--gold); font-weight: 700; margin-left: 0.3rem; }
     .nav { display: none; }
     @media (min-width: 1024px) { .nav { display: flex; gap: 1.2rem; } }
-    .hero { min-height: 60vh; display: flex; align-items: center; padding-top: 6rem; position: relative; }
+    .hero { min-height: clamp(520px, 80vh, 820px); display: flex; align-items: center; padding-top: clamp(6rem, 15vh, 10rem); position: relative; }
     h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4rem); color: var(--bg-dark); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
     .btn { display: inline-flex; padding: 0.9rem 2rem; border-radius: 100px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-decoration: none; align-items: center; justify-content: center; font-size: 0.75rem; }
     .btn-primary { background: var(--bg-dark); color: #fff !important; }
