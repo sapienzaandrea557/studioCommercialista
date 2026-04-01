@@ -5,31 +5,31 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://commercialista-roma-jet.vercel.app/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://commercialista-roma-jet.vercel.app/crm</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://commercialista-roma-jet.vercel.app/privacy</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://commercialista-roma-jet.vercel.app/cookie</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://commercialista-roma-jet.vercel.app/conferma</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>

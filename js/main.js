@@ -53,7 +53,7 @@
             document.body.classList.remove("menu-open");
           }
         }
-      });
+      }, { passive: false });
     });
 
     const header = document.querySelector(".site-header");
@@ -122,7 +122,7 @@
         const isOpen = mainNav.classList.toggle("open");
         menuToggle.classList.toggle("open", isOpen);
         document.body.classList.toggle("menu-open", isOpen);
-      });
+      }, { passive: true });
     }
 
     /* ——— Map Loading ——— */
