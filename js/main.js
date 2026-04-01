@@ -11,21 +11,20 @@
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav a");
 
-    function updateActiveLink() {
-      let currentSection = "";
-      const scrollPos = window.scrollY + 150; // Offset for header
+    // Optimized Active Link logic using IntersectionObserver instead of scroll listener
+    if ("IntersectionObserver" in window) {
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach(link => {
+              link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
+            });
+          }
+        });
+      }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
 
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-          currentSection = "#" + section.id;
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.toggle("is-active", link.getAttribute("href") === currentSection);
-      });
+      sections.forEach(section => navObserver.observe(section));
     }
 
     // Standard smooth scroll handling for nav links
@@ -42,11 +41,7 @@
             document.body.classList.remove("menu-open");
           }
         }
-      });
     });
-
-    window.addEventListener("scroll", updateActiveLink, { passive: true });
-    updateActiveLink(); // Initial check
 
     const header = document.querySelector(".site-header");
     if (header) {

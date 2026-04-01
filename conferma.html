@@ -60,11 +60,11 @@
     </div>
 
     <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; text-align: left; max-width: 600px; margin-inline: auto;">
-      <h4 style="color: #b8953d; margin-bottom: 0.5rem;">Il nostro impegno per il tuo business</h4>
-      <p>Lo Studio Andrea Sapienza è specializzato in regime forfettario, revisione legale e pianificazione fiscale per PMI a Roma. La tua crescita è il nostro obiettivo primario. Crediamo fermamente che una consulenza fiscale moderna debba andare oltre la semplice tenuta della contabilità. Il nostro approccio si basa su una profonda comprensione delle dinamiche aziendali e sulle specifiche esigenze di ogni singolo cliente.</p>
-      <p>Affidandoti al nostro studio, avrai a disposizione un partner strategico in grado di guidarti attraverso le complessità del sistema tributario italiano. Dalla fase di avvio della tua attività, con la scelta della forma giuridica più adatta e l'apertura della Partita IVA, fino alla gestione ordinaria e straordinaria, saremo al tuo fianco per ottimizzare il carico fiscale e garantire la piena conformità normativa.</p>
-      <p>La nostra esperienza pluriennale ci permette di offrire soluzioni personalizzate per liberi professionisti, startup innovative e società consolidate. Utilizziamo strumenti digitali all'avanguardia per semplificare lo scambio di documenti e rendere la gestione contabile più efficiente e trasparente. In questo modo, potrai concentrarti esclusivamente sullo sviluppo del tuo core business, lasciando a noi le incombenze burocratiche e amministrative.</p>
-      <p>Siamo consapevoli che ogni realtà imprenditoriale è unica, per questo dedichiamo il tempo necessario per ascoltare le tue idee, analizzare i tuoi obiettivi e definire insieme la strategia migliore per raggiungerli. La fiducia e la collaborazione reciproca sono alla base del nostro metodo di lavoro. Non vediamo l'ora di conoscerti e di iniziare questo percorso insieme verso il successo della tua impresa.</p>
+      <h4 style="color: #b8953d; margin-bottom: 0.5rem;">Il nostro metodo per il tuo business</h4>
+      <p>Lo Studio Andrea Sapienza applica un <strong>metodo</strong> specializzato in regime forfettario, revisione legale e pianificazione fiscale per PMI a Roma. La tua crescita è il nostro obiettivo primario. Crediamo fermamente che una consulenza fiscale moderna debba andare oltre la semplice tenuta della contabilità. Il nostro <strong>metodo</strong> si basa su una profonda comprensione delle dinamiche aziendali e sulle specifiche esigenze di ogni singolo cliente.</p>
+      <p>Affidandoti al nostro studio e al nostro <strong>metodo</strong> di lavoro, avrai a disposizione un partner strategico in grado di guidarti attraverso le complessità del sistema tributario italiano. Dalla fase di avvio della tua attività, con la scelta della forma giuridica più adatta e l'apertura della Partita IVA, fino alla gestione ordinaria e straordinaria, saremo al tuo fianco per ottimizzare il carico fiscale e garantire la piena conformità normativa grazie al nostro <strong>metodo</strong> collaudato.</p>
+      <p>La nostra esperienza pluriennale ci permette di offrire soluzioni personalizzate per liberi professionisti, startup innovative e società consolidate. Utilizziamo strumenti digitali all'avanguardia per semplificare lo scambio di documenti e rendere la gestione contabile più efficiente, trasparente e metodologica. In questo modo, potrai concentrarti esclusivamente sullo sviluppo del tuo core business, lasciando a noi le incombenze burocratiche e amministrative.</p>
+      <p>Siamo consapevoli che ogni realtà imprenditoriale è unica, per questo il nostro <strong>metodo</strong> dedica il tempo necessario per ascoltare le tue idee, analizzare i tuoi obiettivi e definire insieme la strategia migliore per raggiungerli. La fiducia e la collaborazione reciproca sono alla base del nostro <strong>metodo</strong> di lavoro. Non vediamo l'ora di conoscerti e di iniziare questo percorso insieme verso il successo della tua impresa.</p>
     </div>
 
     <p>Verrai reindirizzato alla Home automaticamente tra pochi secondi...</p>
@@ -117,16 +117,16 @@
           
           // Redirect automatico dopo 2 secondi
           setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "/";
           }, 2500);
 
         } catch (e) {
           console.error("Errore salvataggio:", e);
-          document.getElementById('status').innerHTML = "<p>Errore sincronizzazione. <a href='index.html' style='color:#d4af37'>Torna alla Home</a></p>";
+          document.getElementById('status').innerHTML = "<p>Errore sincronizzazione. <a href='/' style='color:#d4af37'>Torna alla Home</a></p>";
         }
       } else {
-        document.getElementById('status').innerHTML = "<h1>✓ Grazie!</h1><p>La tua prenotazione è stata ricevuta.</p><br><a href='index.html' style='color:#d4af37'>Torna alla Home</a>";
-        setTimeout(() => { window.location.href = "index.html"; }, 3000);
+        document.getElementById('status').innerHTML = "<h1>✓ Grazie!</h1><p>La tua prenotazione è stata ricevuta.</p><br><a href='/' style='color:#d4af37'>Torna alla Home</a>";
+        setTimeout(() => { window.location.href = "/"; }, 3000);
       }
     }
 
