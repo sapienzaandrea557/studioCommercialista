@@ -1,6 +1,45 @@
 (function () {
   "use strict";
 
+  const CLARITY_PROJECT_ID = "w1y42abzxc";
+
+  const injectScript = ({ id, src, async = false, defer = false }) => {
+    if (id && document.getElementById(id)) return;
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const s = document.createElement("script");
+    if (id) s.id = id;
+    s.src = src;
+    s.async = async;
+    s.defer = defer;
+    document.head.appendChild(s);
+  };
+
+  const scheduleIdle = (fn) => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(fn, { timeout: 2000 });
+      return;
+    }
+    window.setTimeout(fn, 1);
+  };
+
+  const loadAnalytics = () => {
+    scheduleIdle(() => {
+      injectScript({ id: "vercel-insights", src: "/_vercel/insights/script.js", defer: true });
+      injectScript({ id: "vercel-speed-insights", src: "/_vercel/speed-insights/script.js", defer: true });
+
+      if (!window.clarity) {
+        window.clarity = function () {
+          (window.clarity.q = window.clarity.q || []).push(arguments);
+        };
+      }
+      injectScript({
+        id: "ms-clarity",
+        src: `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`,
+        async: true
+      });
+    });
+  };
+
   const init = () => {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -118,7 +157,10 @@
 
     /* ——— Cookie Banner ——— */
     const cookieBanner = document.getElementById("cookie-banner");
-    if (cookieBanner && !localStorage.getItem("cookie_consent")) {
+    const consent = localStorage.getItem("cookie_consent");
+    if (consent === "analytics" || consent === "all") loadAnalytics();
+
+    if (cookieBanner && !consent) {
       cookieBanner.hidden = false;
       const acceptNecessary = document.getElementById("cookie-accept-necessary");
       const acceptAnalytics = document.getElementById("cookie-accept-analytics");
@@ -127,7 +169,7 @@
       const handleConsent = (level) => {
         localStorage.setItem("cookie_consent", level);
         cookieBanner.hidden = true;
-        if (level !== "necessary") location.reload(); // Reload for analytics if needed
+        if (level === "analytics" || level === "all") loadAnalytics();
       };
 
       if (acceptNecessary) acceptNecessary.onclick = () => handleConsent("necessary");
@@ -165,6 +207,10 @@
         if (!mapEmbed.innerHTML) handleMapLoad(e);
       }, { passive: false });
     }
+
+    scheduleIdle(() => {
+      document.body.classList.add("is-ready");
+    });
   };
 
   if (document.readyState === "loading") {
