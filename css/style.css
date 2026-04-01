@@ -202,6 +202,21 @@ html {
   :root { --header-height: 70px; }
 }
 
+/* Performance Optimizations */
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px; /* Placeholder size for better scrollbar behavior */
+}
+
+/* Hero is always visible, no need for content-visibility */
+#home {
+  content-visibility: visible;
+}
+
+.aurora-bg, .site-header, .site-footer {
+  content-visibility: visible;
+}
+
 .section { 
   scroll-margin-top: var(--header-height); 
   padding-block: clamp(5rem, 12vh, 10rem);
@@ -282,11 +297,23 @@ body::before {
 
 .aurora-blob {
   position: absolute;
-  filter: blur(100px); /* Reduced blur for performance */
-  opacity: 0.25; /* Reduced opacity */
+  filter: blur(60px); /* Reduced from 100px for performance */
+  opacity: 0.15; /* Reduced from 0.25 */
   mix-blend-mode: multiply;
-  will-change: transform; /* Hint to browser */
-  animation: aurora-mesh 30s infinite alternate linear; /* Linear is often smoother */
+  will-change: transform;
+  animation: aurora-mesh 30s infinite alternate linear;
+}
+
+@media (max-width: 768px) {
+  .aurora-blob { 
+    filter: blur(40px); /* Even less blur on mobile */
+    opacity: 0.1;
+    animation-duration: 45s; /* Slower animation to reduce CPU load */
+  }
+  .signature-shape {
+    filter: blur(60px) !important;
+    opacity: 0.1 !important;
+  }
 }
 
 .aurora-blob--1 {
