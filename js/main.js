@@ -41,6 +41,7 @@
             document.body.classList.remove("menu-open");
           }
         }
+      });
     });
 
     const header = document.querySelector(".site-header");
