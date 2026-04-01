@@ -32,6 +32,18 @@
       link.addEventListener("click", (e) => {
         const targetId = link.getAttribute("href");
         if (targetId && targetId.startsWith("#")) {
+          e.preventDefault();
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            const headerHeight = document.querySelector('.site-header').offsetHeight;
+            const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth'
+            });
+          }
+
           // Mobile menu auto-close
           const nav = document.getElementById("main-nav");
           const menuToggle = document.querySelector(".menu-toggle");
@@ -76,7 +88,7 @@
             }
           });
         },
-        { rootMargin: "0px 0px -10% 0px", threshold: 0.1 }
+        { rootMargin: "0px 0px -1% 0px", threshold: 0.01 }
       );
       revealEls.forEach((el) => io.observe(el));
     } else {
