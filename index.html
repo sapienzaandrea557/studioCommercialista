@@ -3,7 +3,7 @@
 <head>
   <script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
   <meta charset="UTF-8" />
-  <!-- Update ID: SAPIENZA-ULTIMATE-V2.7 -->
+  <!-- UPDATE ID: SAPIENZA-ULTIMATE-V2.9 -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <link rel="alternate" hreflang="it" href="https://commercialista-roma-jet.vercel.app/" />
   <link rel="alternate" hreflang="x-default" href="https://commercialista-roma-jet.vercel.app/" />
@@ -255,20 +255,19 @@
       <nav class="nav" id="main-nav" aria-label="Navigazione Principale">
         <a href="#home" data-section="home" title="Torna alla sezione Home">Home</a>
         <a href="#chi" data-section="chi" title="Scopri chi è Andrea Sapienza">Chi è</a>
-        <a href="#perche" data-section="perche" title="Scopri perché scegliere lo Studio Sapienza">Studio</a>
-        <a href="#metodo" data-section="metodo" title="Scopri il nostro metodo di lavoro">Metodo</a>
+        <a href="#perche" data-section="perche" title="Scopri perché scegliere lo Studio Sapienza e il nostro Metodo">Studio</a>
         <a href="#servizi" data-section="servizi" title="Esplora i nostri servizi professionali">Servizi</a>
         <a href="#contatti" data-section="contatti" title="Vai alla sezione contatti dello Studio">Contatti</a>
         
         <div class="nav-mobile-btns">
-          <button type="button" class="btn btn-primary" data-open-calendly>Prenota appuntamento</button>
-          <button type="button" class="btn btn-ghost" data-open-modal="modal-info">Richiedi info</button>
+          <button type="button" class="btn btn-primary" data-open-calendly title="Prenota ora un appuntamento online o in studio">Prenota appuntamento</button>
+          <button type="button" class="btn btn-ghost" data-open-modal="modal-info" title="Richiedi maggiori informazioni sui nostri servizi">Richiedi info</button>
         </div>
       </nav>
       
       <div class="header-actions">
-        <button type="button" class="btn btn-ghost btn-sm" data-open-modal="modal-info">Richiedi info</button>
-        <button type="button" class="btn btn-primary btn-sm" data-open-calendly>Prenota appuntamento</button>
+        <button type="button" class="btn btn-ghost btn-sm" data-open-modal="modal-info" title="Richiedi maggiori informazioni sui nostri servizi">Richiedi info</button>
+        <button type="button" class="btn btn-primary btn-sm" data-open-calendly title="Prenota ora un appuntamento online o in studio">Prenota appuntamento</button>
       </div>
     </div>
   </header>
@@ -283,8 +282,8 @@
           <h1 id="hero-title">Commercialista Roma Trastevere | Studio Andrea Sapienza <span class="serif-italic">con Metodo</span></h1>
           <p class="lead">Lo Studio <strong>Andrea Sapienza</strong> è il tuo <strong>Commercialista a Roma Trastevere</strong>: offriamo servizi di revisione legale, gestione Partita IVA e consulenza professionale.</p>
           <div class="hero-actions">
-            <button type="button" class="btn btn-primary btn-hero-scroll" data-open-calendly>Prenota Appuntamento</button>
-            <button type="button" class="btn btn-ghost btn-hero-scroll" data-open-modal="modal-info">Richiedi Info</button>
+            <button type="button" class="btn btn-primary btn-hero-scroll" data-open-calendly title="Prenota ora un appuntamento online o in studio">Prenota Appuntamento</button>
+            <button type="button" class="btn btn-ghost btn-hero-scroll" data-open-modal="modal-info" title="Richiedi maggiori informazioni sui nostri servizi">Richiedi Info</button>
           </div>
         </div>
       </div>
@@ -319,66 +318,76 @@
       </div>
     </section>
 
-    <section id="perche" class="section" aria-labelledby="trust-title">
-      <div class="section-island reveal">
-        <div class="container">
-          <div class="section-head">
-            <p class="eyebrow">Valore Aggiunto</p>
-            <h2 id="trust-title">Perché scegliere lo Studio?</h2>
-            <p class="lead muted">Un approccio moderno alla consulenza fiscale, dove professionalità e tecnologia si incontrano.</p>
-          </div>
-          <div class="card-grid cols-2 cols-4" style="margin-bottom: 8rem;">
-            <article class="service-card reveal">
-              <h3 style="color: var(--gold)">⚖️ Competenza</h3>
-              <p class="muted">Dottore Commercialista e Revisore Legale con anni di esperienza nel settore societario e tributario.</p>
-            </article>
-            <article class="service-card reveal reveal-delay-1">
-              <h3 style="color: var(--gold)">🔍 Trasparenza</h3>
-              <p class="muted">Chiarezza sui costi, sulle scadenze e sulle strategie. Nessuna sorpresa, solo risultati concreti.</p>
-            </article>
-            <article class="service-card reveal reveal-delay-2">
-              <h3 style="color: var(--gold)">⚡ Rapidità</h3>
-              <p class="muted">Feedback tempestivi e reperibilità per le urgenze del tuo business. Il tempo è denaro.</p>
-            </article>
-            <article class="service-card reveal reveal-delay-3">
-              <h3 style="color: var(--gold)">💻 Digital First</h3>
-              <p class="muted">Tecnologie avanzate per semplificare lo scambio di documenti e la gestione della contabilità online.</p>
-            </article>
-          </div>
+  <!-- SEZIONE STUDIO & METODO -->
+  <section id="perche" class="section bg-light section-padding">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="tagline">Valore Aggiunto</p>
+        <h2>Perché scegliere lo Studio?</h2>
+        <p class="muted">Un approccio moderno alla consulenza fiscale, dove professionalità e tecnologia si incontrano.</p>
+      </div>
+      
+      <div class="card-grid cols-2 cols-4">
+        <div class="card-modern reveal">
+          <div class="icon-box-modern">⚖️</div>
+          <h3>Competenza</h3>
+          <p class="muted">Dottore Commercialista e Revisore Legale con anni di esperienza nel settore societario e tributario.</p>
+        </div>
+        
+        <div class="card-modern reveal reveal-delay-1">
+          <div class="icon-box-modern">🔍</div>
+          <h3>Trasparenza</h3>
+          <p class="muted">Chiarezza sui costi, sulle scadenze e sulle strategie. Nessuna sorpresa, solo risultati concreti.</p>
+        </div>
+        
+        <div class="card-modern reveal reveal-delay-2">
+          <div class="icon-box-modern">⚡</div>
+          <h3>Rapidità</h3>
+          <p class="muted">Feedback tempestivi e reperibilità per le urgenze del tuo business. Il tempo è denaro.</p>
+        </div>
+        
+        <div class="card-modern reveal reveal-delay-3">
+          <div class="icon-box-modern">💻</div>
+          <h3>Digital First</h3>
+          <p class="muted">Tecnologie avanzate per semplificare lo scambio di documenti e la gestione della contabilità online.</p>
+        </div>
+      </div>
 
-          <!-- Metodo integrato in Studio -->
-          <div class="method-box reveal" style="background: var(--bg-elev); padding: 5rem; border-radius: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-wow);">
-            <div class="section-head" style="margin-bottom: 4rem;">
-              <p class="eyebrow">Il nostro percorso</p>
-              <h2 id="metodo-title" style="font-size: 2.8rem;">Un metodo trasparente in 3 fasi</h2>
-            </div>
-          <div class="timeline">
-            <div class="timeline-item reveal">
-              <div class="timeline-num">01</div>
-              <div class="timeline-content">
-                <h3>Analisi Diagnostica Roma</h3>
-                <p class="muted">Check-up completo della tua situazione fiscale iniziale per identificare rischi e opportunità di risparmio nello <strong>Studio Sapienza a Roma</strong>.</p>
-              </div>
-            </div>
-            <div class="timeline-item reveal reveal-delay-1">
-              <div class="timeline-num">02</div>
-              <div class="timeline-content">
-                <h3>Pianificazione Strategica Fiscale</h3>
-                <p class="muted">Definizione di un calendario di scadenze e obiettivi per ottimizzare il carico fiscale in anticipo per professionisti e PMI a <strong>Roma Trastevere</strong>.</p>
-              </div>
-            </div>
-            <div class="timeline-item reveal reveal-delay-2">
-              <div class="timeline-num">03</div>
-              <div class="timeline-content">
-                <h3>Gestione Proattiva Partita IVA</h3>
-                <p class="muted">Documentazione digitale, risposte rapide e aggiornamenti continui per una gestione senza pensieri della tua <strong>Partita IVA a Roma</strong>.</p>
-              </div>
+      <!-- METODO INTEGRATO IN STUDIO -->
+      <div class="metodo-wrapper reveal" style="margin-top: 6rem; padding-top: 4rem; border-top: 1px solid rgba(184, 149, 61, 0.2);">
+        <div class="section-header" style="margin-bottom: 4rem;">
+          <p class="tagline">Il nostro percorso</p>
+          <h3>Un metodo trasparente in 3 fasi</h3>
+        </div>
+        
+        <div class="metodo-steps">
+          <div class="metodo-step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Analisi Diagnostica Roma</h4>
+              <p class="muted">Check-up completo della tua situazione fiscale iniziale per identificare rischi e opportunità di risparmio nello Studio Sapienza a Roma.</p>
             </div>
           </div>
+          
+          <div class="metodo-step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Pianificazione Strategica Fiscale</h4>
+              <p class="muted">Definizione di un calendario di scadenze e obiettivi per ottimizzare il carico fiscale in anticipo per professionisti e PMI a Roma Trastevere.</p>
+            </div>
+          </div>
+          
+          <div class="metodo-step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Gestione Proattiva Partita IVA</h4>
+              <p class="muted">Documentazione digitale, risposte rapide e aggiornamenti continui per una gestione senza pensieri della tua Partita IVA a Roma.</p>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
     <section id="servizi" class="section" aria-labelledby="servizi-title">
       <div class="section-dark-island reveal">
