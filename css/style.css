@@ -376,8 +376,8 @@ body.is-ready::before {
 
 .aurora-blob {
   position: absolute;
-  filter: blur(60px); /* Reduced from 100px for performance */
-  opacity: 0.15; /* Reduced from 0.25 */
+  filter: none;
+  opacity: 0;
   mix-blend-mode: multiply;
   will-change: transform;
   animation: aurora-mesh 30s infinite alternate linear;
@@ -385,6 +385,8 @@ body.is-ready::before {
 }
 
 .is-ready .aurora-blob {
+  filter: blur(60px); /* Reduced from 100px for performance */
+  opacity: 0.15; /* Reduced from 0.25 */
   animation-play-state: running;
 }
 
