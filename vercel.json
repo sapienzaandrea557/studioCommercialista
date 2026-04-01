@@ -45,6 +45,40 @@
     {
       "source": "/crm/",
       "destination": "/crm/index.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/cookie",
+      "destination": "/cookie.html"
+    },
+    {
+      "source": "/conferma",
+      "destination": "/conferma.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy.html",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/cookie.html",
+      "destination": "/cookie",
+      "permanent": true
+    },
+    {
+      "source": "/conferma.html",
+      "destination": "/conferma",
+      "permanent": true
     }
   ]
 }
