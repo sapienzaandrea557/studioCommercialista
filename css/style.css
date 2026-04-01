@@ -202,19 +202,31 @@ html {
   :root { --header-height: 70px; }
 }
 
-/* Performance Optimizations */
-.section {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 1000px; /* Placeholder size for better scrollbar behavior */
-}
+/* Performance Optimizations - Mobile Focus */
+@media (max-width: 768px) {
+  .section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 500px;
+    padding-block: 4rem; /* More compact for mobile */
+  }
+  
+  /* Disable expensive filters on mobile to boost FCP/LCP */
+  .aurora-blob, .signature-shape {
+    filter: none !important;
+    backdrop-filter: none !important;
+    display: none; /* Remove background blobs on mobile for max speed */
+  }
+  
+  .section-island, .section-dark-island, .card-modern, .service-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    background: #fff !important; /* Solid background for mobile performance */
+  }
 
-/* Hero is always visible, no need for content-visibility */
-#home {
-  content-visibility: visible;
-}
-
-.aurora-bg, .site-header, .site-footer {
-  content-visibility: visible;
+  .section-dark-island {
+    background: #0a1128 !important; /* Solid dark for performance */
+  }
 }
 
 .section { 
