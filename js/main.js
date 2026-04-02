@@ -24,8 +24,12 @@
 
   const loadAnalytics = () => {
     scheduleIdle(() => {
-      injectScript({ id: "vercel-insights", src: "/_vercel/insights/script.js", defer: true });
-      injectScript({ id: "vercel-speed-insights", src: "/_vercel/speed-insights/script.js", defer: true });
+      const host = location.hostname;
+      const isLocal = host === "localhost" || host === "127.0.0.1" || host === "[::1]";
+      if (!isLocal) {
+        injectScript({ id: "vercel-insights", src: "/_vercel/insights/script.js", defer: true });
+        injectScript({ id: "vercel-speed-insights", src: "/_vercel/speed-insights/script.js", defer: true });
+      }
 
       if (!window.clarity) {
         window.clarity = function () {

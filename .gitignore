@@ -16,3 +16,6 @@ cursor_creazione_sito_web_per_commercia.md
 # Firebase debug logs
 firebase-debug.log*
 .firebase/
+
+# Report temporanei (estrazioni PDF)
+prova0/miglioramenti_latest_report*.txt

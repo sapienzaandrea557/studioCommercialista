@@ -130,10 +130,11 @@
     .cookie-inner { display: flex; gap: 1rem; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; }
     .cookie-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
     @media (max-width: 600px) { .cookie-inner { flex-direction: column; align-items: stretch; } .cookie-actions { justify-content: stretch; } .cookie-actions .btn { width: 100%; } }
+    @media (max-width: 768px) { :root { --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; --font-display: Georgia, serif; } }
   </style>
 
-  <link rel="preload" as="style" href="css/style.css?v=1.2.7" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="css/style.css?v=1.2.7"></noscript>
+  <link rel="preload" as="style" href="css/style.css?v=1.2.8">
+  <link rel="stylesheet" href="css/style.css?v=1.2.8" media="all" fetchpriority="high">
   
   <link rel="icon" type="image/svg+xml" href="img/logo.svg?v=20260330" />
   <link rel="apple-touch-icon" href="img/logo.svg?v=20260330" />
