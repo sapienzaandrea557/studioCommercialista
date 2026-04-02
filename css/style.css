@@ -204,6 +204,10 @@ html {
 
 /* Performance Optimizations - Mobile Focus Extreme */
 @media (max-width: 768px) {
+  :root {
+    --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --font-display: Georgia, serif;
+  }
   /* Stop all background animations and effects */
   .aurora-blob, .signature-shape, .abstract-shape, .section-curve {
     display: none !important;
