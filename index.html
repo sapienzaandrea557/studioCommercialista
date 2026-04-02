@@ -126,10 +126,14 @@
     .aurora-bg { position: fixed; inset: 0; z-index: -1; background: #fdfdfd; overflow: hidden; }
     .reveal { opacity: 0; transform: translateY(20px); will-change: opacity, transform; }
     .reveal.is-visible { opacity: 1; transform: translateY(0); transition: opacity 0.8s var(--ease-wow), transform 0.8s var(--ease-wow); }
+    .cookie-banner { position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 1800; background: rgba(255,255,255,0.98); border: 1px solid rgba(10,17,40,0.12); border-radius: 16px; box-shadow: 0 20px 60px rgba(10,17,40,0.18); }
+    .cookie-inner { display: flex; gap: 1rem; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; }
+    .cookie-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+    @media (max-width: 600px) { .cookie-inner { flex-direction: column; align-items: stretch; } .cookie-actions { justify-content: stretch; } .cookie-actions .btn { width: 100%; } }
   </style>
 
-  <link rel="preload" as="style" href="css/style.css?v=1.2.6">
-  <link rel="stylesheet" href="css/style.css?v=1.2.6" media="all">
+  <link rel="preload" as="style" href="css/style.css?v=1.2.7" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css?v=1.2.7"></noscript>
   
   <link rel="icon" type="image/svg+xml" href="img/logo.svg?v=20260330" />
   <link rel="apple-touch-icon" href="img/logo.svg?v=20260330" />
