@@ -57,6 +57,10 @@
     {
       "source": "/conferma",
       "destination": "/conferma.html"
+    },
+    {
+      "source": "/commercialista-roma",
+      "destination": "/commercialista-roma.html"
     }
   ],
   "redirects": [
@@ -78,6 +82,11 @@
     {
       "source": "/conferma.html",
       "destination": "/conferma",
+      "permanent": true
+    },
+    {
+      "source": "/commercialista-roma.html",
+      "destination": "/commercialista-roma",
       "permanent": true
     }
   ]
