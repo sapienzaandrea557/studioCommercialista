@@ -228,6 +228,7 @@ html {
   .glass, 
   .glass-dark,
   .glass-card,
+  .site-header,
   .site-header.is-scrolled,
   .metodo-step {
     backdrop-filter: none !important;
@@ -237,6 +238,7 @@ html {
     border: 1px solid #eee !important;
     transition: none !important; /* Disable transitions on mobile for layout speed */
     transform: none !important;
+    contain: paint;
   }
 
   .section-dark-island {
@@ -291,6 +293,12 @@ html {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* Performance Optimizations - Content Visibility */
+.section:not(#home) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
 }
 
 .section { 

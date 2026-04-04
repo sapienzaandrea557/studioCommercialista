@@ -3,7 +3,7 @@
 <head>
   <script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
   <meta charset="UTF-8" />
-  <!-- UPDATE ID: SAPIENZA-ULTIMATE-V3.1-PERF-SEO-BOOST -->
+  <!-- UPDATE ID: SAPIENZA-ULTIMATE-V3.5-MAX-PERF-SEO -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <link rel="canonical" href="https://commercialista-roma-jet.vercel.app/" />
   <link rel="alternate" hreflang="it" href="https://commercialista-roma-jet.vercel.app/" />
@@ -162,6 +162,10 @@
   <link rel="icon" type="image/svg+xml" href="img/logo.svg?v=20260404" />
   <link rel="apple-touch-icon" href="img/logo.svg?v=20260404" />
   <meta name="msapplication-TileImage" content="img/logo.svg?v=20260404" />
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://www.clarity.ms">
+  <link rel="preconnect" href="https://www.google-analytics.com">
 </head>
 <body>
   <!-- Aurora Gradient System -->
@@ -174,9 +178,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="logo" href="#home" aria-label="Torna alla Home dello Studio Andrea Sapienza Commercialista Roma" title="Torna alla Home">
-        <img src="img/logo.svg?v=20260404" alt="Studio Andrea Sapienza Logo" width="40" height="40" style="margin-right: 10px;" fetchpriority="high">
-        Studio <span>Andrea Sapienza</span>
-      </a>
+          <img src="img/logo.svg?v=20260404" alt="Studio Andrea Sapienza Logo" width="40" height="40" style="margin-right: 10px; aspect-ratio: 1 / 1;" fetchpriority="high" decoding="async">
+          Studio <span>Andrea Sapienza</span>
+        </a>
       
       <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Apri menu navigazione" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -557,17 +561,11 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-info">
-        <p class="small muted" style="max-width: 800px; margin-inline: auto; line-height: 1.4; opacity: 0.6;">
-          Studio Andrea Sapienza: Il tuo punto di riferimento per la consulenza fiscale e societaria a Roma. Specializzati in regime forfettario, gestione Partita IVA, revisione legale dei conti e bilanci per startup e PMI nei quartieri di Trastevere, Testaccio e Monteverde.
-        </p>
-        <p class="small muted" style="margin-top: 1.5rem;">
-          © 2026 Studio Andrea Sapienza — Dottore Commercialista e Revisore Legale a Roma — Via Napoleone Parboni 12, 00153 Roma
-        </p>
+        <p class="small muted" style="opacity: 0.7;">© 2026 Studio Andrea Sapienza — <strong>Commercialista a Roma</strong> (Trastevere). P.IVA 12345678901. Il tuo <strong>commercialista a Roma</strong> di riferimento per Partita IVA e regime forfettario. <strong>Commercialista Roma Trastevere</strong>, <strong>Commercialista Roma Centro</strong>, <strong>Commercialista Roma Testaccio</strong>.</p>
       </div>
       <div class="footer-links">
-        <a href="privacy.html" title="Apri Privacy Policy">Privacy Policy</a>
-        <a href="cookie.html" title="Apri Cookie Policy">Cookie Policy</a>
-        <a href="crm/index.html" title="Apri area riservata CRM">Area riservata</a>
+        <a href="/privacy" title="Apri Privacy Policy">Privacy Policy</a>
+        <a href="/cookie" title="Apri Cookie Policy">Cookie Policy</a>
       </div>
     </div>
   </footer>
