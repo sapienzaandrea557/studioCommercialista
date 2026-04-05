@@ -231,7 +231,8 @@
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
-    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden"; // Blocca scroll su html
+    document.body.style.overflow = "hidden"; // Blocca scroll su body
     const focusable = m.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
     if (focusable.length) setTimeout(() => focusable[0].focus(), 100);
   }
@@ -242,9 +243,16 @@
     m.hidden = true;
     m.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
+    document.documentElement.style.overflow = "";
     document.body.style.overflow = "";
     if (m._lastFocusedElement) m._lastFocusedElement.focus();
   }
+
+  document.querySelectorAll(".modal").forEach(m => {
+    m.addEventListener("click", (e) => {
+      if (e.target === m) closeModal(m.id);
+    });
+  });
 
   document.querySelectorAll("[data-open-modal]").forEach((btn) => {
     btn.addEventListener("click", () => openModal(btn.getAttribute("data-open-modal")));
