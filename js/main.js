@@ -269,7 +269,7 @@
       openModal("modal-booking");
       const container = document.getElementById("calendly-container");
       if (container && !container.innerHTML) {
-        container.innerHTML = `<iframe id="calendly-iframe" src="${CALENDLY_URL}?embed_domain=${encodeURIComponent(location.origin)}&embed_type=Inline&hide_gdpr_banner=1" width="100%" height="100%" frameborder="0" loading="lazy" style="border:0; min-height: 650px;"></iframe>`;
+        container.innerHTML = `<iframe id="calendly-iframe" src="${CALENDLY_URL}?embed_domain=${encodeURIComponent(location.origin)}&embed_type=Inline&hide_gdpr_banner=1" width="100%" height="100%" frameborder="0" loading="lazy" style="border:0;"></iframe>`;
       }
     });
   });
