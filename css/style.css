@@ -5,27 +5,94 @@
 */
 
 :root {
+  --header-height: 80px;
   --bg: #ffffff;
-  --bg-dark: #0a1128; /* Blu Notte Profondo */
-  --bg-elev: #f1f3f5; /* Grigio leggermente più profondo per contrasto */
-  --surface: rgba(255, 255, 255, 0.98);
-  --surface-dark: rgba(255, 255, 255, 0.08);
-  --border: rgba(10, 17, 40, 0.12); /* Bordo più visibile */
-  --border-gold: rgba(212, 175, 55, 0.4);
-  --text: #0a1128; /* Blu Notte per tutto il testo principale */
-  --text-light: #ffffff;
-  --muted: #3a4759; /* Grigio più scuro per contrasto (da 2d3748) */
-  --muted-light: rgba(255, 255, 255, 0.9); /* Più opaco per sfondo scuro */
-  --gold: #b8953d; /* Ripristinato oro originale richiesto */
-  --gold-dim: #9c7b2d;
   --bg-dark: #0a1128;
+  --text: #0a1128;
+  --gold: #b8953d;
+  --font-body: "Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --ease-wow: cubic-bezier(0.8, 0, 0.2, 1);
   --radius: 24px;
   --shadow-wow: 0 40px 80px -20px rgba(10, 17, 40, 0.15);
-  --font-body: "Source Sans 3", system-ui, sans-serif;
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --ease-wow: cubic-bezier(0.8, 0, 0.2, 1);
   --maxw: 1200px;
+  --surface: rgba(255, 255, 255, 0.98);
+  --border: rgba(10, 17, 40, 0.12);
 }
+
+@media (max-width: 899px) {
+  :root { --header-height: 70px; }
+}
+
+/* Base resets & Performance Improvements */
+html { scroll-behavior: smooth; overflow-x: hidden; background: #fdfdfd; }
+body { margin: 0; padding: 0; font-family: var(--font-body); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; min-height: 100vh; position: relative; overflow-x: hidden; }
+
+/* Desktop stability - Reserve space for common elements */
+.site-header { 
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; 
+  padding-block: 1rem; transition: all 0.6s var(--ease-wow); 
+  height: var(--header-height); background: rgba(255, 255, 255, 0.98); 
+  display: flex; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);
+  contain: layout;
+}
+
+.hero {
+  position: relative;
+  min-height: clamp(520px, 80vh, 820px);
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
+  background: transparent;
+  contain: layout;
+}
+
+/* Global button styles for stability */
+.btn {
+  display: inline-flex;
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  min-width: 180px;
+  min-height: 48px;
+  border: 1px solid transparent;
+  transition: all 0.3s var(--ease-wow);
+  white-space: nowrap;
+}
+
+.btn-sm { min-width: 120px; padding: 0.6rem 1.2rem; min-height: 40px; }
+
+/* Prose for legal pages - Improvement */
+.prose { max-width: 800px; margin-inline: auto; }
+.prose h1, .prose h2, .prose h3 { margin-top: 2rem; margin-bottom: 1rem; }
+.prose p { margin-bottom: 1.25rem; }
+.prose ul { margin-bottom: 1.5rem; padding-left: 1.5rem; list-style: disc; }
+.prose li { margin-bottom: 0.5rem; }
+
+.legal-header { padding-block: 4rem 2rem; text-align: center; }
+.legal-main { padding-bottom: 8rem; }
+.legal-page .logo { justify-content: center; margin-bottom: 2rem; }
+
+/* Map & Container Wow */
+.container { width: min(100% - 2rem, var(--maxw)); margin-inline: auto; position: relative; }
+
+/* Image Stability */
+img { max-width: 100%; height: auto; display: block; font-style: italic; background-repeat: no-repeat; background-size: cover; shape-margin: 0.75rem; }
+
+/* Font size tweaks for stability */
+h1 { line-height: 1.15; letter-spacing: -0.02em; }
+h2 { line-height: 1.2; letter-spacing: -0.01em; }
+p { line-height: 1.7; }
+
+/* Reveal fix for CLS - ensure element is in flow even when hidden */
+.reveal { opacity: 0; transition: opacity 0.8s var(--ease-wow); }
+.reveal.is-visible { opacity: 1; }
 
 /* --- Studio & Metodo Sections --- */
 .section-padding {
@@ -195,9 +262,6 @@ html {
 }
 
 /* Smooth scroll offset for fixed header */
-:root {
-  --header-height: 80px;
-}
 @media (max-width: 899px) {
   :root { --header-height: 70px; }
 }
@@ -704,14 +768,22 @@ h3 { font-size: 1.4rem; }
 .btn-sm { padding: 0.6rem 1.4rem; font-size: 0.7rem; }
 
 /* --- Header --- */
-.site-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  transition: all 0.6s var(--ease-wow);
-  padding-block: 1rem;
-  background: transparent;
+.site-header { 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  z-index: 1000; 
+  padding-block: 1rem; 
+  transition: all 0.6s var(--ease-wow); 
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  contain: layout;
 }
 
 .header-inner { 
@@ -723,10 +795,10 @@ h3 { font-size: 1.4rem; }
 }
 
 .site-header.is-scrolled {
-  padding-block: 0.5rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
 }
 
 .logo { 
@@ -862,7 +934,7 @@ h3 { font-size: 1.4rem; }
   min-height: clamp(520px, 80vh, 820px);
   display: flex;
   align-items: center;
-  padding-top: clamp(6rem, 15vh, 10rem);
+  padding-top: var(--header-height);
   background: transparent;
 }
 

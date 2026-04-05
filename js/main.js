@@ -83,8 +83,8 @@
           e.preventDefault();
           const targetEl = document.querySelector(targetId);
           if (targetEl) {
-            const headerHeight = document.querySelector('.site-header').offsetHeight;
-            const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+          const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
             
             window.scrollTo({
               top: targetPos,
