@@ -1252,6 +1252,11 @@ h3 { font-size: 1.4rem; }
 }
 
 /* Modals */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
 .modal {
   position: fixed;
   inset: 0;
@@ -1265,7 +1270,9 @@ h3 { font-size: 1.4rem; }
   visibility: hidden;
   transition: all 0.4s var(--ease-wow);
   overflow: hidden !important; /* Blocca ogni scroll nell'overlay scuro */
+  touch-action: none; /* Prevents background scrolling through the overlay */
 }
+
 .modal:not([hidden]) { opacity: 1; visibility: visible; }
 
 .modal-dialog {

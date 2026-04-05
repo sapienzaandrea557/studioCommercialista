@@ -47,14 +47,19 @@ if (!isBot) {
   window.addEventListener("message", async (e) => {
     // 1. Gestione chiusura modale dal redirect (conferma.html)
     if (e.data === "calendly_success" || e.data === "close_calendly_modal") {
-      const modal = document.getElementById("modal-booking");
-      if (modal) {
-        setTimeout(() => {
-          modal.hidden = true;
-          modal.setAttribute("aria-hidden", "true");
-          document.body.classList.remove("modal-open");
-        }, 3000);
-      }
+      setTimeout(() => {
+        if (window.studioModals && typeof window.studioModals.close === "function") {
+          window.studioModals.close("modal-booking");
+        } else {
+          // Fallback se main.js non ha ancora esposto le funzioni
+          const modal = document.getElementById("modal-booking");
+          if (modal) {
+            modal.hidden = true;
+            modal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+          }
+        }
+      }, 3000);
       return;
     }
 

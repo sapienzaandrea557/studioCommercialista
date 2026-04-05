@@ -234,6 +234,7 @@
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
     document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
     document.body.classList.add("modal-open");
     
     m.hidden = false;
@@ -251,6 +252,7 @@
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
+    document.body.style.overflow = '';
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
     
     m.hidden = true;
@@ -258,6 +260,9 @@
     document.body.classList.remove("modal-open");
     if (m._lastFocusedElement) m._lastFocusedElement.focus();
   }
+
+  // Rendi disponibili le funzioni a livello globale per integrazioni esterne (es. booking-availability.js)
+  window.studioModals = { open: openModal, close: closeModal };
 
   document.querySelectorAll(".modal").forEach(m => {
     m.addEventListener("click", (e) => {
