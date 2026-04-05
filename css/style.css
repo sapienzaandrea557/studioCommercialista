@@ -121,11 +121,8 @@ p { line-height: 1.7; }
   box-shadow: 0 20px 40px rgba(184, 149, 61, 0.1);
 }
 
-.icon-box-modern {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  filter: drop-shadow(0 5px 15px rgba(184, 149, 61, 0.3));
-}
+.card-modern h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--bg-dark); margin-bottom: 0.5rem; }
+.card-modern p { line-height: 1.6; }
 
 .metodo-wrapper {
   margin-top: clamp(4rem, 10vh, 8rem);
@@ -754,9 +751,9 @@ h3 { font-size: 1.4rem; }
   border-color: var(--gold); 
 }
 .btn-primary { background: var(--bg-dark); color: #fff; border: none; }
-.btn-primary:hover { background: var(--gold); color: var(--bg-dark); }
+.btn-primary:hover { background: var(--gold); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(184, 149, 61, 0.2); }
 .btn-ghost { 
-  border: 1.5px solid var(--gold); /* Ora Gold come richiesto */
+  border: 1.5px solid var(--gold); 
   color: var(--gold) !important; 
   background: transparent; 
 }
@@ -764,6 +761,7 @@ h3 { font-size: 1.4rem; }
   background: var(--gold); 
   color: #fff !important; 
   transform: translateY(-3px); 
+  box-shadow: 0 10px 20px rgba(184, 149, 61, 0.2);
 }
 .btn-sm { padding: 0.6rem 1.4rem; font-size: 0.7rem; }
 
@@ -968,7 +966,9 @@ h3 { font-size: 1.4rem; }
 .section-dark-island * { color: #ffffff !important; }
 .section-dark-island h2 { background: linear-gradient(135deg, #ffffff, #d4af37) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; display: inline-block; font-size: clamp(1.8rem, 4vw, 2.5rem); }
 
-.section-head { margin-bottom: 1rem; text-align: center; max-width: 700px; margin-inline: auto; }
+.section-head { margin-bottom: 2rem; text-align: center; max-width: 800px; margin-inline: auto; }
+.section-head .eyebrow { margin-bottom: 0.5rem; }
+.section-head h2 { margin-bottom: 1rem; }
 .section-dark-island .section-head { text-align: center; margin-inline: auto; }
 
 /* Map Signature Upgrade Big */
