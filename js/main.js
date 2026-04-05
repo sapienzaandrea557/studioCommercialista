@@ -235,7 +235,12 @@
     document.body.style.top = `-${scrollY}px`;
     document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+    document.body.style.height = '100dvh'; // Forza altezza fissa
     document.body.classList.add("modal-open");
+    
+    // Blocca scroll touch su dispositivi mobili per il modal
+    m.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+    m.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
     
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
@@ -253,7 +258,12 @@
     document.body.style.top = '';
     document.body.style.width = '';
     document.body.style.overflow = '';
+    document.body.style.height = '';
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    
+    // Rimuovi listener blocco scroll
+    m.removeEventListener('touchmove', (e) => e.preventDefault());
+    m.removeEventListener('wheel', (e) => e.preventDefault());
     
     m.hidden = true;
     m.setAttribute("aria-hidden", "true");
