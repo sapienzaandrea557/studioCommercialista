@@ -235,11 +235,39 @@
     document.body.classList.add("modal-open");
     document.body.style.top = `-${scrollY}px`;
     
-    // Blocca scroll touch su dispositivi mobili per il modal
-    const preventDefault = (e) => e.preventDefault();
-    window.addEventListener('touchmove', preventDefault, { passive: false });
-    window.addEventListener('wheel', preventDefault, { passive: false });
-    m._scrollLockListeners = preventDefault; // Salva per rimuoverli dopo
+    // Funzione universale per bloccare TUTTO (scroll, gesti, tasti)
+    const lockEverything = (e) => {
+      // Se l'evento è un tasto di scorrimento, bloccalo
+      const scrollKeys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // Space, PageUp/Down, Home/End, Arrows
+      if (e.type === 'keydown' && scrollKeys.includes(e.keyCode)) {
+        e.preventDefault();
+        return false;
+      }
+      // Blocca touchmove e wheel
+      if (e.type === 'touchmove' || e.type === 'wheel') {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Aggiungi i listener a livello window per un blocco totale
+    window.addEventListener('touchmove', lockEverything, { passive: false });
+    window.addEventListener('wheel', lockEverything, { passive: false });
+    window.addEventListener('keydown', lockEverything, { passive: false });
+    
+    // Gestione Storia (Avanti/Indietro)
+    // Inseriamo uno stato fittizio per intercettare il tasto "Indietro"
+    const modalState = { modalId: id, openedAt: Date.now() };
+    history.pushState(modalState, null, window.location.href);
+    
+    const handlePopState = (event) => {
+      // Se l'utente preme "Indietro", chiudiamo il modal invece di cambiare pagina
+      closeModal(id, true); // true indica che non dobbiamo fare un altro history.back()
+    };
+    window.addEventListener('popstate', handlePopState);
+    
+    m._lockHandler = lockEverything;
+    m._popStateState = handlePopState;
     
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
@@ -247,7 +275,7 @@
     if (focusable.length) setTimeout(() => focusable[0].focus(), 100);
   }
 
-  function closeModal(id) {
+  function closeModal(id, fromPopState = false) {
     const m = document.getElementById(id);
     if (!m) return;
     
@@ -258,16 +286,27 @@
     document.body.style.top = '';
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
     
-    // Rimuovi listener blocco scroll a livello window
-    if (m._scrollLockListeners) {
-      window.removeEventListener('touchmove', m._scrollLockListeners);
-      window.removeEventListener('wheel', m._scrollLockListeners);
-      delete m._scrollLockListeners;
+    // Rimuovi i blocchi funzionali
+    if (m._lockHandler) {
+      window.removeEventListener('touchmove', m._lockHandler);
+      window.removeEventListener('wheel', m._lockHandler);
+      window.removeEventListener('keydown', m._lockHandler);
+      delete m._lockHandler;
+    }
+    
+    // Rimuovi listener popstate e gestisci la storia
+    if (m._popStateState) {
+      window.removeEventListener('popstate', m._popStateState);
+      delete m._popStateState;
+      // Se NON stiamo chiudendo tramite il tasto "Indietro", 
+      // dobbiamo rimuovere lo stato fittizio che abbiamo aggiunto
+      if (!fromPopState) {
+        history.back();
+      }
     }
     
     m.hidden = true;
     m.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
     if (m._lastFocusedElement) m._lastFocusedElement.focus();
   }
 

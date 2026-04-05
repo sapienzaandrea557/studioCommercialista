@@ -1264,7 +1264,7 @@ body.modal-open {
   padding: 0 !important;
   touch-action: none !important;
   -webkit-overflow-scrolling: none !important;
-  overscroll-behavior: none !important;
+  overscroll-behavior: none !important; /* Blocca swipe-to-back e swipe-to-forward */
 }
 
 /* Rimuove forzatamente le scrollbar su tutti i motori di rendering */
