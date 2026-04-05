@@ -228,11 +228,16 @@
     const m = document.getElementById(id);
     if (!m) return;
     m._lastFocusedElement = document.activeElement;
+    
+    // Salva la posizione dello scroll attuale
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.classList.add("modal-open");
+    
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
-    document.documentElement.style.overflow = "hidden"; // Blocca scroll su html
-    document.body.style.overflow = "hidden"; // Blocca scroll su body
     const focusable = m.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
     if (focusable.length) setTimeout(() => focusable[0].focus(), 100);
   }
@@ -240,11 +245,17 @@
   function closeModal(id) {
     const m = document.getElementById(id);
     if (!m) return;
+    
+    // Ripristina lo scroll
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    
     m.hidden = true;
     m.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
     if (m._lastFocusedElement) m._lastFocusedElement.focus();
   }
 

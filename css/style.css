@@ -1264,6 +1264,7 @@ h3 { font-size: 1.4rem; }
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s var(--ease-wow);
+  overflow: hidden !important; /* Blocca ogni scroll nell'overlay scuro */
 }
 .modal:not([hidden]) { opacity: 1; visibility: visible; }
 
