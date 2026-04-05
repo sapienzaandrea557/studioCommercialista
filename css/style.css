@@ -1337,20 +1337,20 @@ body.modal-open,
 }
 
 .modal-dialog-wide {
-  position: relative !important; /* Ritorna relativo all'overlay .modal */
-  width: min(100%, 1200px) !important;
-  height: 90vh !important;
-  max-width: 100% !important;
-  max-height: 90vh !important;
+  position: relative !important;
+  width: 96vw !important;
+  height: 96vh !important;
+  max-width: 1200px !important; /* Limite per non farlo troppo largo su schermi enormi */
+  max-height: 96vh !important;
   border: none !important;
-  border-radius: 16px !important; /* Bordi arrotondati per estetica adattiva */
+  border-radius: 12px !important;
   padding: 0 !important;
   margin: 0 !important;
   display: flex;
   flex-direction: column;
-  overflow: hidden !important;
+  overflow: hidden !important; /* Elimina ogni scroll interno al dialog */
   background: #fff;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.3) !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4) !important;
   user-select: none;
   overscroll-behavior: none !important;
 }
@@ -1360,10 +1360,10 @@ body.modal-open,
   width: 100% !important;
   height: 100% !important;
   border: none !important;
-  border-radius: 16px !important;
+  border-radius: 12px !important;
   padding: 0 !important;
   margin: 0 !important;
-  overflow: hidden !important;
+  overflow: hidden !important; /* Blocca scroll nel wrapper */
   background: #fff;
   position: relative;
 }
