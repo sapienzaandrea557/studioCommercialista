@@ -1252,27 +1252,41 @@ h3 { font-size: 1.4rem; }
 }
 
 /* Modals */
+html.modal-open,
 body.modal-open {
   overflow: hidden !important;
-  height: 100vh;
+  height: 100dvh !important;
+  width: 100vw !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  touch-action: none !important;
+  -webkit-overflow-scrolling: none !important;
+  overscroll-behavior: none !important;
 }
 
 .modal {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2000;
   background: rgba(10, 17, 40, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  margin: 0;
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s var(--ease-wow);
   overflow: hidden !important;
-  height: 100dvh; /* Altezza dinamica per mobile */
+  height: 100dvh;
   width: 100vw;
-  touch-action: none; /* Blocca gesti touch per lo scroll di sfondo */
+  touch-action: none;
 }
 
 .modal:not([hidden]) { opacity: 1; visibility: visible; display: flex; }

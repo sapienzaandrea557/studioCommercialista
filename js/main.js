@@ -231,16 +231,19 @@
     
     // Salva la posizione dello scroll attuale
     const scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
-    document.body.style.height = '100dvh'; // Forza altezza fissa
+    document.documentElement.classList.add("modal-open");
     document.body.classList.add("modal-open");
+    document.body.style.top = `-${scrollY}px`;
     
     // Blocca scroll touch su dispositivi mobili per il modal
     m.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
     m.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+    m.addEventListener('touchstart', (e) => {
+      // Consenti lo scroll solo dentro l'iframe se necessario, ma blocca il resto
+      if (e.target.id !== 'calendly-iframe') {
+        // e.preventDefault(); // Rimosso per non rompere il click sulla X
+      }
+    }, { passive: true });
     
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
@@ -254,11 +257,9 @@
     
     // Ripristina lo scroll
     const scrollY = document.body.style.top;
-    document.body.style.position = '';
+    document.documentElement.classList.remove("modal-open");
+    document.body.classList.remove("modal-open");
     document.body.style.top = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
-    document.body.style.height = '';
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
     
     // Rimuovi listener blocco scroll
