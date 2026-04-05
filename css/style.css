@@ -1271,7 +1271,7 @@ h3 { font-size: 1.4rem; }
   background: #fff;
   border-radius: 20px;
   padding: clamp(1.5rem, 5vw, 3rem);
-  width: min(100% - 2rem, 650px);
+  width: min(100% - 2rem, 850px);
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
@@ -1325,8 +1325,27 @@ h3 { font-size: 1.4rem; }
 
 .form-grid { 
   display: grid; 
-  gap: 1.25rem; 
+  gap: 1.5rem; 
   margin-top: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-grid div:nth-child(4), 
+.form-grid div:nth-child(5),
+.form-grid div:nth-child(6),
+.form-grid .checkbox-row,
+.form-grid button,
+.form-grid .form-msg {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 650px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid div {
+    grid-column: 1 / -1 !important;
+  }
 }
 
 .form-grid label { 
