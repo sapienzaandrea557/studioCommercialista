@@ -1267,6 +1267,20 @@ body.modal-open {
   overscroll-behavior: none !important;
 }
 
+/* Rimuove forzatamente le scrollbar su tutti i motori di rendering */
+html.modal-open::-webkit-scrollbar,
+body.modal-open::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+html.modal-open,
+body.modal-open {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -1327,6 +1341,8 @@ body.modal-open {
   flex-direction: column;
   overflow: hidden !important;
   background: #fff;
+  user-select: none;
+  overscroll-behavior: contain;
 }
 
 .cal-iframe-wrap {

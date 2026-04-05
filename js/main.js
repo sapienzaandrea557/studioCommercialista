@@ -236,14 +236,10 @@
     document.body.style.top = `-${scrollY}px`;
     
     // Blocca scroll touch su dispositivi mobili per il modal
-    m.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-    m.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
-    m.addEventListener('touchstart', (e) => {
-      // Consenti lo scroll solo dentro l'iframe se necessario, ma blocca il resto
-      if (e.target.id !== 'calendly-iframe') {
-        // e.preventDefault(); // Rimosso per non rompere il click sulla X
-      }
-    }, { passive: true });
+    const preventDefault = (e) => e.preventDefault();
+    window.addEventListener('touchmove', preventDefault, { passive: false });
+    window.addEventListener('wheel', preventDefault, { passive: false });
+    m._scrollLockListeners = preventDefault; // Salva per rimuoverli dopo
     
     m.hidden = false;
     m.setAttribute("aria-hidden", "false");
@@ -262,9 +258,12 @@
     document.body.style.top = '';
     window.scrollTo(0, parseInt(scrollY || '0') * -1);
     
-    // Rimuovi listener blocco scroll
-    m.removeEventListener('touchmove', (e) => e.preventDefault());
-    m.removeEventListener('wheel', (e) => e.preventDefault());
+    // Rimuovi listener blocco scroll a livello window
+    if (m._scrollLockListeners) {
+      window.removeEventListener('touchmove', m._scrollLockListeners);
+      window.removeEventListener('wheel', m._scrollLockListeners);
+      delete m._scrollLockListeners;
+    }
     
     m.hidden = true;
     m.setAttribute("aria-hidden", "true");
