@@ -84,12 +84,23 @@
           const targetEl = document.querySelector(targetId);
           if (targetEl) {
             const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
-          const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          const sectionHeight = targetEl.offsetHeight;
+          const viewportHeight = window.innerHeight;
+          
+          let targetPos;
+          
+          // Se la sezione è più corta del viewport, la centriamo
+          if (sectionHeight < (viewportHeight - headerHeight)) {
+            targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (viewportHeight - sectionHeight) / 2;
+          } else {
+            // Se è più lunga, scorriamo all'inizio (con offset header)
+            targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          }
             
-            window.scrollTo({
-              top: targetPos,
-              behavior: 'smooth'
-            });
+          window.scrollTo({
+            top: targetPos,
+            behavior: 'smooth'
+          });
           }
 
           // Mobile menu auto-close
