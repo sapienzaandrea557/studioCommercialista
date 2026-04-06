@@ -7,6 +7,7 @@ import {
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
+  sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
   getFirestore,
@@ -673,6 +674,42 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 document.getElementById("btn-show-pw-change").addEventListener("click", () => {
   document.getElementById("login-form").hidden = true;
   document.getElementById("change-password-form-login").hidden = false;
+});
+
+document.getElementById("btn-forgot-password").addEventListener("click", () => {
+  document.getElementById("login-form").hidden = true;
+  document.getElementById("forgot-password-form").hidden = false;
+});
+
+document.getElementById("btn-back-from-forgot").addEventListener("click", () => {
+  document.getElementById("login-form").hidden = false;
+  document.getElementById("forgot-password-form").hidden = true;
+});
+
+document.getElementById("forgot-password-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById("forgot-msg");
+  const email = document.getElementById("forgot-email").value.trim();
+  msg.hidden = false;
+  msg.className = "msg info";
+  msg.textContent = "Invio in corso...";
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    msg.className = "msg ok";
+    msg.textContent = "Email di recupero inviata! Controlla la tua posta.";
+    setTimeout(() => {
+      document.getElementById("btn-back-from-forgot").click();
+      msg.hidden = true;
+    }, 3000);
+  } catch (ex) {
+    msg.className = "msg err";
+    if (ex.code === "auth/user-not-found") {
+      msg.textContent = "Nessun utente trovato con questa email.";
+    } else {
+      msg.textContent = "Errore: " + (ex.message || "riprova più tardi.");
+    }
+  }
 });
 
 document.getElementById("btn-back-to-login").addEventListener("click", () => {

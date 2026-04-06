@@ -57,9 +57,26 @@
           <p id="login-error" class="msg err" hidden style="margin-top:1rem"></p>
           
           <div class="auth-footer">
-            <button type="button" id="btn-show-pw-change" class="btn-text small muted">Hai dimenticato o vuoi cambiare password?</button>
+            <button type="button" id="btn-show-pw-change" class="btn-text small muted">Cambia password (se la ricordi)</button>
+            <button type="button" id="btn-forgot-password" class="btn-text small gold">Password dimenticata?</button>
           </div>
+          <p id="reset-msg" class="msg" hidden style="margin-top:1rem"></p>
           <p class="system-update">System Update: SAPIENZA-ULTIMATE-V2.7</p>
+        </form>
+
+        <!-- Modulo Reset Password (nascosto inizialmente) -->
+        <form id="forgot-password-form" hidden>
+          <h2 class="pw-change-title">Recupero Password</h2>
+          <p class="muted small" style="margin-bottom: 1rem;">Inserisci la tua email per ricevere il link di reset.</p>
+          <div class="form-group">
+            <label for="forgot-email">Email</label>
+            <input id="forgot-email" type="email" required placeholder="admin@studio.it" class="full-width" />
+          </div>
+          <div class="flex-gap-1">
+            <button type="button" id="btn-back-from-forgot" class="btn btn-ghost flex-1">Annulla</button>
+            <button type="submit" class="btn btn-primary flex-1">Invia Email</button>
+          </div>
+          <p id="forgot-msg" class="msg" hidden style="margin-top:1rem"></p>
         </form>
 
         <!-- Modulo Cambio Password (nascosto inizialmente) -->
