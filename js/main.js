@@ -142,20 +142,22 @@
     const header = document.querySelector(".site-header");
     if (header) {
       let ticking = false;
-      let lastScrollY = window.scrollY;
+      let lastHeaderHeight = 0;
 
-      const setHeaderHeightVar = () => {
+      const setHeaderHeightVar = (force = false) => {
         const h = header.offsetHeight;
-        if (h && h > 0) {
-          const currentVal = getComputedStyle(document.documentElement).getPropertyValue('--header-height');
-          if (currentVal !== `${h}px`) {
-            document.documentElement.style.setProperty("--header-height", `${h}px`);
-          }
+        if (h && h > 0 && (force || h !== lastHeaderHeight)) {
+          lastHeaderHeight = h;
+          document.documentElement.style.setProperty("--header-height", `${h}px`);
         }
       };
 
       if ("ResizeObserver" in window) {
-        const ro = new ResizeObserver(() => setHeaderHeightVar());
+        const ro = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+            setHeaderHeightVar();
+          }
+        });
         ro.observe(header);
       } else {
         window.addEventListener("resize", () => setHeaderHeightVar(), { passive: true });
@@ -168,8 +170,8 @@
             const isScrolled = currentScrollY > 40;
             if (header.classList.contains("is-scrolled") !== isScrolled) {
               header.classList.toggle("is-scrolled", isScrolled);
-              // Aggiorna altezza solo se cambia la classe (evita ricalcoli continui)
-              setHeaderHeightVar();
+              // Aggiorna altezza solo se cambia lo stato (riduce layout thrashing)
+              setHeaderHeightVar(true);
             }
             ticking = false;
           });
