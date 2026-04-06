@@ -265,20 +265,59 @@ textarea {
 }
 
 .data-table td.small {
-  font-size: 0.78rem;
-  max-width: 150px;
+  font-size: 0.82rem;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.data-table td.small:hover {
-  white-space: normal;
-  overflow: visible;
-  background: var(--card);
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+/* Miglioramento visibilità Log Accessi */
+#list-visits tr td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+#list-visits tr:hover td {
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.ip-badge {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.device-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #2a2f3b;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.device-badge.mobile { border-color: #4ade80; color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+.device-badge.desktop { border-color: #60a5fa; color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
+
+.time-cell {
+  color: #a0aec0;
+  font-weight: 500;
+}
+
+.page-cell {
+  color: #d1d5db;
+  font-weight: 600;
 }
 
 .data-table th {

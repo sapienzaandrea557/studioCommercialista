@@ -511,14 +511,23 @@ function attachLists() {
     snap.forEach((d) => {
       const v = d.data();
       const tr = document.createElement("tr");
-      const deviceLabel = v.device === "Mobile" ? '📱 Mob' : '💻 Desk';
+      const deviceClass = v.device === "Mobile" ? 'mobile' : 'desktop';
+      const deviceIcon = v.device === "Mobile" ? '📱' : '💻';
+      
       tr.innerHTML = `
-        <td class="small muted">${fmtDate(v.timestamp)}</td>
-        <td class="small code" style="color: var(--gold); font-weight:700;">${v.ipAddress || "—"}</td>
-        <td class="small">${v.page || "/"}</td>
-        <td class="small muted" style="font-size: 0.7rem; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">
-          <span class="badge" style="font-size: 0.65rem; padding: 2px 5px; margin-right: 5px;">${deviceLabel}</span>
-          ${v.userAgent}
+        <td class="time-cell">${fmtDate(v.timestamp)}</td>
+        <td><span class="ip-badge">${v.ipAddress || "—"}</span></td>
+        <td class="page-cell">${v.page || "/"}</td>
+        <td class="small muted">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="device-badge ${deviceClass}">${deviceIcon} ${v.device || 'N/D'}</span>
+              <span style="font-size: 0.65rem; opacity: 0.6;">${v.isBot ? '🤖 Bot' : '👤 Utente'}</span>
+            </div>
+            <div style="font-size: 0.7rem; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">
+              ${v.userAgent}
+            </div>
+          </div>
         </td>
       `;
       tbody.appendChild(tr);
