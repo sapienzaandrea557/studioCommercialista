@@ -511,11 +511,15 @@ function attachLists() {
     snap.forEach((d) => {
       const v = d.data();
       const tr = document.createElement("tr");
+      const deviceLabel = v.device === "Mobile" ? '📱 Mob' : '💻 Desk';
       tr.innerHTML = `
         <td class="small muted">${fmtDate(v.timestamp)}</td>
         <td class="small code" style="color: var(--gold); font-weight:700;">${v.ipAddress || "—"}</td>
         <td class="small">${v.page || "/"}</td>
-        <td class="small muted" style="font-size: 0.7rem; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">${v.userAgent}</td>
+        <td class="small muted" style="font-size: 0.7rem; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">
+          <span class="badge" style="font-size: 0.65rem; padding: 2px 5px; margin-right: 5px;">${deviceLabel}</span>
+          ${v.userAgent}
+        </td>
       `;
       tbody.appendChild(tr);
     });

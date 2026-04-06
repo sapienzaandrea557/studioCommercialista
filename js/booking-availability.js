@@ -48,17 +48,19 @@ const logVisit = async () => {
   if (sessionStorage.getItem("studio_visit_logged")) return;
   
   try {
-    const ip = await getUserIP();
-    await addDoc(collection(db, "siteVisits"), {
-      ipAddress: ip,
-      userAgent: navigator.userAgent,
-      timestamp: serverTimestamp(),
-      page: window.location.pathname,
-      source: "auto_load",
-      isBot: isBot
-    });
-    sessionStorage.setItem("studio_visit_logged", "true");
-  } catch (e) {
+      const ip = await getUserIP();
+      const isMobile = window.innerWidth < 900;
+      await addDoc(collection(db, "siteVisits"), {
+        ipAddress: ip,
+        userAgent: navigator.userAgent,
+        timestamp: serverTimestamp(),
+        page: window.location.pathname,
+        source: "auto_load",
+        device: isMobile ? "Mobile" : "Desktop",
+        isBot: isBot
+      });
+      sessionStorage.setItem("studio_visit_logged", "true");
+    } catch (e) {
     console.warn("Log visita non riuscito:", e);
   }
 };
