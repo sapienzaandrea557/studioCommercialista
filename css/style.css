@@ -832,16 +832,16 @@ h3 { font-size: 1.4rem; }
 }
 
 .logo-text-studio {
+  font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: 0.6em;
-  letter-spacing: 0.2em;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
   margin-right: 0.4rem;
-  opacity: 0.7;
-  font-weight: 400;
-  color: var(--text);
+  font-weight: 700;
+  color: var(--bg-dark);
 }
 
-.logo span { color: var(--gold); font-weight: 700; }
+.logo span:not(.logo-text-studio) { color: var(--bg-dark); font-weight: 400; font-size: 1.1rem; letter-spacing: -0.01em; }
 
 /* Header Navigation */
 .nav { 
