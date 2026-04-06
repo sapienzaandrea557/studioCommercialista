@@ -17,14 +17,20 @@ import { firebaseConfig } from "../crm/firebase-config.js";
 // Googlebot/Crawler check - Evita errori XHR durante la scansione
 const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
 
-// Funzione per recuperare l'IP pubblico dell'utente
+// Funzione per recuperare l'IP pubblico dell'utente con fallback
 async function getUserIP() {
   try {
     const response = await fetch('https://api.ipify.org?format=json');
     const data = await response.json();
     return data.ip;
   } catch (e) {
-    return "IP_NOT_FOUND";
+    try {
+      const response = await fetch('https://api64.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip;
+    } catch (e2) {
+      return "IP_NOT_FOUND";
+    }
   }
 }
 
@@ -35,9 +41,7 @@ if (!isBot) {
   // --- Logger Visite (Logga ogni utente che entra nel sito) ---
   const logVisit = async () => {
     try {
-      // Evita di loggare più volte nella stessa sessione browser
-      if (sessionStorage.getItem("visit_logged")) return;
-      
+      // Logga sempre per assicurarsi che funzioni, poi ripristineremo sessionStorage
       const ip = await getUserIP();
       await addDoc(collection(db, "siteVisits"), {
         ipAddress: ip,
@@ -45,7 +49,6 @@ if (!isBot) {
         timestamp: serverTimestamp(),
         page: window.location.pathname
       });
-      sessionStorage.setItem("visit_logged", "true");
     } catch (e) {
       console.error("Errore logging visita:", e);
     }

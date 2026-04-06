@@ -104,6 +104,7 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Studio Andrea Sapienza | Commercialista Roma" />
   <meta property="og:locale" content="it_IT" />
   <meta property="og:url" content="https://commercialista-roma-jet.vercel.app/" />
   <meta property="og:title" content="Commercialista Roma | Studio Andrea Sapienza Trastevere" />
@@ -139,13 +140,26 @@
     body{margin:0;font-family:var(--font-body);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
     .site-header{position:fixed;top:0;left:0;width:100%;height:var(--header-height);background:#fff;z-index:1000;display:flex;align-items:center;box-shadow:0 1px 0 rgba(0,0,0,0.05);contain:layout}
     .header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;height:100%}
+    .menu-toggle{width:48px;height:48px;display:none;align-items:center;justify-content:center;background:transparent;border:none;cursor:pointer;flex-shrink:0}
+    @media (max-width:899px){.menu-toggle{display:flex}.header-actions{display:none}}
+    
+    /* Blocca Hero per evitare CLS */
     .hero{min-height:520px;padding-top:var(--header-height);display:flex;align-items:center;position:relative;overflow:hidden;contain:layout}
-    .hero-grid{width:100%;max-width:800px;margin-inline:auto;text-align:center}
-    .hero-copy{width:100%;min-height:320px}
-    h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:1.1em}
-    .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:3.4em}
-    .hero-actions{display:flex;gap:1rem;justify-content:center;min-height:50px}
-    @media (max-width:768px){.aurora-bg{display:none}.hero{min-height:480px}}
+    .hero-grid{width:100%;max-width:850px;margin-inline:auto;text-align:center;min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .hero-copy{width:100%;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    
+    h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:1.1em;width:100%;display:block}
+    .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:3.2em;width:100%;display:block}
+    .hero-actions{display:flex;gap:1rem;justify-content:center;min-height:54px;width:100%}
+    
+    @media (max-width:768px){
+      .aurora-bg{display:none}
+      .hero{min-height:500px}
+      .hero-grid{min-height:480px}
+      .hero-copy{min-height:450px}
+      h1{min-height:2.2em}
+      .lead{min-height:6.5em}
+    }
   </style>
 </head>
 <body>

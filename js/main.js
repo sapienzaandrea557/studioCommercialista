@@ -23,16 +23,16 @@
   };
 
   const loadAnalytics = () => {
-    // 1. Avvia il tracciamento IP della visita
-    // Su desktop usiamo un ritardo maggiore per dare priorità allo Speed Index
-    const isMobile = window.innerWidth <= 768;
-    const delay = isMobile ? 500 : 2500;
-
-    setTimeout(() => {
+    // 1. Avvia il tracciamento IP della visita appena il modulo è pronto
+    let attempts = 0;
+    const checkLogVisit = setInterval(() => {
+      attempts++;
       if (typeof window.studioLogVisit === "function") {
         window.studioLogVisit();
+        clearInterval(checkLogVisit);
       }
-    }, delay);
+      if (attempts > 20) clearInterval(checkLogVisit); // Stop dopo 10 secondi
+    }, 500);
 
     const startAnalytics = () => {
       if (window._analyticsLoaded) return;
@@ -55,15 +55,6 @@
         src: `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`,
         async: true
       });
-
-      // Carica anche il modulo delle prenotazioni solo su interazione per migliorare SI e LCP
-      if (!document.querySelector('script[src*="booking-availability.js"]')) {
-        const s = document.createElement("script");
-        s.type = "module";
-        s.src = "js/booking-availability.js?v=1.0.2";
-        s.async = true;
-        document.body.appendChild(s);
-      }
     };
 
     // Delay analytics (Clarity/Vercel) until first user interaction or long idle
@@ -81,6 +72,16 @@
   const init = () => {
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    // Carica immediatamente il modulo delle prenotazioni e tracciamento IP
+    // in modo asincrono per non bloccare il caricamento iniziale (FCP/LCP)
+    if (!document.querySelector('script[src*="booking-availability.js"]')) {
+      const s = document.createElement("script");
+      s.type = "module";
+      s.src = "js/booking-availability.js?v=1.0.2";
+      s.async = true;
+      document.body.appendChild(s);
+    }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

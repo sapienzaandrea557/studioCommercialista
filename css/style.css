@@ -283,6 +283,16 @@ html {
   text-shadow: none !important;
   background: none !important;
   -webkit-text-fill-color: initial !important;
+  min-height: 1.1em;
+}
+
+.hero-copy .lead {
+  min-height: 3.2em;
+}
+
+@media (max-width: 768px) {
+  .hero-copy h1 { min-height: 2.2em; }
+  .hero-copy .lead { min-height: 6.5em; }
 }
 
 /* Performance Optimizations - Mobile Focus Extreme - Optimized Balance */
@@ -347,7 +357,7 @@ html {
   }
   
   .hero {
-    min-height: auto !important;
+    min-height: 480px !important; /* Mantiene altezza fissa per evitare CLS */
     padding-top: 5rem !important;
     padding-bottom: 3rem !important;
   }
