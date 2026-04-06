@@ -23,7 +23,10 @@
   };
 
   const loadAnalytics = () => {
-    scheduleIdle(() => {
+    const startAnalytics = () => {
+      if (window._analyticsLoaded) return;
+      window._analyticsLoaded = true;
+
       const host = location.hostname;
       const isLocal = host === "localhost" || host === "127.0.0.1" || host === "[::1]";
       if (!isLocal) {
@@ -41,7 +44,27 @@
         src: `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`,
         async: true
       });
-    });
+
+      // Carica anche il modulo delle prenotazioni solo su interazione per migliorare SI e LCP
+      if (!document.querySelector('script[src*="booking-availability.js"]')) {
+        const s = document.createElement("script");
+        s.type = "module";
+        s.src = "js/booking-availability.js?v=1.0.2";
+        s.async = true;
+        document.body.appendChild(s);
+      }
+    };
+
+    // Delay analytics until first user interaction or long idle
+    const events = ["mousedown", "mousemove", "touchstart", "scroll", "keydown"];
+    const handler = () => {
+      startAnalytics();
+      events.forEach(e => window.removeEventListener(e, handler));
+    };
+    events.forEach(e => window.addEventListener(e, handler, { passive: true }));
+    
+    // Fallback if no interaction occurs
+    scheduleIdle(startAnalytics);
   };
 
   const init = () => {
