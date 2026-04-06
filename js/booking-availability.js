@@ -44,15 +44,16 @@ async function getUserIP() {
 
 // --- Logger Visite (Logga ogni utente che entra nel sito) ---
 const logVisit = async () => {
-  // Evita log multipli eccessivi (max 1 ogni 30 min per sessione)
+  // Evita log multipli eccessivi (max 1 ogni 5 min per sessione per debug più rapido)
   const lastLog = sessionStorage.getItem("studio_visit_logged_time");
   const now = Date.now();
-  if (lastLog && (now - parseInt(lastLog)) < 30 * 60 * 1000) {
-    console.log("Visitatore già loggato recentemente.");
+  if (lastLog && (now - parseInt(lastLog)) < 5 * 60 * 1000) {
+    console.log("Visitatore già loggato recentemente (CRM).");
     return;
   }
   
   try {
+      console.log("Tentativo di registrazione visita nel CRM...");
       const ip = await getUserIP();
       const isMobile = window.innerWidth < 900;
       await addDoc(collection(db, "siteVisits"), {
@@ -60,35 +61,23 @@ const logVisit = async () => {
         userAgent: navigator.userAgent,
         timestamp: serverTimestamp(),
         page: window.location.pathname,
-        source: "auto_load_v3",
+        source: "auto_load_final_v4",
         device: isMobile ? "Mobile" : "Desktop",
         isBot: isBot
       });
       sessionStorage.setItem("studio_visit_logged_time", now.toString());
-      console.log("Visita registrata con successo nel CRM.");
+      console.log("SUCCESSO: Visita registrata nel CRM per IP:", ip);
     } catch (e) {
-      console.warn("Log visita non riuscito:", e);
+      console.error("FALLIMENTO: Log visita non riuscito:", e);
     }
 };
 
-// Esegui una sola volta per caricamento script
-let scriptLoadedTriggered = false;
-const triggerLog = () => {
-  if (scriptLoadedTriggered) return;
-  scriptLoadedTriggered = true;
-  // Più veloce per desktop per catturare subito l'utente
-  const delay = (window.innerWidth >= 900) ? 1000 : 3000;
-  setTimeout(logVisit, delay);
-};
-
-// Se siamo già pronti, avvia. Altrimenti aspetta gli eventi.
-if (document.readyState === 'complete') {
-  triggerLog();
-} else {
-  window.addEventListener('load', triggerLog, { once: true });
-  // Fallback se il load event è già passato
-  setTimeout(triggerLog, 5000);
-}
+// Forza l'avvio immediato del logging senza aspettare eventi complessi
+(function() {
+  console.log("Modulo tracciamento CRM caricato.");
+  // Aspetta solo 2 secondi per sicurezza caricamento Firebase
+  setTimeout(logVisit, 2000);
+})();
 
 // Esponi per compatibilità se necessario (ma main.js non lo usa più)
 window.studioLogVisit = logVisit;
