@@ -23,6 +23,11 @@
   };
 
   const loadAnalytics = () => {
+    // 1. Avvia IMMEDIATAMENTE il tracciamento IP della visita (senza aspettare interazione)
+    if (typeof window.studioLogVisit === "function") {
+      window.studioLogVisit();
+    }
+
     const startAnalytics = () => {
       if (window._analyticsLoaded) return;
       window._analyticsLoaded = true;
@@ -55,7 +60,7 @@
       }
     };
 
-    // Delay analytics until first user interaction or long idle
+    // Delay analytics (Clarity/Vercel) until first user interaction or long idle
     const events = ["mousedown", "mousemove", "touchstart", "scroll", "keydown"];
     const handler = () => {
       startAnalytics();

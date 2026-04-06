@@ -50,6 +50,10 @@ if (!isBot) {
       console.error("Errore logging visita:", e);
     }
   };
+  // Esponi la funzione a livello globale per permettere a main.js di chiamarla subito
+  window.studioLogVisit = logVisit;
+  
+  // Esegui subito se main.js ha già caricato loadAnalytics o come fallback
   logVisit();
 
   // --- Gestione Richieste Info (Scrittura su Firestore per Dashboard CRM) ---
