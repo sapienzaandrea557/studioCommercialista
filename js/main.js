@@ -23,13 +23,16 @@
   };
 
   const loadAnalytics = () => {
-    // 1. Avvia IMMEDIATAMENTE il tracciamento IP della visita (senza aspettare interazione)
-    // Usiamo un piccolo timeout per assicurarci che Firebase sia pronto
+    // 1. Avvia il tracciamento IP della visita
+    // Su desktop usiamo un ritardo maggiore per dare priorità allo Speed Index
+    const isMobile = window.innerWidth <= 768;
+    const delay = isMobile ? 500 : 2500;
+
     setTimeout(() => {
       if (typeof window.studioLogVisit === "function") {
         window.studioLogVisit();
       }
-    }, 500);
+    }, delay);
 
     const startAnalytics = () => {
       if (window._analyticsLoaded) return;
