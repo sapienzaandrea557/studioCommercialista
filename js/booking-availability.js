@@ -44,8 +44,13 @@ async function getUserIP() {
 
 // --- Logger Visite (Logga ogni utente che entra nel sito) ---
 const logVisit = async () => {
-  // Evita log multipli nella stessa sessione del browser (refresh o cambi pagina)
-  if (sessionStorage.getItem("studio_visit_logged")) return;
+  // Evita log multipli eccessivi (max 1 ogni 30 min per sessione)
+  const lastLog = sessionStorage.getItem("studio_visit_logged_time");
+  const now = Date.now();
+  if (lastLog && (now - parseInt(lastLog)) < 30 * 60 * 1000) {
+    console.log("Visitatore già loggato recentemente.");
+    return;
+  }
   
   try {
       const ip = await getUserIP();
@@ -55,14 +60,15 @@ const logVisit = async () => {
         userAgent: navigator.userAgent,
         timestamp: serverTimestamp(),
         page: window.location.pathname,
-        source: "auto_load",
+        source: "auto_load_v3",
         device: isMobile ? "Mobile" : "Desktop",
         isBot: isBot
       });
-      sessionStorage.setItem("studio_visit_logged", "true");
+      sessionStorage.setItem("studio_visit_logged_time", now.toString());
+      console.log("Visita registrata con successo nel CRM.");
     } catch (e) {
-    console.warn("Log visita non riuscito:", e);
-  }
+      console.warn("Log visita non riuscito:", e);
+    }
 };
 
 // Esegui una sola volta per caricamento script
@@ -70,8 +76,9 @@ let scriptLoadedTriggered = false;
 const triggerLog = () => {
   if (scriptLoadedTriggered) return;
   scriptLoadedTriggered = true;
-  // Aspetta un po' per non bloccare il caricamento iniziale (LCP/FCP)
-  setTimeout(logVisit, 3000);
+  // Più veloce per desktop per catturare subito l'utente
+  const delay = (window.innerWidth >= 900) ? 1000 : 3000;
+  setTimeout(logVisit, delay);
 };
 
 // Se siamo già pronti, avvia. Altrimenti aspetta gli eventi.

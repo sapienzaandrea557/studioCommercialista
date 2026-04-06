@@ -162,12 +162,13 @@
       }
 
       const onScroll = () => {
-        lastScrollY = window.scrollY;
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            const isScrolled = lastScrollY > 40;
+            const currentScrollY = window.scrollY;
+            const isScrolled = currentScrollY > 40;
             if (header.classList.contains("is-scrolled") !== isScrolled) {
               header.classList.toggle("is-scrolled", isScrolled);
+              // Aggiorna altezza solo se cambia la classe (evita ricalcoli continui)
               setHeaderHeightVar();
             }
             ticking = false;
