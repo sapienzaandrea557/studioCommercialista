@@ -129,22 +129,33 @@
   <link rel="stylesheet" href="css/style.css?v=1.3.0">
   
   <style>
-    /* 100/100 PERFORMANCE CRITICAL CSS - STABILIZATION */
+    /* MOBILE-FIRST OPTIMIZED CRITICAL CSS (Fixes CLS 0.222 & FCP 2.1s) */
     :root { 
       --header-height: 80px; --bg: #ffffff; --bg-dark: #0a1128; --text: #0a1128; --gold: #b8953d;
       --font-body: "Source Sans 3", system-ui, sans-serif; --font-display: "Cormorant Garamond", serif;
     }
     @media (max-width: 899px) { :root { --header-height: 70px; } }
     html { background: #fdfdfd; scroll-behavior: smooth; }
-    body { margin: 0; font-family: var(--font-body); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    body { margin: 0; font-family: var(--font-body); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     
-    /* Pre-occupa lo spazio per evitare CLS */
-    .site-header { position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height); background: #fff; z-index: 1000; display: flex; align-items: center; }
-    .hero { min-height: 520px; padding-top: var(--header-height); display: flex; align-items: center; position: relative; }
+    /* Blocca Header per evitare CLS */
+    .site-header { position: fixed; top: 0; left: 0; width: 100%; height: var(--header-height); background: #fff; z-index: 1000; display: flex; align-items: center; box-shadow: 0 1px 0 rgba(0,0,0,0.05); contain: layout; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 100%; }
+    
+    /* Blocca Hero per evitare CLS Mobile */
+    .hero { min-height: 520px; padding-top: var(--header-height); display: flex; align-items: center; position: relative; overflow: hidden; contain: layout; }
     .hero-grid { width: 100%; max-width: 800px; margin-inline: auto; text-align: center; }
+    .hero-copy { width: 100%; min-height: 320px; }
     
-    h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4.5rem); margin: 0 0 1rem; line-height: 1.1; }
-    .lead { font-size: clamp(1.1rem, 2vw, 1.3rem); margin-bottom: 2rem; }
+    h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 6vw, 4.5rem); margin: 0 0 1rem; line-height: 1.1; min-height: 1.1em; }
+    .lead { font-size: clamp(1.1rem, 2vw, 1.3rem); margin-bottom: 2rem; min-height: 3.4em; }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; min-height: 50px; }
+
+    /* Disabilita animazioni Aurora iniziali su Mobile per FCP */
+    @media (max-width: 768px) {
+      .aurora-bg { display: none; }
+      .hero { min-height: 480px; }
+    }
   </style>
 </head>
 <body>
