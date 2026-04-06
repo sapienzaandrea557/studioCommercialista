@@ -17,6 +17,17 @@ import { firebaseConfig } from "../crm/firebase-config.js";
 // Googlebot/Crawler check - Evita errori XHR durante la scansione
 const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
 
+// Funzione per recuperare l'IP pubblico dell'utente
+async function getUserIP() {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    return data.ip;
+  } catch (e) {
+    return "IP_NOT_FOUND";
+  }
+}
+
 if (!isBot) {
   const app = initializeApp(firebaseConfig, "public-booking-status");
   const db = getFirestore(app);
@@ -28,6 +39,7 @@ if (!isBot) {
       // Nota: main.js gestisce già preventDefault e l'invio Formspree.
       // Qui aggiungiamo solo il salvataggio in Firestore in parallelo.
       try {
+        const ip = await getUserIP();
         const fd = new FormData(infoForm);
         await addDoc(collection(db, "infoRequests"), {
           nome: fd.get("nome") || "Utente dal sito",
@@ -35,6 +47,7 @@ if (!isBot) {
           telefono: fd.get("telefono") || "",
           messaggio: fd.get("messaggio") || "",
           note: "Inviata dal sito web",
+          ipAddress: ip,
           createdAt: serverTimestamp(),
         });
       } catch (e) {
@@ -66,6 +79,7 @@ if (!isBot) {
     // 2. Gestione evento standard di Calendly (Fallback se non c'è redirect configurato)
     if (e.data.event && e.data.event === "calendly.event_scheduled") {
       try {
+        const ip = await getUserIP();
         // Quando Calendly conferma, il browser riceve un messaggio. 
         // Non contiene i dati privati (email/tel) ma ci dice che è successo.
         await addDoc(collection(db, "appointments"), {
@@ -75,6 +89,7 @@ if (!isBot) {
           email: "Controlla email di Calendly",
           telefono: "Controlla email di Calendly",
           note: "Prenotazione rilevata dal sito. I dettagli completi sono nella mail che ti ha inviato Calendly (o nella sua Dashboard).",
+          ipAddress: ip,
           createdAt: serverTimestamp(),
           source: "calendly_event_scheduled"
         });

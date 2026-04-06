@@ -91,6 +91,14 @@
       const startTime = params.get('event_start_time');
       const telefono = params.get('answer_1') || params.get('answer_2') || params.get('answer_3') || "Vedi Calendly";
 
+      // Recupera IP pubblico
+      let ip = "IP_NOT_FOUND";
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        ip = ipData.ip;
+      } catch(e) {}
+
       if (email || nome) {
         try {
           let dataStr = "Da Calendly";
@@ -108,6 +116,7 @@
             data: dataStr,
             ora: oraStr,
             note: "Prenotazione automatica via Calendly (Redirect)",
+            ip: ip,
             createdAt: serverTimestamp(),
             source: "calendly_redirect"
           });
