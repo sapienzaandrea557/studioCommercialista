@@ -24,9 +24,12 @@
 
   const loadAnalytics = () => {
     // 1. Avvia IMMEDIATAMENTE il tracciamento IP della visita (senza aspettare interazione)
-    if (typeof window.studioLogVisit === "function") {
-      window.studioLogVisit();
-    }
+    // Usiamo un piccolo timeout per assicurarci che Firebase sia pronto
+    setTimeout(() => {
+      if (typeof window.studioLogVisit === "function") {
+        window.studioLogVisit();
+      }
+    }, 500);
 
     const startAnalytics = () => {
       if (window._analyticsLoaded) return;
