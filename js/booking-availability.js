@@ -32,6 +32,26 @@ if (!isBot) {
   const app = initializeApp(firebaseConfig, "public-booking-status");
   const db = getFirestore(app);
 
+  // --- Logger Visite (Logga ogni utente che entra nel sito) ---
+  const logVisit = async () => {
+    try {
+      // Evita di loggare più volte nella stessa sessione browser
+      if (sessionStorage.getItem("visit_logged")) return;
+      
+      const ip = await getUserIP();
+      await addDoc(collection(db, "siteVisits"), {
+        ipAddress: ip,
+        userAgent: navigator.userAgent,
+        timestamp: serverTimestamp(),
+        page: window.location.pathname
+      });
+      sessionStorage.setItem("visit_logged", "true");
+    } catch (e) {
+      console.error("Errore logging visita:", e);
+    }
+  };
+  logVisit();
+
   // --- Gestione Richieste Info (Scrittura su Firestore per Dashboard CRM) ---
   const infoForm = document.getElementById("form-info");
   if (infoForm) {

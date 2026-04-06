@@ -127,6 +127,7 @@
               <tr>
                 <th>Tipo</th>
                 <th>Ricevuto il</th>
+                <th>IP</th>
                 <th>Cliente / Nome</th>
                 <th>Email</th>
                 <th>Telefono</th>
@@ -136,6 +137,27 @@
               </tr>
             </thead>
             <tbody id="list-unified"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Nuova sezione per i visitatori del sito -->
+      <section class="card">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h2 style="margin:0">Log Accessi Sito (Ogni utente che entra)</h2>
+          <span class="badge badge-info" id="visit-count">Caricamento...</span>
+        </div>
+        <div class="table-wrap" style="max-height: 300px; overflow-y: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Orario Accesso</th>
+                <th>Indirizzo IP</th>
+                <th>Pagina</th>
+                <th>Dispositivo / UserAgent</th>
+              </tr>
+            </thead>
+            <tbody id="list-visits"></tbody>
           </table>
         </div>
       </section>

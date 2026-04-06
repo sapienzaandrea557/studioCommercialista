@@ -97,6 +97,14 @@ body {
   font-size: 1.25rem;
 }
 
+.small.code {
+  font-family: 'Courier New', Courier, monospace;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: var(--gold);
+}
+
 .layout {
   max-width: 960px;
   margin: 0 auto;

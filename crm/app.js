@@ -430,6 +430,7 @@ function renderUnifiedList() {
     const msgNote = item.messaggio || item.note || item.message || "—";
     const dataAppt = item.data || "";
     const oraAppt = item.ora || "";
+    const ip = item.ipAddress || item.ip || "—";
 
     // Escape dei caratteri speciali per l'onclick (evita bug con apici)
     const esc = (s) => s ? s.replace(/'/g, "\\'") : "";
@@ -451,6 +452,7 @@ function renderUnifiedList() {
     tr.innerHTML = `
       <td><span class="badge ${isAppt ? 'badge-appt' : 'badge-info'}">${isAppt ? '📅 APP' : '✉️ INFO'}</span></td>
       <td class="small muted">${fmtDate(item.createdAt)}</td>
+      <td class="small code">${ip}</td>
       <td class="bold">${clienteNome} ${source === "calendly_redirect" ? '<span title="Dati completi da Calendly">⚡</span>' : ''}</td>
       <td class="small">${email} ${btnCopyEmail}</td>
       <td class="small">${telefono} ${btnCopyTel}</td>
@@ -478,6 +480,7 @@ window.copyToClipboard = (text) => {
 function attachLists() {
   const rq = query(collection(db, "infoRequests"), orderBy("createdAt", "desc"), limit(50));
   const aq = query(collection(db, "appointments"), orderBy("createdAt", "desc"), limit(50));
+  const vq = query(collection(db, "siteVisits"), orderBy("timestamp", "desc"), limit(50));
   
   unsubReq = onSnapshot(rq, (snap) => {
     reqList = [];
@@ -489,6 +492,27 @@ function attachLists() {
     apptList = [];
     snap.forEach((d) => apptList.push({ id: d.id, ...d.data(), typeAppt: true }));
     renderUnifiedList();
+  });
+
+  onSnapshot(vq, (snap) => {
+    const tbody = document.getElementById("list-visits");
+    const countEl = document.getElementById("visit-count");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    
+    if (countEl) countEl.textContent = `${snap.size} visite recenti`;
+
+    snap.forEach((d) => {
+      const v = d.data();
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="small muted">${fmtDate(v.timestamp)}</td>
+        <td class="small code">${v.ipAddress || "—"}</td>
+        <td class="small">${v.page || "/"}</td>
+        <td class="small muted" style="font-size: 0.7rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">${v.userAgent}</td>
+      `;
+      tbody.appendChild(tr);
+    });
   });
 }
 
