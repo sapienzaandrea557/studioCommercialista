@@ -499,7 +499,6 @@ function attachLists() {
     const tbody = document.getElementById("list-visits");
     const countEl = document.getElementById("visit-count");
     if (!tbody) return;
-    tbody.innerHTML = "";
     
     if (countEl) countEl.textContent = `${snap.size} visite recenti (ultime 100)`;
 
@@ -508,16 +507,44 @@ function attachLists() {
       return;
     }
 
+    // Raggruppa per IP per mostrare conteggio e storico
+    const grouped = new Map();
     snap.forEach((d) => {
       const v = d.data();
+      const ip = v.ipAddress || "—";
+      if (!grouped.has(ip)) {
+        grouped.set(ip, {
+          ip: ip,
+          lastVisit: v.timestamp,
+          page: v.page || "/",
+          device: v.device,
+          isBot: v.isBot,
+          userAgent: v.userAgent,
+          count: 0,
+          history: []
+        });
+      }
+      const item = grouped.get(ip);
+      item.count++;
+      item.history.push({ time: v.timestamp, page: v.page || "/" });
+    });
+
+    tbody.innerHTML = "";
+    grouped.forEach((v) => {
       const tr = document.createElement("tr");
       const deviceClass = v.device === "Mobile" ? 'mobile' : 'desktop';
       const deviceIcon = v.device === "Mobile" ? '📱' : '💻';
       
+      tr.style.cursor = "pointer";
+      tr.onclick = () => showIpHistory(v.ip, v.history);
+
       tr.innerHTML = `
-        <td class="time-cell">${fmtDate(v.timestamp)}</td>
-        <td><span class="ip-badge">${v.ipAddress || "—"}</span></td>
-        <td class="page-cell">${v.page || "/"}</td>
+        <td class="time-cell">${fmtDate(v.lastVisit)}</td>
+        <td>
+          <span class="ip-badge">${v.ip}</span>
+          ${v.count > 1 ? `<span class="badge" style="background: var(--gold); color: #000; font-size: 0.7rem; margin-left: 5px;">(${v.count})</span>` : ''}
+        </td>
+        <td class="page-cell">${v.page}</td>
         <td class="small muted">
           <div style="display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -534,6 +561,48 @@ function attachLists() {
     });
   });
 }
+
+async function showIpHistory(ip, history) {
+  const modal = document.getElementById("modal-ip-history");
+  const title = document.getElementById("history-ip-title");
+  const tbody = document.getElementById("list-ip-history");
+  
+  title.textContent = `Storico Visite: ${ip}`;
+  tbody.innerHTML = "";
+  
+  history.forEach(h => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="small">${fmtDate(h.time)}</td>
+      <td class="small">${h.page}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
+  modal.hidden = false;
+  modal.style.display = "flex";
+}
+
+document.getElementById("btn-close-history")?.addEventListener("click", () => {
+  const modal = document.getElementById("modal-ip-history");
+  modal.hidden = true;
+  modal.style.display = "none";
+});
+
+document.getElementById("btn-clear-visits")?.addEventListener("click", async () => {
+  if (!confirm("Sei sicuro di voler eliminare TUTTI i log delle visite? Questa azione non è reversibile.")) return;
+  
+  try {
+    const q = query(collection(db, "siteVisits"), limit(100));
+    const snap = await getDocs(q);
+    const batch = writeBatch(db);
+    snap.forEach((d) => batch.delete(d.ref));
+    await batch.commit();
+    alert("Log visite svuotato (ultime 100 voci).");
+  } catch (ex) {
+    alert("Errore durante il reset: " + ex.message);
+  }
+});
 
 // --- GESTIONE MODALI ---
 

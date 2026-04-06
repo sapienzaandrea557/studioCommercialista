@@ -145,13 +145,16 @@
       <section class="card">
         <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
           <h2 style="margin:0">Log Accessi Sito (Ogni utente che entra)</h2>
-          <span class="badge badge-info" id="visit-count">Caricamento...</span>
+          <div style="display:flex; gap: 0.5rem; align-items: center;">
+            <span class="badge badge-info" id="visit-count">Caricamento...</span>
+            <button id="btn-clear-visits" class="btn btn-ghost danger small" style="padding: 4px 8px; font-size: 0.7rem;">🗑️ Reset Log</button>
+          </div>
         </div>
-        <div class="table-wrap" style="max-height: 300px; overflow-y: auto;">
+        <div class="table-wrap" style="max-height: 400px; overflow-y: auto;">
           <table class="data-table">
             <thead>
               <tr>
-                <th>Orario Accesso</th>
+                <th>Ultimo Accesso</th>
                 <th>Indirizzo IP</th>
                 <th>Pagina</th>
                 <th>Dispositivo / UserAgent</th>
@@ -286,6 +289,25 @@
           <button type="button" id="btn-close-edit" class="btn ghost">Annulla</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Modale Storico Visite IP -->
+  <div id="modal-ip-history" class="panel modal-overlay" hidden style="display: none;">
+    <div class="panel-inner" style="max-width: 600px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem;">
+      <h2 id="history-ip-title" style="color: var(--gold); margin-bottom: 1rem;">Storico Visite</h2>
+      <div class="table-wrap" style="max-height: 300px; overflow-y: auto; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.05);">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Data e Ora</th>
+              <th>Pagina</th>
+            </tr>
+          </thead>
+          <tbody id="list-ip-history"></tbody>
+        </table>
+      </div>
+      <button type="button" id="btn-close-history" class="btn btn-ghost centered-btn">Chiudi</button>
     </div>
   </div>
 
