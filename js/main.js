@@ -23,17 +23,6 @@
   };
 
   const loadAnalytics = () => {
-    // 1. Avvia il tracciamento IP della visita appena il modulo è pronto
-    let attempts = 0;
-    const checkLogVisit = setInterval(() => {
-      attempts++;
-      if (typeof window.studioLogVisit === "function") {
-        window.studioLogVisit();
-        clearInterval(checkLogVisit);
-      }
-      if (attempts > 20) clearInterval(checkLogVisit); // Stop dopo 10 secondi
-    }, 500);
-
     const startAnalytics = () => {
       if (window._analyticsLoaded) return;
       window._analyticsLoaded = true;
@@ -157,7 +146,12 @@
 
       const setHeaderHeightVar = () => {
         const h = header.offsetHeight;
-        if (h) document.documentElement.style.setProperty("--header-height", `${h}px`);
+        if (h && h > 0) {
+          const currentVal = getComputedStyle(document.documentElement).getPropertyValue('--header-height');
+          if (currentVal !== `${h}px`) {
+            document.documentElement.style.setProperty("--header-height", `${h}px`);
+          }
+        }
       };
 
       if ("ResizeObserver" in window) {

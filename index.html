@@ -96,11 +96,11 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.gstatic.com">
   <link rel="dns-prefetch" href="https://www.clarity.ms">
   <link rel="dns-prefetch" href="https://www.google-analytics.com">
-  <link rel="preload" as="image" href="img/logo.svg" fetchpriority="high">
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@400;600;700&display=swap" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+  <link rel="dns-prefetch" href="https://api.ipify.org">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+3:wght@400;600;700&display=swap">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -124,11 +124,6 @@
   <meta name="msapplication-TileImage" content="img/logo.svg?v=20260404" />
   <link rel="manifest" href="/site.webmanifest?v=20260330" />
 
-  <!-- Speed Index & Performance Optimization -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://www.gstatic.com">
-  <link rel="dns-prefetch" href="https://api.ipify.org">
-
   <style>
     /* ZERO-CLS CRITICAL CSS V4.2 - HARD STABILIZATION */
     :root{--header-height:80px;--bg:#fff;--bg-dark:#0a1128;--text:#0a1128;--gold:#b8953d;--font-body:"Source Sans 3",system-ui,sans-serif;--font-display:"Cormorant Garamond",serif}
@@ -139,20 +134,25 @@
     /* Header Stability */
     .site-header{position:fixed;top:0;left:0;width:100%;height:var(--header-height);background:#fff;z-index:1000;display:flex;align-items:center;box-shadow:0 1px 0 rgba(0,0,0,0.05);contain:layout;border-bottom:1px solid rgba(0,0,0,0.05)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:0 auto;height:100%;padding-inline:1rem}
-    .logo{display:inline-flex;align-items:center;text-decoration:none;min-width:240px;height:40px;flex-shrink:0}
+    .logo{display:inline-flex;align-items:center;text-decoration:none;min-width:240px;min-height:48px;flex-shrink:0}
     .logo svg{flex-shrink:0;width:40px;height:40px}
     .logo-text-studio{font-family:var(--font-display);text-transform:uppercase;letter-spacing:0.15em;font-weight:700;margin-right:0.4em;color:var(--bg-dark);font-size:1.1rem}
     .logo span:not(.logo-text-studio){color:var(--bg-dark);font-weight:400;font-size:1.1rem;letter-spacing:-0.01em}
     
     .menu-toggle{width:48px;height:48px;display:none;align-items:center;justify-content:center;background:transparent;border:none;cursor:pointer;flex-shrink:0}
     .header-actions{display:flex;gap:0.75rem}
-    @media (max-width:899px){.menu-toggle{display:flex}.header-actions{display:none}.logo{min-width:auto}.logo-text-studio{font-size:1rem}.logo span:not(.logo-text-studio){font-size:0.95rem}}
+    @media (max-width:899px){.menu-toggle{display:flex}.header-actions{display:none}.logo{min-width:220px}.logo-text-studio{font-size:1rem}.logo span:not(.logo-text-studio){font-size:0.95rem}}
     
     /* Hero Stabilization - ZERO SHIFT STRATEGY */
     .hero{min-height:520px;padding-top:var(--header-height);display:flex;align-items:center;position:relative;overflow:hidden;contain:layout;background:#fdfdfd}
     .hero-grid{width:100%;max-width:850px;margin-inline:auto;text-align:center;min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center}
     .hero-copy{width:100%;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center}
     
+    .serif-italic{font-family:var(--font-display);font-style:italic;font-weight:500}
+    .signature-shape{position:absolute;z-index:0;opacity:0.12;filter:blur(60px);pointer-events:none}
+    .signature-shape--1{top:10%;left:-5%;width:50vw;height:50vw;background:radial-gradient(circle,var(--gold),transparent);border-radius:50%}
+    .signature-shape--2{bottom:10%;right:-5%;width:45vw;height:45vw;background:radial-gradient(circle,var(--gold),transparent);border-radius:50%}
+
     .eyebrow{text-transform:uppercase;letter-spacing:0.15em;font-size:0.75rem;font-weight:800;margin-bottom:1rem;display:block;min-height:1.2em}
     h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:1.1em;width:100%;display:block;color:var(--bg-dark)}
     .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:3.2em;width:100%;display:block;color:var(--text)}
@@ -160,11 +160,11 @@
     
     /* Mobile Optimization */
     @media (max-width:768px){
-      .hero{min-height:580px}
-      .hero-grid{min-height:500px}
-      .hero-copy{min-height:480px}
-      h1{min-height:110px;font-size:2.2rem;line-height:1.2} /* Spazio per 3 righe su piccoli schermi */
-      .lead{min-height:190px;font-size:1.1rem;line-height:1.6} /* Spazio per testo lungo */
+      .hero{min-height:650px}
+      .hero-grid{min-height:550px}
+      .hero-copy{min-height:520px}
+      h1{min-height:140px;font-size:2.2rem;line-height:1.2} /* Spazio per 3-4 righe */
+      .lead{min-height:260px;font-size:1.1rem;line-height:1.6} /* Spazio per testo lungo */
     }
     
     /* Buttons Critical */
@@ -177,8 +177,7 @@
     .section{content-visibility:auto;contain-intrinsic-size:1px 1000px}
     #home{content-visibility:visible;contain-intrinsic-size:auto}
   </style>
-  <link rel="stylesheet" href="css/style.css?v=1.3.1" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/style.css?v=1.3.1"></noscript>
+  <link rel="stylesheet" href="css/style.css?v=1.3.1">
 </head>
 <body>
   <!-- Aurora Gradient System -->
@@ -224,7 +223,7 @@
   </header>
 
   <main id="contenuto">
-    <section id="home" class="hero section" aria-labelledby="hero-title" style="content-visibility: auto; contain-intrinsic-size: 520px;">
+    <section id="home" class="hero section" aria-labelledby="hero-title">
       <div class="signature-shape signature-shape--1" aria-hidden="true"></div>
       <div class="signature-shape signature-shape--2" aria-hidden="true"></div>
       <div class="container hero-grid">
@@ -240,7 +239,7 @@
       </div>
     </section>
 
-    <section id="chi" class="section section-padding overlap-top" aria-labelledby="chi-title" style="content-visibility: auto; contain-intrinsic-size: 600px;">
+    <section id="chi" class="section section-padding overlap-top" aria-labelledby="chi-title">
       <div class="section-dark-island reveal">
         <div class="container">
           <div class="about-flex">

@@ -390,6 +390,7 @@ function bindConfigUi() {
 
 let unsubReq = null;
 let unsubAppt = null;
+let unsubVisits = null;
 
 function fmtDate(ts) {
   if (!ts) return "—";
@@ -480,7 +481,7 @@ window.copyToClipboard = (text) => {
 function attachLists() {
   const rq = query(collection(db, "infoRequests"), orderBy("createdAt", "desc"), limit(50));
   const aq = query(collection(db, "appointments"), orderBy("createdAt", "desc"), limit(50));
-  const vq = query(collection(db, "siteVisits"), orderBy("timestamp", "desc"), limit(50));
+  const vq = query(collection(db, "siteVisits"), orderBy("timestamp", "desc"), limit(100));
   
   unsubReq = onSnapshot(rq, (snap) => {
     reqList = [];
@@ -494,22 +495,27 @@ function attachLists() {
     renderUnifiedList();
   });
 
-  onSnapshot(vq, (snap) => {
+  unsubVisits = onSnapshot(vq, (snap) => {
     const tbody = document.getElementById("list-visits");
     const countEl = document.getElementById("visit-count");
     if (!tbody) return;
     tbody.innerHTML = "";
     
-    if (countEl) countEl.textContent = `${snap.size} visite recenti`;
+    if (countEl) countEl.textContent = `${snap.size} visite recenti (ultime 100)`;
+
+    if (snap.empty) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; opacity:0.5;">Nessuna visita registrata</td></tr>';
+      return;
+    }
 
     snap.forEach((d) => {
       const v = d.data();
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td class="small muted">${fmtDate(v.timestamp)}</td>
-        <td class="small code">${v.ipAddress || "—"}</td>
+        <td class="small code" style="color: var(--gold); font-weight:700;">${v.ipAddress || "—"}</td>
         <td class="small">${v.page || "/"}</td>
-        <td class="small muted" style="font-size: 0.7rem; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">${v.userAgent}</td>
+        <td class="small muted" style="font-size: 0.7rem; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">${v.userAgent}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -672,6 +678,10 @@ function detachLists() {
   if (unsubAppt) {
     unsubAppt();
     unsubAppt = null;
+  }
+  if (unsubVisits) {
+    unsubVisits();
+    unsubVisits = null;
   }
 }
 

@@ -17,48 +17,74 @@ import { firebaseConfig } from "../crm/firebase-config.js";
 // Googlebot/Crawler check - Evita errori XHR durante la scansione
 const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
 
-// Funzione per recuperare l'IP pubblico dell'utente con fallback
+// Inizializza Firebase per uso pubblico (senza auth)
+const app = initializeApp(firebaseConfig, "public-booking-status");
+const db = getFirestore(app);
+
+// Funzione per recuperare l'IP pubblico dell'utente con fallback e cache
+let cachedIP = null;
 async function getUserIP() {
+  if (cachedIP) return cachedIP;
   try {
     const response = await fetch('https://api.ipify.org?format=json');
     const data = await response.json();
-    return data.ip;
+    cachedIP = data.ip;
+    return cachedIP;
   } catch (e) {
     try {
       const response = await fetch('https://api64.ipify.org?format=json');
       const data = await response.json();
-      return data.ip;
+      cachedIP = data.ip;
+      return cachedIP;
     } catch (e2) {
       return "IP_NOT_FOUND";
     }
   }
 }
 
-if (!isBot) {
-  const app = initializeApp(firebaseConfig, "public-booking-status");
-  const db = getFirestore(app);
-
-  // --- Logger Visite (Logga ogni utente che entra nel sito) ---
-  const logVisit = async () => {
-    try {
-      // Logga sempre per assicurarsi che funzioni, poi ripristineremo sessionStorage
-      const ip = await getUserIP();
-      await addDoc(collection(db, "siteVisits"), {
-        ipAddress: ip,
-        userAgent: navigator.userAgent,
-        timestamp: serverTimestamp(),
-        page: window.location.pathname
-      });
-    } catch (e) {
-      console.error("Errore logging visita:", e);
-    }
-  };
-  // Esponi la funzione a livello globale per permettere a main.js di chiamarla subito
-  window.studioLogVisit = logVisit;
+// --- Logger Visite (Logga ogni utente che entra nel sito) ---
+const logVisit = async () => {
+  // Evita log multipli nella stessa sessione del browser (refresh o cambi pagina)
+  if (sessionStorage.getItem("studio_visit_logged")) return;
   
-  // Esegui subito se main.js ha già caricato loadAnalytics o come fallback
-  logVisit();
+  try {
+    const ip = await getUserIP();
+    await addDoc(collection(db, "siteVisits"), {
+      ipAddress: ip,
+      userAgent: navigator.userAgent,
+      timestamp: serverTimestamp(),
+      page: window.location.pathname,
+      source: "auto_load",
+      isBot: isBot
+    });
+    sessionStorage.setItem("studio_visit_logged", "true");
+  } catch (e) {
+    console.warn("Log visita non riuscito:", e);
+  }
+};
 
+// Esegui una sola volta per caricamento script
+let scriptLoadedTriggered = false;
+const triggerLog = () => {
+  if (scriptLoadedTriggered) return;
+  scriptLoadedTriggered = true;
+  // Aspetta un po' per non bloccare il caricamento iniziale (LCP/FCP)
+  setTimeout(logVisit, 3000);
+};
+
+// Se siamo già pronti, avvia. Altrimenti aspetta gli eventi.
+if (document.readyState === 'complete') {
+  triggerLog();
+} else {
+  window.addEventListener('load', triggerLog, { once: true });
+  // Fallback se il load event è già passato
+  setTimeout(triggerLog, 5000);
+}
+
+// Esponi per compatibilità se necessario (ma main.js non lo usa più)
+window.studioLogVisit = logVisit;
+
+if (!isBot) {
   // --- Gestione Richieste Info (Scrittura su Firestore per Dashboard CRM) ---
   const infoForm = document.getElementById("form-info");
   if (infoForm) {
