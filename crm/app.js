@@ -478,6 +478,36 @@ window.copyToClipboard = (text) => {
   });
 };
 
+function parseUA(ua) {
+  if (!ua) return "Sconosciuto";
+  let os = "Sconosciuto";
+  let browser = "Sconosciuto";
+
+  // Rilevamento OS
+  if (ua.includes("Windows NT 10.0")) os = "Windows 10/11";
+  else if (ua.includes("Windows NT 6.1")) os = "Windows 7";
+  else if (ua.includes("Android")) os = "Android";
+  else if (ua.includes("iPhone") || ua.includes("iPad")) os = "iOS (iPhone/iPad)";
+  else if (ua.includes("Macintosh")) os = "macOS";
+  else if (ua.includes("X11; Linux")) os = "Linux Desktop";
+  else if (ua.includes("Linux")) os = "Linux";
+
+  // Rilevamento Browser
+  if (ua.includes("Edg/")) browser = "Edge";
+  else if (ua.includes("Chrome/")) browser = "Chrome";
+  else if (ua.includes("Safari/") && !ua.includes("Chrome")) browser = "Safari";
+  else if (ua.includes("Firefox/")) browser = "Firefox";
+  else if (ua.includes("Trident/")) browser = "Internet Explorer";
+
+  // Rilevamento Bot specifici
+  if (ua.includes("Googlebot")) return "Google Bot (Scansione)";
+  if (ua.includes("bingbot")) return "Bing Bot (Scansione)";
+  if (ua.includes("WhatsApp")) return "WhatsApp (Anteprima Link)";
+  if (ua.includes("facebookexternalhit")) return "Facebook (Anteprima Link)";
+
+  return `${browser} su ${os}`;
+}
+
 function attachLists() {
   const rq = query(collection(db, "infoRequests"), orderBy("createdAt", "desc"), limit(50));
   const aq = query(collection(db, "appointments"), orderBy("createdAt", "desc"), limit(50));
@@ -534,9 +564,15 @@ function attachLists() {
       const tr = document.createElement("tr");
       const deviceClass = v.device === "Mobile" ? 'mobile' : 'desktop';
       const deviceIcon = v.device === "Mobile" ? '📱' : '💻';
+      const friendlyUA = parseUA(v.userAgent);
       
-      tr.style.cursor = "pointer";
-      tr.onclick = () => showIpHistory(v.ip, v.history);
+      if (v.count > 1) {
+        tr.style.cursor = "pointer";
+        tr.title = "Clicca per vedere lo storico visite";
+        tr.onclick = () => showIpHistory(v.ip, v.history);
+      } else {
+        tr.style.cursor = "default";
+      }
 
       tr.innerHTML = `
         <td class="time-cell">${fmtDate(v.lastVisit)}</td>
@@ -545,14 +581,14 @@ function attachLists() {
           ${v.count > 1 ? `<span class="badge" style="background: var(--gold); color: #000; font-size: 0.7rem; margin-left: 5px;">(${v.count})</span>` : ''}
         </td>
         <td class="page-cell">${v.page}</td>
-        <td class="small muted">
+        <td class="small">
           <div style="display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="device-badge ${deviceClass}">${deviceIcon} ${v.device || 'N/D'}</span>
               <span style="font-size: 0.65rem; opacity: 0.6;">${v.isBot ? '🤖 Bot' : '👤 Utente'}</span>
             </div>
-            <div style="font-size: 0.7rem; max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${v.userAgent}">
-              ${v.userAgent}
+            <div style="font-size: 0.75rem; font-weight: 500; color: #fff;">
+              ${friendlyUA}
             </div>
           </div>
         </td>
