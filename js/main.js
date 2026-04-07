@@ -142,36 +142,23 @@
     const header = document.querySelector(".site-header");
     if (header) {
       let ticking = false;
-      let lastHeaderHeight = 0;
+      let lastIsScrolled = false;
 
-      const setHeaderHeightVar = (force = false) => {
-        const h = header.offsetHeight;
-        if (h && h > 0 && (force || h !== lastHeaderHeight)) {
-          lastHeaderHeight = h;
-          document.documentElement.style.setProperty("--header-height", `${h}px`);
-        }
+      const setHeaderHeightVar = () => {
+        // Usa un valore fisso invece di offsetHeight per evitare ricalcoli forzati (Layout Thrashing)
+        // L'altezza è definita nel CSS (80px desktop, 70px mobile)
+        const h = window.innerWidth < 900 ? 70 : 80;
+        document.documentElement.style.setProperty("--header-height", `${h}px`);
       };
-
-      if ("ResizeObserver" in window) {
-        const ro = new ResizeObserver((entries) => {
-          for (let entry of entries) {
-            setHeaderHeightVar();
-          }
-        });
-        ro.observe(header);
-      } else {
-        window.addEventListener("resize", () => setHeaderHeightVar(), { passive: true });
-      }
 
       const onScroll = () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
             const currentScrollY = window.scrollY;
             const isScrolled = currentScrollY > 40;
-            if (header.classList.contains("is-scrolled") !== isScrolled) {
+            if (lastIsScrolled !== isScrolled) {
               header.classList.toggle("is-scrolled", isScrolled);
-              // Aggiorna altezza solo se cambia lo stato (riduce layout thrashing)
-              setHeaderHeightVar(true);
+              lastIsScrolled = isScrolled;
             }
             ticking = false;
           });
@@ -181,6 +168,7 @@
       setHeaderHeightVar();
       onScroll();
       window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", setHeaderHeightVar, { passive: true });
     }
 
     // Reveal animations on scroll

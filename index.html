@@ -127,14 +127,15 @@
   <link rel="manifest" href="/site.webmanifest?v=20260330" />
 
   <style>
-    /* ZERO-CLS CRITICAL CSS V4.2 - HARD STABILIZATION */
+    /* ZERO-CLS CRITICAL CSS V4.5 - MAXIMUM STABILIZATION */
     :root{--header-height:80px;--bg:#fff;--bg-dark:#0a1128;--text:#0a1128;--gold:#b8953d;--font-body:"Source Sans 3",system-ui,sans-serif;--font-display:"Cormorant Garamond",serif}
     @media (max-width:899px){:root{--header-height:70px}}
-    html{background:#fdfdfd;scroll-behavior:smooth}
-    body{margin:0;font-family:var(--font-body);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    html{background:#fdfdfd;scroll-behavior:smooth;overflow-x:hidden}
+    body{margin:0;font-family:var(--font-body);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
     
-    /* Header Stability */
-    .site-header{position:fixed;top:0;left:0;width:100%;height:80px;height:var(--header-height,80px);background:#fff;z-index:1000;display:flex;align-items:center;box-shadow:0 1px 0 rgba(0,0,0,0.05);contain:layout;border-bottom:1px solid rgba(0,0,0,0.05)}
+    /* Header Stability - Fixed dimensions to prevent layout thrashing */
+    .site-header{position:fixed;top:0;left:0;width:100%;height:80px;background:#fff;z-index:1000;display:flex;align-items:center;box-shadow:0 1px 0 rgba(0,0,0,0.05);contain:size layout;border-bottom:1px solid rgba(0,0,0,0.05)}
+    @media (max-width:899px){.site-header{height:70px}}
     .header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:0 auto;height:100%;padding-inline:1rem}
     .logo{display:inline-flex;align-items:center;text-decoration:none;min-width:240px;min-height:48px;flex-shrink:0}
     .logo svg{flex-shrink:0;width:40px;height:40px}
@@ -143,10 +144,11 @@
     
     .menu-toggle{width:48px;height:48px;display:none;align-items:center;justify-content:center;background:transparent;border:none;cursor:pointer;flex-shrink:0}
     .header-actions{display:flex;gap:0.75rem}
-    @media (max-width:899px){.site-header{height:70px;height:var(--header-height,70px)}.menu-toggle{display:flex}.header-actions{display:none}.logo{min-width:220px}.logo-text-studio{font-size:1rem}.logo span:not(.logo-text-studio){font-size:0.95rem}}
+    @media (max-width:899px){.menu-toggle{display:flex}.header-actions{display:none}.logo{min-width:220px}.logo-text-studio{font-size:1rem}.logo span:not(.logo-text-studio){font-size:0.95rem}}
     
     /* Hero Stabilization - ZERO SHIFT STRATEGY */
-    .hero{min-height:520px;padding-top:80px;padding-top:var(--header-height,80px);display:flex;align-items:center;position:relative;overflow:hidden;contain:layout;background:#fdfdfd}
+    .hero{min-height:520px;padding-top:80px;display:flex;align-items:center;position:relative;overflow:hidden;contain:layout;background:#fdfdfd}
+    @media (max-width:899px){.hero{padding-top:70px}}
     .hero-grid{width:100%;max-width:850px;margin-inline:auto;text-align:center;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center}
     .hero-copy{width:100%;min-height:450px;display:flex;flex-direction:column;align-items:center;justify-content:center}
     
@@ -162,7 +164,7 @@
     
     /* Mobile Optimization */
     @media (max-width:768px){
-      .hero{min-height:650px;padding-top:70px;padding-top:var(--header-height,70px)}
+      .hero{min-height:650px}
       .hero-grid{min-height:550px}
       .hero-copy{min-height:520px}
       h1{min-height:160px;font-size:2.2rem;line-height:1.2}
