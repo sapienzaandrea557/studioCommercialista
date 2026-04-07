@@ -427,13 +427,14 @@ function renderUnifiedList() {
     const source = item.source || "";
     
     // Gestione campi con nomi multipli per robustezza
-    const clienteNome = item.cliente || item.nome || item.name || "—";
-    const email = item.email || item.mail || "—";
-    const telefono = item.telefono || item.tel || item.phone || "—";
-    const msgNote = item.messaggio || item.note || item.message || "—";
-    const dataAppt = item.data || "";
-    const oraAppt = item.ora || "";
-    const ip = item.ipAddress || item.ip || "—";
+    const cleanStr = (s) => (s && s !== "null" && s !== "undefined") ? s : "";
+    const clienteNome = cleanStr(item.cliente) || cleanStr(item.nome) || cleanStr(item.name) || "—";
+    const email = cleanStr(item.email) || cleanStr(item.mail) || "—";
+    const telefono = cleanStr(item.telefono) || cleanStr(item.tel) || cleanStr(item.phone) || "—";
+    const msgNote = cleanStr(item.messaggio) || cleanStr(item.note) || cleanStr(item.message) || "—";
+    const dataAppt = cleanStr(item.data) || "";
+    const oraAppt = cleanStr(item.ora) || "";
+    const ip = cleanStr(item.ipAddress) || cleanStr(item.ip) || "—";
 
     // Escape dei caratteri speciali per l'onclick (evita bug con apici)
     const esc = (s) => s ? s.replace(/'/g, "\\'") : "";
@@ -710,14 +711,15 @@ document.getElementById("btn-do-delete")?.addEventListener("click", () => execut
 document.getElementById("btn-do-delete-wa")?.addEventListener("click", () => executeDeletion(true));
 
 window.openEditAppt = (id, data, ora, cliente, note, email, telefono) => {
+  const cleanStr = (s) => (s && s !== "null" && s !== "undefined") ? s : "";
   const fields = {
     "edit-appt-id": id,
-    "edit-appt-data": data || "",
-    "edit-appt-ora": ora || "",
-    "edit-appt-cliente": cliente || "",
-    "edit-appt-email": email || "",
-    "edit-appt-telefono": telefono || "",
-    "edit-appt-note": note || ""
+    "edit-appt-data": cleanStr(data),
+    "edit-appt-ora": cleanStr(ora),
+    "edit-appt-cliente": cleanStr(cliente),
+    "edit-appt-email": cleanStr(email),
+    "edit-appt-telefono": cleanStr(telefono),
+    "edit-appt-note": cleanStr(note)
   };
   
   for (const [id, val] of Object.entries(fields)) {
