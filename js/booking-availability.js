@@ -44,19 +44,18 @@ async function getUserIP() {
 
 // --- Logger Visite (Logga ogni utente che entra nel sito) ---
 const logVisit = async () => {
-  // Rimosso blocco sessionStorage: ora logga ad OGNI caricamento pagina (F5)
-  // Questo permette di vedere l'utente anche dopo un Reset Log nel CRM.
-  
+  // Infallibile: Logga sempre ad ogni esecuzione dello script
   try {
-      console.log("Tentativo di registrazione visita nel CRM...");
       const ip = await getUserIP();
       const isMobile = window.innerWidth < 900;
+      
+      // Invia a Firestore
       await addDoc(collection(db, "siteVisits"), {
         ipAddress: ip,
         userAgent: navigator.userAgent,
         timestamp: serverTimestamp(),
         page: window.location.pathname,
-        source: "auto_load_unlimited_v5",
+        source: "auto_load_ultimate_v6",
         device: isMobile ? "Mobile" : "Desktop",
         isBot: isBot
       });
@@ -66,11 +65,10 @@ const logVisit = async () => {
     }
 };
 
-// Forza l'avvio immediato del logging senza aspettare eventi complessi
+// Esecuzione immediata e forzata
 (function() {
-  console.log("Modulo tracciamento CRM caricato.");
-  // Avvio ultra-rapido (500ms) per non perdere nessuno
-  setTimeout(logVisit, 500);
+  // Avvio istantaneo
+  logVisit();
 })();
 
 // Esponi per compatibilità se necessario (ma main.js non lo usa più)

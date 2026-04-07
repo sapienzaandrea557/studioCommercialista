@@ -127,12 +127,16 @@
   <link rel="manifest" href="/site.webmanifest?v=20260330" />
 
   <style>
-    /* ZERO-CLS CRITICAL CSS V5.0 - ELITE STABILIZATION */
+    /* ZERO-CLS CRITICAL CSS V6.0 - ULTIMATE STABILIZATION */
     :root{--header-height:80px;--bg:#fff;--bg-dark:#0a1128;--text:#0a1128;--gold:#b8953d;--font-body:"Source Sans 3",system-ui,sans-serif;--font-display:"Cormorant Garamond",serif}
     @media (max-width:899px){:root{--header-height:70px}}
     html{background:#fdfdfd;scroll-behavior:smooth;overflow-x:hidden;width:100%;height:100%}
     body{margin:0;font-family:var(--font-body);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;width:100%;background:#fdfdfd}
     
+    /* Pre-rendering protection - prevents FOUT shift */
+    h1, .lead, .logo-text-studio { visibility: hidden; }
+    .is-ready h1, .is-ready .lead, .is-ready .logo-text-studio { visibility: visible; }
+
     /* Aurora simplified for FCP */
     .aurora-bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:#fdfdfd;pointer-events:none;contain:strict}
     .aurora-blob{position:absolute;opacity:0.08;filter:blur(60px);will-change:transform}
@@ -150,7 +154,7 @@
     .menu-toggle{width:48px;height:48px;display:none;align-items:center;justify-content:center;background:transparent;border:none;cursor:pointer;flex-shrink:0}
     @media (max-width:899px){.menu-toggle{display:flex}.logo{min-width:220px}}
     
-    /* Hero Stabilization */
+    /* Hero Stabilization - ABSOLUTE CONTAINMENT */
     .hero{min-height:520px;padding-top:80px;display:flex;align-items:center;position:relative;overflow:hidden;contain:layout paint;background:#fdfdfd}
     @media (max-width:899px){.hero{padding-top:70px;min-height:650px}}
     .hero-grid{width:100%;max-width:850px;margin-inline:auto;text-align:center;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;contain:content}
@@ -163,13 +167,13 @@
       .signature-shape--2{width:250px;height:250px}
     }
 
-    h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:160px;width:100%;display:block;color:var(--bg-dark);contain:layout}
-    .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:120px;width:100%;display:block;color:var(--text);contain:layout}
+    h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:1.2em;width:100%;display:block;color:var(--bg-dark);contain:layout}
+    .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:3em;width:100%;display:block;color:var(--text);contain:layout}
     .hero-actions{display:flex;gap:1rem;justify-content:center;min-height:54px;width:100%;contain:layout}
     
     /* Mobile Optimization */
     @media (max-width:768px){
-      .hero{min-height:650px;padding-top:70px;min-height:650px}
+      .hero{padding-top:70px;min-height:650px}
       .hero-grid{min-height:550px}
       h1{min-height:180px;font-size:2.2rem;line-height:1.2}
       .lead{min-height:320px;font-size:1.1rem;line-height:1.6}
