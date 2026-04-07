@@ -158,18 +158,21 @@
     .signature-shape{position:absolute;z-index:0;opacity:0.1;filter:blur(60px);pointer-events:none;aspect-ratio:1/1;contain:strict}
     .signature-shape--1{top:10%;left:-5%;width:600px;height:600px;background:radial-gradient(circle,var(--gold),transparent);border-radius:50%}
     .signature-shape--2{bottom:10%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,var(--gold),transparent);border-radius:50%}
+    @media (max-width:899px){
+      .signature-shape--1{width:300px;height:300px}
+      .signature-shape--2{width:250px;height:250px}
+    }
 
-    h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:1.2em;width:100%;display:block;color:var(--bg-dark);contain:layout}
-    .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:3em;width:100%;display:block;color:var(--text);contain:layout}
+    h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4.5rem);margin:0 0 1rem;line-height:1.1;min-height:160px;width:100%;display:block;color:var(--bg-dark);contain:layout}
+    .lead{font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:2rem;min-height:120px;width:100%;display:block;color:var(--text);contain:layout}
     .hero-actions{display:flex;gap:1rem;justify-content:center;min-height:54px;width:100%;contain:layout}
     
     /* Mobile Optimization */
     @media (max-width:768px){
-      .hero{min-height:650px}
+      .hero{min-height:650px;padding-top:70px;min-height:650px}
       .hero-grid{min-height:550px}
-      .hero-copy{min-height:520px}
-      h1{min-height:160px;font-size:2.2rem;line-height:1.2}
-      .lead{min-height:300px;font-size:1.1rem;line-height:1.6}
+      h1{min-height:180px;font-size:2.2rem;line-height:1.2}
+      .lead{min-height:320px;font-size:1.1rem;line-height:1.6}
     }
     
     /* Buttons Critical */
