@@ -44,13 +44,8 @@ async function getUserIP() {
 
 // --- Logger Visite (Logga ogni utente che entra nel sito) ---
 const logVisit = async () => {
-  // Evita log multipli eccessivi (max 1 ogni 5 min per sessione per debug più rapido)
-  const lastLog = sessionStorage.getItem("studio_visit_logged_time");
-  const now = Date.now();
-  if (lastLog && (now - parseInt(lastLog)) < 5 * 60 * 1000) {
-    console.log("Visitatore già loggato recentemente (CRM).");
-    return;
-  }
+  // Rimosso blocco sessionStorage: ora logga ad OGNI caricamento pagina (F5)
+  // Questo permette di vedere l'utente anche dopo un Reset Log nel CRM.
   
   try {
       console.log("Tentativo di registrazione visita nel CRM...");
@@ -61,11 +56,10 @@ const logVisit = async () => {
         userAgent: navigator.userAgent,
         timestamp: serverTimestamp(),
         page: window.location.pathname,
-        source: "auto_load_final_v4",
+        source: "auto_load_unlimited_v5",
         device: isMobile ? "Mobile" : "Desktop",
         isBot: isBot
       });
-      sessionStorage.setItem("studio_visit_logged_time", now.toString());
       console.log("SUCCESSO: Visita registrata nel CRM per IP:", ip);
     } catch (e) {
       console.error("FALLIMENTO: Log visita non riuscito:", e);
@@ -75,8 +69,8 @@ const logVisit = async () => {
 // Forza l'avvio immediato del logging senza aspettare eventi complessi
 (function() {
   console.log("Modulo tracciamento CRM caricato.");
-  // Aspetta solo 2 secondi per sicurezza caricamento Firebase
-  setTimeout(logVisit, 2000);
+  // Avvio ultra-rapido (500ms) per non perdere nessuno
+  setTimeout(logVisit, 500);
 })();
 
 // Esponi per compatibilità se necessario (ma main.js non lo usa più)
