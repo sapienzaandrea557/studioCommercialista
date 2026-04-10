@@ -17,6 +17,15 @@ import { firebaseConfig } from "../crm/firebase-config.js";
 // Googlebot/Crawler check - Evita errori XHR durante la scansione
 const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
 
+const hasAnalyticsConsent = () => {
+  try {
+    const c = localStorage.getItem("cookie_consent");
+    return c === "analytics" || c === "all";
+  } catch {
+    return false;
+  }
+};
+
 // Inizializza Firebase per uso pubblico (senza auth)
 const app = initializeApp(firebaseConfig, "public-booking-status");
 const db = getFirestore(app);
@@ -44,7 +53,8 @@ async function getUserIP() {
 
 // --- Logger Visite (Logga ogni utente che entra nel sito) ---
 const logVisit = async () => {
-  // Infallibile: Logga sempre ad ogni esecuzione dello script
+  if (isBot) return;
+  if (!hasAnalyticsConsent()) return;
   try {
       const ip = await getUserIP();
       const isMobile = window.innerWidth < 900;
@@ -59,17 +69,9 @@ const logVisit = async () => {
         device: isMobile ? "Mobile" : "Desktop",
         isBot: isBot
       });
-      console.log("SUCCESSO: Visita registrata nel CRM per IP:", ip);
     } catch (e) {
-      console.error("FALLIMENTO: Log visita non riuscito:", e);
     }
 };
-
-// Esecuzione immediata e forzata
-(function() {
-  // Avvio istantaneo
-  logVisit();
-})();
 
 // Esponi per compatibilità se necessario (ma main.js non lo usa più)
 window.studioLogVisit = logVisit;
@@ -82,19 +84,18 @@ if (!isBot) {
       // Nota: main.js gestisce già preventDefault e l'invio Formspree.
       // Qui aggiungiamo solo il salvataggio in Firestore in parallelo.
       try {
-        const ip = await getUserIP();
         const fd = new FormData(infoForm);
-        await addDoc(collection(db, "infoRequests"), {
+        const payload = {
           nome: fd.get("nome") || "Utente dal sito",
           email: fd.get("email") || "",
           telefono: fd.get("telefono") || "",
           messaggio: fd.get("messaggio") || "",
           note: "Inviata dal sito web",
-          ipAddress: ip,
           createdAt: serverTimestamp(),
-        });
+        };
+        if (hasAnalyticsConsent()) payload.ipAddress = await getUserIP();
+        await addDoc(collection(db, "infoRequests"), payload);
       } catch (e) {
-        console.error("Errore salvataggio CRM:", e);
       }
     });
   }
@@ -122,22 +123,21 @@ if (!isBot) {
     // 2. Gestione evento standard di Calendly (Fallback se non c'è redirect configurato)
     if (e.data.event && e.data.event === "calendly.event_scheduled") {
       try {
-        const ip = await getUserIP();
+        const payload = {
         // Quando Calendly conferma, il browser riceve un messaggio. 
         // Non contiene i dati privati (email/tel) ma ci dice che è successo.
-        await addDoc(collection(db, "appointments"), {
           data: "Da confermare",
           ora: "Vedi Mail",
           cliente: "Nuovo Appuntamento Calendly",
           email: "Controlla email di Calendly",
           telefono: "Controlla email di Calendly",
           note: "Prenotazione rilevata dal sito. I dettagli completi sono nella mail che ti ha inviato Calendly (o nella sua Dashboard).",
-          ipAddress: ip,
           createdAt: serverTimestamp(),
           source: "calendly_event_scheduled"
-        });
+        };
+        if (hasAnalyticsConsent()) payload.ipAddress = await getUserIP();
+        await addDoc(collection(db, "appointments"), payload);
       } catch (err) {
-        console.error("Errore capture Calendly:", err);
       }
     }
   });

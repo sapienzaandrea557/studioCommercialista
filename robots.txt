@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /
-Allow: /crm/
 Allow: /js/
 Allow: /css/
+Disallow: /crm
+Disallow: /crm/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /prova0/

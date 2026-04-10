@@ -8,6 +8,7 @@ Thumbs.db
 # Cursor/Editor specific
 .cursor/
 .vscode/
+.trae/
 
 # Backup files (opzionale, se non vuoi caricarli su GitHub)
 backup_dati.md
@@ -19,3 +20,7 @@ firebase-debug.log*
 
 # Report temporanei (estrazioni PDF)
 prova0/miglioramenti_latest_report*.txt
+
+# File/cartelle temporanee locali
+TURBO/
+TURBO.zip

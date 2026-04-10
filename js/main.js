@@ -22,6 +22,20 @@
     window.setTimeout(fn, 1);
   };
 
+  const triggerVisitLog = () => {
+    let tries = 0;
+    const tick = () => {
+      tries++;
+      const fn = window.studioLogVisit;
+      if (typeof fn === "function") {
+        fn();
+        return;
+      }
+      if (tries < 15) window.setTimeout(tick, 200);
+    };
+    tick();
+  };
+
   const loadAnalytics = () => {
     const startAnalytics = () => {
       if (window._analyticsLoaded) return;
@@ -62,8 +76,7 @@
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-    // Carica immediatamente il modulo delle prenotazioni e tracciamento IP
-    // in modo asincrono per non bloccare il caricamento iniziale (FCP/LCP)
+    // Carica immediatamente il modulo prenotazioni (stato agenda + integrazioni CRM)
     if (!document.querySelector('script[src*="booking-availability.js"]')) {
       const s = document.createElement("script");
       s.type = "module";
@@ -193,7 +206,10 @@
     /* ——— Cookie Banner ——— */
     const cookieBanner = document.getElementById("cookie-banner");
     const consent = localStorage.getItem("cookie_consent");
-    if (consent === "analytics" || consent === "all") loadAnalytics();
+    if (consent === "analytics" || consent === "all") {
+      loadAnalytics();
+      triggerVisitLog();
+    }
 
     if (cookieBanner && !consent) {
       cookieBanner.hidden = false;
@@ -204,12 +220,26 @@
       const handleConsent = (level) => {
         localStorage.setItem("cookie_consent", level);
         cookieBanner.hidden = true;
-        if (level === "analytics" || level === "all") loadAnalytics();
+        if (level === "analytics" || level === "all") {
+          loadAnalytics();
+          triggerVisitLog();
+        }
       };
 
       if (acceptNecessary) acceptNecessary.onclick = () => handleConsent("necessary");
       if (acceptAnalytics) acceptAnalytics.onclick = () => handleConsent("analytics");
       if (acceptAll) acceptAll.onclick = () => handleConsent("all");
+    }
+
+    const cookieSettingsBtn = document.getElementById("cookie-settings");
+    if (cookieSettingsBtn && cookieBanner) {
+      cookieSettingsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        try {
+          localStorage.removeItem("cookie_consent");
+        } catch (_) {}
+        cookieBanner.hidden = false;
+      });
     }
 
     /* ——— Mobile Menu ——— */
