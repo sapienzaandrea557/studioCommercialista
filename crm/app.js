@@ -312,6 +312,11 @@ function getBlockedReason(dataStr, timeStr) {
   return "";
 }
 
+// Helper per escape stringhe per onclick
+function esc(s) {
+  return s ? s.toString().replace(/'/g, "\\'").replace(/"/g, "&quot;") : "";
+}
+
 function mergeFirestoreIntoState(data) {
   if (!data) return;
   bookingState = {
@@ -494,8 +499,6 @@ function renderUnifiedList() {
     const msgNote = cleanStr(item.messaggio) || cleanStr(item.note) || cleanStr(item.message) || "—";
     const dataAppt = cleanStr(item.data) || "";
     const oraAppt = cleanStr(item.ora) || "";
-    
-    const esc = (s) => s ? s.replace(/'/g, "\\'") : "";
     
     const hasEmail = email && email !== "—" && email.includes("@");
     const hasTel = telefono && telefono !== "—" && telefono.replace(/\D/g,'').length >= 6;
@@ -744,6 +747,10 @@ function closeModal(modalId) {
   if (modal) {
     modal.hidden = true;
     modal.style.display = "none";
+    // Ripristina scroll se necessario (compatibilità con main.js)
+    document.documentElement.classList.remove("modal-open");
+    document.body.classList.remove("modal-open");
+    document.body.style.top = '';
   }
 }
 
@@ -794,7 +801,9 @@ async function executeDeletion(waNotify) {
     if (waNotify && (telefono || TEST_WA)) {
       const targetWA = (telefono && telefono !== "—") ? telefono.replace(/\D/g,'') : TEST_WA;
       const msgWA = `Gentile ${cliente}, la sua richiesta/appuntamento dello Studio Sapienza è stata ANNULLATA. Cordiali saluti.`;
-      window.open(`https://wa.me/${targetWA}?text=${encodeURIComponent(msgWA)}`, "_blank");
+      if (targetWA) {
+        window.open(`https://wa.me/${targetWA}?text=${encodeURIComponent(msgWA)}`, "_blank");
+      }
     }
   } catch (e) {
     alert("Errore durante l'eliminazione: " + e.message);

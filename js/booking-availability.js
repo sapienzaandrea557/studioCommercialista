@@ -34,12 +34,15 @@ const db = getFirestore(app);
 let cachedIP = null;
 async function getUserIP() {
   if (cachedIP) return cachedIP;
+  if (isBot) return "bot"; // Don't fetch IP for bots
   try {
     const response = await fetch("https://api.ipify.org?format=json");
+    if (!response.ok) throw new Error("Network response was not ok");
     const data = await response.json();
     cachedIP = data.ip || "unknown";
     return cachedIP;
   } catch (e) {
+    console.warn("IP fetch failed, continuing without IP:", e.message);
     return "unknown";
   }
 }
