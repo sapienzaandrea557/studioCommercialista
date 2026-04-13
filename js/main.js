@@ -22,54 +22,15 @@
     window.setTimeout(fn, 1);
   };
 
-  const triggerVisitLog = () => {
-    let tries = 0;
-    const tick = () => {
-      tries++;
-      const fn = window.studioLogVisit;
-      if (typeof fn === "function") {
-        fn();
-        return;
-      }
-      if (tries < 15) window.setTimeout(tick, 200);
-    };
-    tick();
-  };
-
   const loadAnalytics = () => {
-    const startAnalytics = () => {
-      if (window._analyticsLoaded) return;
-      window._analyticsLoaded = true;
-
-      const host = location.hostname;
-      const isLocal = host === "localhost" || host === "127.0.0.1" || host === "[::1]";
-      if (!isLocal) {
-        injectScript({ id: "vercel-insights", src: "/_vercel/insights/script.js", defer: true });
-        injectScript({ id: "vercel-speed-insights", src: "/_vercel/speed-insights/script.js", defer: true });
-      }
-
-      if (!window.clarity) {
-        window.clarity = function () {
-          (window.clarity.q = window.clarity.q || []).push(arguments);
-        };
-      }
-      injectScript({
-        id: "ms-clarity",
-        src: `https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}`,
-        async: true
-      });
-    };
-
-    // Delay analytics (Clarity/Vercel) until first user interaction or long idle
-    const events = ["mousedown", "mousemove", "touchstart", "scroll", "keydown"];
-    const handler = () => {
-      startAnalytics();
-      events.forEach(e => window.removeEventListener(e, handler));
-    };
-    events.forEach(e => window.addEventListener(e, handler, { passive: true }));
-    
-    // Fallback if no interaction occurs
-    scheduleIdle(startAnalytics);
+    // Carica Clarity solo se non già presente
+    if (!document.getElementById("clarity-script")) {
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.id="clarity-script";t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "ltv0khv606");
+    }
   };
 
   const init = () => {
@@ -208,7 +169,6 @@
     const consent = localStorage.getItem("cookie_consent");
     if (consent === "analytics" || consent === "all") {
       loadAnalytics();
-      triggerVisitLog();
     }
 
     if (cookieBanner && !consent) {
@@ -222,7 +182,6 @@
         cookieBanner.hidden = true;
         if (level === "analytics" || level === "all") {
           loadAnalytics();
-          triggerVisitLog();
         }
       };
 

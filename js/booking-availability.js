@@ -30,50 +30,10 @@ const hasAnalyticsConsent = () => {
 const app = initializeApp(firebaseConfig, "public-booking-status");
 const db = getFirestore(app);
 
-// Funzione per recuperare l'IP pubblico dell'utente con fallback e cache
-let cachedIP = null;
-async function getUserIP() {
-  if (cachedIP) return cachedIP;
-  try {
-    const response = await fetch('https://api.ipify.org?format=json');
-    const data = await response.json();
-    cachedIP = data.ip;
-    return cachedIP;
-  } catch (e) {
-    try {
-      const response = await fetch('https://api64.ipify.org?format=json');
-      const data = await response.json();
-      cachedIP = data.ip;
-      return cachedIP;
-    } catch (e2) {
-      return "IP_NOT_FOUND";
-    }
-  }
-}
+// --- Logger Visite (Rimosso per ottimizzazione IP) ---
+const logVisit = () => {};
 
-// --- Logger Visite (Logga ogni utente che entra nel sito) ---
-const logVisit = async () => {
-  if (isBot) return;
-  if (!hasAnalyticsConsent()) return;
-  try {
-      const ip = await getUserIP();
-      const isMobile = window.innerWidth < 900;
-      
-      // Invia a Firestore
-      await addDoc(collection(db, "siteVisits"), {
-        ipAddress: ip,
-        userAgent: navigator.userAgent,
-        timestamp: serverTimestamp(),
-        page: window.location.pathname,
-        source: "auto_load_ultimate_v6",
-        device: isMobile ? "Mobile" : "Desktop",
-        isBot: isBot
-      });
-    } catch (e) {
-    }
-};
-
-// Esponi per compatibilità se necessario (ma main.js non lo usa più)
+// Esponi per compatibilità
 window.studioLogVisit = logVisit;
 
 if (!isBot) {
@@ -81,8 +41,6 @@ if (!isBot) {
   const infoForm = document.getElementById("form-info");
   if (infoForm) {
     infoForm.addEventListener("submit", async () => {
-      // Nota: main.js gestisce già preventDefault e l'invio Formspree.
-      // Qui aggiungiamo solo il salvataggio in Firestore in parallelo.
       try {
         const fd = new FormData(infoForm);
         const payload = {
@@ -93,7 +51,6 @@ if (!isBot) {
           note: "Inviata dal sito web",
           createdAt: serverTimestamp(),
         };
-        if (hasAnalyticsConsent()) payload.ipAddress = await getUserIP();
         await addDoc(collection(db, "infoRequests"), payload);
       } catch (e) {
       }
