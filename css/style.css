@@ -1563,26 +1563,33 @@ body.modal-open,
   color: var(--muted); 
 }
 
-.form-grid input { 
+/* --- Form Validation Feedback --- */
+.form-grid input:focus:invalid, 
+.form-grid textarea:focus:invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+.form-grid input:focus:valid, 
+.form-grid textarea:focus:valid {
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Base Form Styling Improvement */
+.form-grid input, 
+.form-grid textarea {
   width: 100%; 
   padding: 0.5rem 0.85rem; 
   border-radius: 8px; 
-  border: 1.5px solid var(--border); 
   font-family: inherit; 
   font-size: 0.9rem; 
   transition: all 0.3s var(--ease-wow);
+  border: 1.5px solid var(--border);
   background: #fdfdfd;
 }
 
-.form-grid textarea { 
-  width: 100%; 
-  padding: 0.5rem 0.85rem; 
-  border-radius: 8px; 
-  border: 1.5px solid var(--border); 
-  font-family: inherit; 
-  font-size: 0.9rem; 
-  transition: all 0.3s var(--ease-wow);
-  background: #fdfdfd;
+.form-grid textarea {
   min-height: 65px; 
   resize: vertical;
 }

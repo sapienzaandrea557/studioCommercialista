@@ -67,6 +67,7 @@ if (!isBot) {
           messaggio: fd.get("messaggio") || "",
           note: "Inviata dal sito web",
           createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
         };
         if (hasAnalyticsConsent()) {
           payload.ipAddress = await getUserIP();
@@ -110,6 +111,7 @@ if (!isBot) {
           telefono: "Controlla email di Calendly",
           note: "Prenotazione rilevata dal sito. I dettagli completi sono nella mail che ti ha inviato Calendly (o nella sua Dashboard).",
           createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
           source: "calendly_event_scheduled"
         };
         if (hasAnalyticsConsent()) payload.ipAddress = await getUserIP();
