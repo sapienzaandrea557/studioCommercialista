@@ -30,6 +30,20 @@ const hasAnalyticsConsent = () => {
 const app = initializeApp(firebaseConfig, "public-booking-status");
 const db = getFirestore(app);
 
+// Helper per recupero IP pubblico (con cache locale)
+let cachedIP = null;
+async function getUserIP() {
+  if (cachedIP) return cachedIP;
+  try {
+    const response = await fetch("https://api.ipify.org?format=json");
+    const data = await response.json();
+    cachedIP = data.ip || "unknown";
+    return cachedIP;
+  } catch (e) {
+    return "unknown";
+  }
+}
+
 // --- Logger Visite (Rimosso per ottimizzazione IP) ---
 const logVisit = () => {};
 
@@ -51,6 +65,9 @@ if (!isBot) {
           note: "Inviata dal sito web",
           createdAt: serverTimestamp(),
         };
+        if (hasAnalyticsConsent()) {
+          payload.ipAddress = await getUserIP();
+        }
         await addDoc(collection(db, "infoRequests"), payload);
       } catch (e) {
       }

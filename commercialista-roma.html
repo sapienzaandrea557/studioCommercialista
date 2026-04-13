@@ -66,6 +66,7 @@
 </head>
 <body>
   <header class="site-header">
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
     <div class="container header-inner">
       <a class="logo" href="/" aria-label="Torna alla Home dello Studio Andrea Sapienza Commercialista Roma" title="Torna alla Home">
         <img src="img/logo.svg?v=20260404" alt="Studio Andrea Sapienza Logo" width="40" height="40" style="margin-right: 10px; aspect-ratio: 1 / 1;" fetchpriority="high" decoding="async">
@@ -252,7 +253,12 @@
           <a href="/cookie" title="Apri Cookie Policy">Cookie Policy</a>
         </div>
       </div>
-    </footer>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button type="button" id="back-to-top" class="back-to-top" aria-label="Torna in cima" hidden>
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+  </button>
   
   <script type="application/ld+json">
   {

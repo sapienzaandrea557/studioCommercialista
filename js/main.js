@@ -369,6 +369,14 @@
     });
   });
 
+  // Global Escape key listener for modals
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('.modal:not([hidden])');
+      if (openModal) closeModal(openModal.id);
+    }
+  });
+
   document.querySelectorAll("[data-open-modal]").forEach((btn) => {
     btn.addEventListener("click", () => openModal(btn.getAttribute("data-open-modal")));
   });

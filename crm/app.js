@@ -505,7 +505,7 @@ function renderUnifiedList() {
     if (source === "calendly_event_scheduled") card.classList.add("row-placeholder");
 
     card.innerHTML = `
-      <div class="card-type-icon ${isAppt ? 'type-appt' : 'type-info'}">
+      <div class="card-type-icon ${isAppt ? 'type-appt' : 'type-info'}" aria-hidden="true">
         ${isAppt ? '📅' : '✉️'}
       </div>
       <div class="card-main">
@@ -515,17 +515,17 @@ function renderUnifiedList() {
           <span class="small muted">${fmtDate(item.createdAt)}</span>
         </div>
         <div class="card-meta">
-          ${hasEmail ? `<span>📧 ${email}</span>` : ''}
-          ${hasTel ? `<span>📞 ${telefono}</span>` : ''}
-          ${isAppt ? `<span class="bold" style="color: var(--gold)">🗓️ ${dataAppt} ${oraAppt}</span>` : ''}
+          ${hasEmail ? `<span title="Email">📧 ${email}</span>` : ''}
+          ${hasTel ? `<span title="Telefono">📞 ${telefono}</span>` : ''}
+          ${isAppt ? `<span class="bold" style="color: var(--gold)" title="Data e Ora Appuntamento">🗓️ ${dataAppt} ${oraAppt}</span>` : ''}
         </div>
-        ${msgNote !== "—" ? `<div class="card-note">${msgNote}</div>` : ''}
+        ${msgNote !== "—" ? `<div class="card-note" title="Note">${msgNote}</div>` : ''}
       </div>
       <div class="card-actions">
-        ${hasEmail ? `<a href="mailto:${email}?subject=Contatto dallo Studio Sapienza" class="btn-icon" title="Rispondi via Email">✉️</a>` : ''}
-        ${hasTel ? `<a href="https://wa.me/${telefono.replace(/\D/g,'')}" target="_blank" class="btn-icon" title="Contatta su WhatsApp">💬</a>` : ''}
-        ${isAppt ? `<button type="button" class="btn-icon" onclick="openEditAppt('${id}','${esc(dataAppt)}','${esc(oraAppt)}','${esc(clienteNome)}','${esc(msgNote)}','${esc(email)}','${esc(telefono)}')" title="Modifica">✏️</button>` : ''}
-        <button type="button" class="btn-icon danger" onclick="deleteDocById('${coll}','${id}',${isAppt},'${esc(clienteNome)}','${esc(email)}','${esc(telefono)}','${esc(dataAppt)}','${esc(oraAppt)}')" title="Elimina">🗑️</button>
+        ${hasEmail ? `<a href="mailto:${email}?subject=Contatto dallo Studio Sapienza" class="btn-icon" title="Rispondi via Email" aria-label="Invia Email">✉️</a>` : ''}
+        ${hasTel ? `<a href="https://wa.me/${telefono.replace(/\D/g,'')}" target="_blank" class="btn-icon" title="Contatta su WhatsApp" aria-label="Apri WhatsApp">💬</a>` : ''}
+        ${isAppt ? `<button type="button" class="btn-icon" onclick="openEditAppt('${id}','${esc(dataAppt)}','${esc(oraAppt)}','${esc(clienteNome)}','${esc(msgNote)}','${esc(email)}','${esc(telefono)}')" title="Modifica" aria-label="Modifica Appuntamento">✏️</button>` : ''}
+        <button type="button" class="btn-icon danger" onclick="deleteDocById('${coll}','${id}',${isAppt},'${esc(clienteNome)}','${esc(email)}','${esc(telefono)}','${esc(dataAppt)}','${esc(oraAppt)}')" title="Elimina" aria-label="Elimina Voce">🗑️</button>
       </div>
     `;
     container.appendChild(card);
@@ -564,8 +564,14 @@ function bindSearchAndFilters() {
 
 window.copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(() => {
-    // Potremmo aggiungere un piccolo feedback visuale
-    console.log("Copiato:", text);
+    // Feedback visuale temporaneo
+    const originalContent = event.target.textContent;
+    event.target.textContent = "✅";
+    event.target.style.borderColor = "var(--success)";
+    setTimeout(() => {
+      event.target.textContent = originalContent;
+      event.target.style.borderColor = "";
+    }, 2000);
   });
 };
 
