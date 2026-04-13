@@ -82,31 +82,23 @@
           const targetEl = document.querySelector(targetId);
           if (targetEl) {
             const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
-          const sectionHeight = targetEl.offsetHeight;
-          const viewportHeight = window.innerHeight;
-          
-          let targetPos;
-          
-          // Se la sezione è più corta del viewport, la centriamo
-          if (sectionHeight < (viewportHeight - headerHeight)) {
-            targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (viewportHeight - sectionHeight) / 2;
-          } else {
-            // Se è più lunga, scorriamo all'inizio (con offset header)
-            targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-          }
+            const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
             
-          window.scrollTo({
-            top: targetPos,
-            behavior: 'smooth'
-          });
+            window.scrollTo({
+              top: targetPos,
+              behavior: 'smooth'
+            });
           }
 
           // Mobile menu auto-close
           const nav = document.getElementById("main-nav");
-          const menuToggle = document.querySelector(".menu-toggle");
+          const menuToggle = document.getElementById("menu-toggle");
           if (nav && nav.classList.contains("open")) {
             nav.classList.remove("open");
-            menuToggle.classList.remove("open");
+            if (menuToggle) {
+              menuToggle.classList.remove("open");
+              menuToggle.setAttribute("aria-expanded", "false");
+            }
             document.body.classList.remove("menu-open");
           }
         }

@@ -834,6 +834,13 @@ document.getElementById("btn-close-edit")?.addEventListener("click", () => {
 
 document.getElementById("form-edit-appointment")?.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const original = btn ? btn.textContent : "Salva";
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Salvataggio...";
+  }
+
   const id = document.getElementById("edit-appt-id")?.value;
   const data = document.getElementById("edit-appt-data")?.value;
   const ora = document.getElementById("edit-appt-ora")?.value;
@@ -850,23 +857,29 @@ document.getElementById("form-edit-appointment")?.addEventListener("submit", asy
       email,
       telefono,
       note,
-      updatedAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
     });
-    
+
     // 1. Invio in Background (Email/SMS se configurati)
-    await sendBackgroundNotification(cliente, email, telefono, data, ora);
+    await sendBackgroundNotification(cliente, email, telefono, data, ora, "MODIFICATO");
 
     // 2. Notifica WhatsApp (Manuale come fallback/opzionale)
     const msgWA = `Gentile ${cliente}, il suo appuntamento è stato spostato al ${data} alle ore ${ora}. Cordiali saluti, Studio Sapienza.`;
     const action = confirm("Modifica salvata!\n\nVuoi inviare ANCHE un messaggio WhatsApp manuale?");
     if (action) {
-      const waUrl = `https://wa.me/${telefono.replace(/\D/g, "")}?text=${encodeURIComponent(msgWA)}`;
-      window.open(waUrl, "_blank");
+      const targetWA = (telefono && telefono !== "—") ? telefono.replace(/\D/g, "") : "";
+      if (targetWA) {
+        window.open(`https://wa.me/${targetWA}?text=${encodeURIComponent(msgWA)}`, "_blank");
+      }
     }
     closeModal("modal-edit-appt");
-  } catch (e) {
-    console.error("Errore aggiornamento:", e);
-    alert("Errore durante l'aggiornamento: " + e.message);
+  } catch (ex) {
+    alert("Errore aggiornamento: " + ex.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = original;
+    }
   }
 });
 
