@@ -165,34 +165,98 @@ section[id] {
 
 .card-modern {
   background: #ffffff;
-  border: 1px solid rgba(184, 149, 61, 0.2);
+  border: 1px solid rgba(184, 149, 61, 0.15);
   border-radius: 24px;
-  padding: 2rem;
-  transition: transform 0.4s var(--ease-wow), border-color 0.4s var(--ease-wow), background-color 0.4s var(--ease-wow), box-shadow 0.4s var(--ease-wow);
+  padding: 2.5rem 2rem;
+  transition: all 0.5s var(--ease-wow);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
+  box-shadow: 0 4px 20px rgba(10, 17, 40, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modern::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-wow);
 }
 
 @media (min-width: 768px) {
   .card-modern {
     background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 
 .card-modern:hover {
-  transform: translateY(-10px);
+  transform: translateY(-12px);
   border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 20px 40px rgba(184, 149, 61, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 30px 60px rgba(184, 149, 61, 0.12);
 }
 
-.card-modern h3 { font-family: var(--font-display); font-size: 1.5rem; color: var(--bg-dark); margin-bottom: 0.5rem; }
-.card-modern p { line-height: 1.6; }
+.card-modern:hover::after {
+  transform: scaleX(1);
+}
+
+.icon-box-modern {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 4px 8px rgba(184, 149, 61, 0.2));
+  transition: transform 0.5s var(--ease-wow);
+}
+
+.card-modern:hover .icon-box-modern {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.card-modern h3 { 
+  font-family: var(--font-display); 
+  font-size: 1.6rem; 
+  color: var(--bg-dark); 
+  margin: 0;
+  font-weight: 700;
+}
+
+.card-modern p { 
+  line-height: 1.7; 
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Service Card Enhancement */
+.service-card {
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.5s var(--ease-wow);
+}
+
+.service-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--gold);
+  transform: translateY(-8px);
+}
+
+.service-card h3 {
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
 
 .metodo-wrapper {
   margin-top: clamp(4rem, 10vh, 8rem);
