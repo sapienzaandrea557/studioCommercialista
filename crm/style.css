@@ -645,3 +645,70 @@ input:focus, select:focus, textarea:focus {
 .tab-content:not([hidden]) {
   animation: slideIn 0.3s ease-out;
 }
+
+/* Agenda Grid Styles */
+.agenda-row {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.agenda-time {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.agenda-cell {
+  height: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.agenda-cell:hover {
+  background: rgba(212, 175, 55, 0.2);
+}
+
+.agenda-cell.is-blocked {
+  background: var(--danger);
+  opacity: 0.6;
+}
+
+.agenda-cell.is-outside {
+  background: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 9999px;
+  font-size: 0.8rem;
+}
+
+.chip-remove {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.chip-remove:hover {
+  color: var(--danger);
+}
+

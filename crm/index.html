@@ -53,6 +53,33 @@
           <p id="reset-msg" class="badge badge-info full-width text-center" hidden style="margin-top:1rem"></p>
         </form>
 
+        <!-- Modulo Cambio Password -->
+        <form id="change-password-form-login" hidden>
+          <h2 class="card-title text-center">Cambia Password</h2>
+          <p class="muted small text-center" style="margin-bottom: 1.5rem;">Inserisci i dati per aggiornare la tua password.</p>
+          <div class="form-group">
+            <label for="pw-email-login">Email</label>
+            <input id="pw-email-login" type="email" required />
+          </div>
+          <div class="form-group">
+            <label for="pw-current-login">Password Attuale</label>
+            <input id="pw-current-login" type="password" required />
+          </div>
+          <div class="form-group">
+            <label for="pw-new-login">Nuova Password</label>
+            <input id="pw-new-login" type="password" required minlength="6" />
+          </div>
+          <div class="form-group">
+            <label for="pw-new2-login">Conferma Nuova Password</label>
+            <input id="pw-new2-login" type="password" required minlength="6" />
+          </div>
+          <div class="flex-gap-1">
+            <button type="button" id="btn-back-to-login" class="btn btn-ghost flex-1">Annulla</button>
+            <button type="submit" class="btn btn-primary flex-1">Aggiorna</button>
+          </div>
+          <p id="pw-msg-login" class="badge badge-info full-width text-center" hidden style="margin-top:1rem"></p>
+        </form>
+
         <!-- Modulo Reset Password -->
         <form id="forgot-password-form" hidden>
           <h2 class="card-title text-center">Recupero Password</h2>
@@ -203,6 +230,21 @@
               <h3 class="muted small" style="text-transform: uppercase; margin-bottom: 1rem;">Giorni di apertura (Settimanali)</h3>
               <div class="weekday-grid" id="weekday-toggles"></div>
 
+              <h3 class="muted small" style="text-transform: uppercase; margin-bottom: 1rem;">Orari Personalizzati per Giorno</h3>
+              <div class="flex-gap-1" style="margin-bottom: 1rem;">
+                <select id="sel-day-hour" style="width: auto;">
+                  <option value="1">Lunedì</option>
+                  <option value="2">Martedì</option>
+                  <option value="3">Mercoledì</option>
+                  <option value="4">Giovedì</option>
+                  <option value="5">Venerdì</option>
+                </select>
+                <input type="time" id="day-h-start" />
+                <input type="time" id="day-h-end" />
+                <button type="button" class="btn btn-primary" id="btn-add-day-hour">Applica</button>
+              </div>
+              <div id="chips-day-hours" style="margin-bottom: 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap;"></div>
+
               <h3 class="muted small" style="text-transform: uppercase; margin-bottom: 1rem;">Blocco Orario (Griglia settimanale)</h3>
               <div class="table-wrap" style="background: rgba(0,0,0,0.2); border-radius: 8px; padding: 1rem;">
                 <div id="agenda-header" style="display: grid; gap: 4px; margin-bottom: 8px; text-align: center; font-weight: 600; font-size: 0.75rem;"></div>
@@ -238,6 +280,7 @@
               <button type="button" class="btn btn-danger" id="btn-reset-all-blocks">Reset Blocchi</button>
               <button type="button" class="btn btn-primary flex-1" id="cfg-save">Salva Configurazione</button>
             </div>
+            <p id="cfg-msg" class="badge badge-info full-width text-center" hidden style="margin-top:1rem"></p>
           </div>
 
           <!-- Manual Entry Tab -->
@@ -271,6 +314,7 @@
                   <div class="form-group"><label>Telefono</label><input name="telefono" /></div>
                   <div class="form-group"><label>Note</label><textarea name="note" rows="2"></textarea></div>
                   <button type="submit" class="btn btn-primary full-width">Aggiungi Appuntamento</button>
+                  <p id="appt-warn" class="badge badge-danger full-width text-center" hidden style="margin-top:1rem"></p>
                 </form>
               </div>
             </div>
