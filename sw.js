@@ -1,4 +1,4 @@
-const CACHE_NAME = 'studio-sapienza-v1.1';
+const CACHE_NAME = 'studio-sapienza-v1.2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -8,7 +8,9 @@ const ASSETS = [
   '/js/booking-availability.js',
   '/img/logo.svg',
   '/site.webmanifest',
-  '/crm/style.css'
+  '/crm/style.css',
+  '/crm/app.js',
+  '/crm/firebase-config.js'
 ];
 
 self.addEventListener('install', (event) => {
