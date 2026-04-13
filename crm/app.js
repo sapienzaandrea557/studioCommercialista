@@ -505,6 +505,12 @@ function renderUnifiedList() {
 
     const card = document.createElement("div");
     card.className = "unified-card fade-in";
+    
+    // Evidenzia nuove voci (ultimi 10 minuti)
+    const tenMinAgo = Date.now() - 10 * 60 * 1000;
+    const itemTime = item.createdAt?.toMillis ? item.createdAt.toMillis() : 0;
+    if (itemTime > tenMinAgo) card.classList.add("new-entry");
+
     if (source === "calendly_event_scheduled") card.classList.add("row-placeholder");
 
     card.innerHTML = `
