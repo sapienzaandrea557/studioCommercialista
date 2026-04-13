@@ -9,7 +9,7 @@ Disallow: /private/
 Disallow: /prova0/
 Disallow: /backup_dati.md
 
-Sitemap: https://commercialista-roma-jet.vercel.app/sitemap-studio.xml
+Sitemap: https://commercialista-roma.it/sitemap-studio.xml
 
 # SEO Optimization for Commercialista Roma Trastevere
 # Andrea Sapienza - Studio Tributario e Societario

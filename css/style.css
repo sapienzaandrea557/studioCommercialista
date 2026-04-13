@@ -97,6 +97,11 @@ p { line-height: 1.7; }
 .reveal { opacity: 0; transition: opacity 0.8s var(--ease-wow); }
 .reveal.is-visible { opacity: 1; }
 
+/* Navigation Anchor Fix */
+section[id] {
+  scroll-margin-top: calc(var(--header-height) + 2rem);
+}
+
 /* --- Studio & Metodo Sections --- */
 .section-padding {
   padding-block: clamp(6rem, 15vh, 12rem);
