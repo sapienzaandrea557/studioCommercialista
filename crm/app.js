@@ -340,6 +340,31 @@ async function saveBookingDoc() {
 }
 
 function bindConfigUi() {
+  // Tab Navigation Logic
+  const navItems = document.querySelectorAll(".nav-item[data-tab]");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      const targetTab = item.getAttribute("data-tab");
+
+      // Update Nav
+      navItems.forEach((nav) => nav.classList.remove("active"));
+      item.classList.add("active");
+
+      // Update Content
+      tabContents.forEach((content) => {
+        if (content.id === `tab-${targetTab}`) {
+          content.hidden = false;
+          content.style.display = "block";
+        } else {
+          content.hidden = true;
+          content.style.display = "none";
+        }
+      });
+    });
+  });
+
   document.getElementById("btn-add-date").addEventListener("click", () => {
     const v = document.getElementById("input-block-date").value;
     if (!v) return;
@@ -388,6 +413,8 @@ function bindConfigUi() {
       msg.textContent = "Errore salvataggio: " + (e && e.message ? e.message : String(e));
     }
   });
+
+  bindSearchAndFilters();
 }
 
 let unsubReq = null;
@@ -408,25 +435,58 @@ let reqList = [];
 let apptList = [];
 
 function renderUnifiedList() {
-  const tbody = document.getElementById("list-unified");
-  if (!tbody) return;
-  tbody.innerHTML = "";
+  const container = document.getElementById("list-unified-container");
+  const emptyState = document.getElementById("dashboard-empty-state");
+  const searchInput = document.getElementById("search-unified");
+  const typeFilter = document.getElementById("filter-type");
 
-  // Unisce le due liste e le ordina per data decrescente (più recenti in alto)
+  if (!container) return;
+
+  const searchTerm = searchInput ? searchInput.value.toLowerCase() : "";
+  const filterType = typeFilter ? typeFilter.value : "all";
+
+  // Unisce le due liste e le ordina per data decrescente
   const combined = [...reqList, ...apptList].sort((a, b) => {
     const da = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
     const db = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
     return db - da;
   });
 
-  combined.forEach((item) => {
-    const tr = document.createElement("tr");
-    const isAppt = !!item.typeAppt; 
+  // Aggiorna statistiche (prima del filtraggio per la ricerca, ma dopo l'unione)
+  updateStats(combined);
+
+  // Filtraggio
+  const filtered = combined.filter((item) => {
+    const isAppt = !!item.typeAppt;
+    const matchesType = filterType === "all" || (filterType === "appt" && isAppt) || (filterType === "info" && !isAppt);
+    
+    const cleanStr = (s) => (s && s !== "null" && s !== "undefined") ? s.toLowerCase() : "";
+    const name = cleanStr(item.cliente) || cleanStr(item.nome) || cleanStr(item.name);
+    const email = cleanStr(item.email) || cleanStr(item.mail);
+    const tel = cleanStr(item.telefono) || cleanStr(item.tel) || cleanStr(item.phone);
+    
+    const matchesSearch = !searchTerm || 
+      name.includes(searchTerm) || 
+      email.includes(searchTerm) || 
+      tel.includes(searchTerm);
+
+    return matchesType && matchesSearch;
+  });
+
+  container.innerHTML = "";
+  
+  if (filtered.length === 0) {
+    emptyState.hidden = false;
+    return;
+  }
+  emptyState.hidden = true;
+
+  filtered.forEach((item) => {
+    const isAppt = !!item.typeAppt;
     const id = item.id;
     const coll = isAppt ? "appointments" : "infoRequests";
     const source = item.source || "";
     
-    // Gestione campi con nomi multipli per robustezza
     const cleanStr = (s) => (s && s !== "null" && s !== "undefined") ? s : "";
     const clienteNome = cleanStr(item.cliente) || cleanStr(item.nome) || cleanStr(item.name) || "—";
     const email = cleanStr(item.email) || cleanStr(item.mail) || "—";
@@ -434,44 +494,72 @@ function renderUnifiedList() {
     const msgNote = cleanStr(item.messaggio) || cleanStr(item.note) || cleanStr(item.message) || "—";
     const dataAppt = cleanStr(item.data) || "";
     const oraAppt = cleanStr(item.ora) || "";
-    const ip = cleanStr(item.ipAddress) || cleanStr(item.ip) || "—";
-
-    // Escape dei caratteri speciali per l'onclick (evita bug con apici)
+    
     const esc = (s) => s ? s.replace(/'/g, "\\'") : "";
     
-    // Generazione pulsanti di risposta rapida
-    const hasEmail = email && email !== "—" && !email.includes("Controlla email") && email.includes("@");
-    const hasTel = telefono && telefono !== "—" && !telefono.includes("Controlla email") && telefono.replace(/\D/g,'').length >= 6;
-    
-    const btnMail = hasEmail ? `<a href="mailto:${email}?subject=Contatto dallo Studio Sapienza" class="btn-icon" title="Rispondi via Email">✉️</a>` : "";
-    const btnWA = hasTel ? `<a href="https://wa.me/${telefono.replace(/\D/g,'')}" target="_blank" class="btn-icon" title="Contatta su WhatsApp">💬</a>` : "";
-    
-    const btnCopyEmail = hasEmail ? `<button type="button" class="btn-icon copy" onclick="copyToClipboard('${esc(email)}')" title="Copia email">📋</button>` : "";
-    const btnCopyTel = hasTel ? `<button type="button" class="btn-icon copy" onclick="copyToClipboard('${esc(telefono)}')" title="Copia telefono">📋</button>` : "";
+    const hasEmail = email && email !== "—" && email.includes("@");
+    const hasTel = telefono && telefono !== "—" && telefono.replace(/\D/g,'').length >= 6;
 
-    // Evidenziamo se è una sincronizzazione completa o un segnaposto
-    const rowClass = source === "calendly_event_scheduled" ? "row-placeholder" : "";
+    const card = document.createElement("div");
+    card.className = "unified-card fade-in";
+    if (source === "calendly_event_scheduled") card.classList.add("row-placeholder");
 
-    tr.className = rowClass;
-    tr.innerHTML = `
-      <td><span class="badge ${isAppt ? 'badge-appt' : 'badge-info'}">${isAppt ? '📅 APP' : '✉️ INFO'}</span></td>
-      <td class="small muted">${fmtDate(item.createdAt)}</td>
-      <td class="small code">${ip}</td>
-      <td class="bold">${clienteNome} ${source === "calendly_redirect" ? '<span title="Dati completi da Calendly">⚡</span>' : ''}</td>
-      <td class="small">${email} ${btnCopyEmail}</td>
-      <td class="small">${telefono} ${btnCopyTel}</td>
-      <td class="small">${msgNote}</td>
-      <td class="bold">${isAppt ? (dataAppt + ' ' + oraAppt) : '—'}</td>
-      <td style="display: flex; gap: 0.35rem; align-items: center;">
-        ${btnMail}
-        ${btnWA}
-        <div style="width: 1px; height: 16px; background: var(--border); margin: 0 0.15rem;"></div>
+    card.innerHTML = `
+      <div class="card-type-icon ${isAppt ? 'type-appt' : 'type-info'}">
+        ${isAppt ? '📅' : '✉️'}
+      </div>
+      <div class="card-main">
+        <div class="card-title-row">
+          <span class="card-name">${clienteNome}</span>
+          ${source === "calendly_redirect" ? '<span class="badge badge-info" title="Dati completi da Calendly">⚡ Sync</span>' : ''}
+          <span class="small muted">${fmtDate(item.createdAt)}</span>
+        </div>
+        <div class="card-meta">
+          ${hasEmail ? `<span>📧 ${email}</span>` : ''}
+          ${hasTel ? `<span>📞 ${telefono}</span>` : ''}
+          ${isAppt ? `<span class="bold" style="color: var(--gold)">🗓️ ${dataAppt} ${oraAppt}</span>` : ''}
+        </div>
+        ${msgNote !== "—" ? `<div class="card-note">${msgNote}</div>` : ''}
+      </div>
+      <div class="card-actions">
+        ${hasEmail ? `<a href="mailto:${email}?subject=Contatto dallo Studio Sapienza" class="btn-icon" title="Rispondi via Email">✉️</a>` : ''}
+        ${hasTel ? `<a href="https://wa.me/${telefono.replace(/\D/g,'')}" target="_blank" class="btn-icon" title="Contatta su WhatsApp">💬</a>` : ''}
         ${isAppt ? `<button type="button" class="btn-icon" onclick="openEditAppt('${id}','${esc(dataAppt)}','${esc(oraAppt)}','${esc(clienteNome)}','${esc(msgNote)}','${esc(email)}','${esc(telefono)}')" title="Modifica">✏️</button>` : ''}
         <button type="button" class="btn-icon danger" onclick="deleteDocById('${coll}','${id}',${isAppt},'${esc(clienteNome)}','${esc(email)}','${esc(telefono)}','${esc(dataAppt)}','${esc(oraAppt)}')" title="Elimina">🗑️</button>
-      </td>
+      </div>
     `;
-    tbody.appendChild(tr);
+    container.appendChild(card);
   });
+}
+
+function updateStats(items) {
+  const total = items.length;
+  const appts = items.filter(i => !!i.typeAppt).length;
+  const infos = total - appts;
+  
+  const today = new Date().toLocaleDateString('it-IT');
+  const todayCount = items.filter(i => {
+    const d = i.createdAt?.toDate ? i.createdAt.toDate() : new Date(i.createdAt);
+    return d.toLocaleDateString('it-IT') === today;
+  }).length;
+
+  document.getElementById("stat-total").textContent = total;
+  document.getElementById("stat-appt").textContent = appts;
+  document.getElementById("stat-info").textContent = infos;
+  document.getElementById("stat-today").textContent = todayCount;
+}
+
+// In bindConfigUi, add search and filter listeners
+function bindSearchAndFilters() {
+  const searchInput = document.getElementById("search-unified");
+  const typeFilter = document.getElementById("filter-type");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => renderUnifiedList());
+  }
+  if (typeFilter) {
+    typeFilter.addEventListener("change", () => renderUnifiedList());
+  }
 }
 
 window.copyToClipboard = (text) => {
@@ -924,31 +1012,55 @@ document.getElementById("btn-logout").addEventListener("click", () => signOut(au
 
 document.getElementById("form-new-request").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const fd = new FormData(e.target);
-  await addDoc(collection(db, "infoRequests"), {
-    nome: fd.get("nome"),
-    email: fd.get("email") || "",
-    telefono: fd.get("telefono") || "",
-    messaggio: fd.get("note") || "",
-    note: "Inserita manualmente dal CRM",
-    createdAt: serverTimestamp(),
-  });
-  e.target.reset();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Salvataggio...";
+  
+  try {
+    const fd = new FormData(e.target);
+    await addDoc(collection(db, "infoRequests"), {
+      nome: fd.get("nome"),
+      email: fd.get("email") || "",
+      telefono: fd.get("telefono") || "",
+      messaggio: fd.get("note") || "",
+      note: "Inserita manualmente dal CRM",
+      createdAt: serverTimestamp(),
+    });
+    e.target.reset();
+  } catch (ex) {
+    alert("Errore salvataggio: " + ex.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+  }
 });
 
 document.getElementById("form-new-appointment").addEventListener("submit", async (e) => {
   e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const original = btn.textContent;
   const warn = document.getElementById("appt-warn");
-  warn.hidden = true;
+  if (warn) warn.hidden = true;
+  
   const fd = new FormData(e.target);
   const data = fd.get("data");
   const ora = fd.get("ora");
   const reason = getBlockedReason(data, ora);
+  
   if (reason) {
-    warn.hidden = false;
-    warn.textContent = "Blocco agenda: " + reason;
+    if (warn) {
+      warn.hidden = false;
+      warn.textContent = "Blocco agenda: " + reason;
+    } else {
+      alert("Blocco agenda: " + reason);
+    }
     return;
   }
+  
+  btn.disabled = true;
+  btn.textContent = "Salvataggio...";
+  
   try {
     await addDoc(collection(db, "appointments"), {
       data,
@@ -961,8 +1073,15 @@ document.getElementById("form-new-appointment").addEventListener("submit", async
     });
     e.target.reset();
   } catch (ex) {
-    warn.hidden = false;
-    warn.textContent = "Errore salvataggio: " + ex.message;
+    if (warn) {
+      warn.hidden = false;
+      warn.textContent = "Errore salvataggio: " + ex.message;
+    } else {
+      alert("Errore salvataggio: " + ex.message);
+    }
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
   }
 });
 
@@ -976,12 +1095,15 @@ onAuthStateChanged(auth, async (user) => {
   
   if (user) {
     authPanel.style.display = "none";
-    mainPanel.style.display = "block";
+    mainPanel.style.display = "flex";
     authPanel.hidden = true;
     mainPanel.hidden = false;
     
+    // Mostra tab Dashboard di default
+    document.querySelector('.nav-item[data-tab="dashboard"]')?.click();
+    
     if (userInfo) {
-      userInfo.textContent = `Loggato come: ${user.email}`;
+      userInfo.innerHTML = `<span class="status-dot online"></span> Loggato come: <strong>${user.email}</strong>`;
     }
     
     detachLists();

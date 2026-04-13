@@ -145,6 +145,36 @@
       window.addEventListener("resize", setHeaderHeightVar, { passive: true });
     }
 
+    /* --- Scroll Progress & Back to Top --- */
+    const progress = document.getElementById("scroll-progress");
+    const backToTop = document.getElementById("back-to-top");
+    
+    if (progress || backToTop) {
+      window.addEventListener("scroll", () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        
+        if (progress) progress.style.width = scrolled + "%";
+        
+        if (backToTop) {
+          if (winScroll > 400) {
+            backToTop.classList.add("is-visible");
+            backToTop.hidden = false;
+          } else {
+            backToTop.classList.remove("is-visible");
+            // Non nascondiamo con hidden immediatamente per permettere l'animazione
+          }
+        }
+      }, { passive: true });
+    }
+
+    if (backToTop) {
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
     // Reveal animations on scroll
     if (!reduceMotion && "IntersectionObserver" in window) {
       const revealEls = document.querySelectorAll(".reveal");
