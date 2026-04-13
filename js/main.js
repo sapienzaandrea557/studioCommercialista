@@ -235,11 +235,26 @@
     const menuToggle = document.getElementById("menu-toggle");
     const mainNav = document.getElementById("main-nav");
     if (menuToggle && mainNav) {
+      const closeMenu = () => {
+        mainNav.classList.remove("open");
+        menuToggle.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("menu-open");
+      };
+
       menuToggle.addEventListener("click", () => {
         const isOpen = mainNav.classList.toggle("open");
         menuToggle.classList.toggle("open", isOpen);
+        menuToggle.setAttribute("aria-expanded", isOpen);
         document.body.classList.toggle("menu-open", isOpen);
       }, { passive: true });
+
+      // Close menu on ESC
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mainNav.classList.contains("open")) {
+          closeMenu();
+        }
+      });
     }
 
     /* ——— Map Loading ——— */
