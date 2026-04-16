@@ -47,8 +47,27 @@ async function getUserIP() {
   }
 }
 
-// --- Logger Visite (Rimosso per ottimizzazione IP) ---
-const logVisit = () => {};
+// --- Logger Visite (Potenziato per tracciamento real-time) ---
+async function logVisit() {
+  if (isBot) return;
+  try {
+    const ip = await getUserIP();
+    const payload = {
+      ipAddress: ip,
+      userAgent: navigator.userAgent,
+      page: window.location.pathname,
+      timestamp: serverTimestamp(),
+      type: "passive_visit"
+    };
+    // Salva la visita in una collezione dedicata
+    await addDoc(collection(db, "visitorLogs"), payload);
+  } catch (e) {
+    console.warn("Log visit failed:", e.message);
+  }
+}
+
+// Avvia il tracciamento all'ingresso
+logVisit();
 
 // Esponi per compatibilità
 window.studioLogVisit = logVisit;
